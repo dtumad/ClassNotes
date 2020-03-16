@@ -1,0 +1,52 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8202 Notes}
+\author{Devon Tuma}
+\date{Spring 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Splitting Fields and Algebraic Closures}
+
+\begin{definition}
+  $K/F$ is a splitting field for $f(x) \in F[x]$ if you can factor $f(x)$ into a product of linear polynomials, i.e. if all roots are in $K$, and $K$ is the smallest such field.
+  This generalizes to the splitting field for a set $\{f_i(x)\}_{i \in I}$ in the obvious way.
+  In general splitting field is $K = F(\alpha_i)$ for all roots $\alpha_i$ of the relevant polynomial(s).
+  If $K$ is a splitting field for some polynomial we say it is a normal extension.
+\end{definition}
+
+\begin{theorem}
+  $F$ a field, $f(x) \in F[x]$  a polynomial of degree $n$, then there exists a splitting field $K$ for $f(x)$ over $F$ of degree $\le n!$.
+\end{theorem}
+
+\begin{proof}
+  By induction, we can assume this is possible for $f$ of degree less than $n$.
+  Then choose some root $\alpha$ of $f$ not in $F$, and adjoin it on.
+  Then $f$ factors as $(x - \alpha)\hat{f}(x)$ in $F(\alpha)$, with $\deg(\hat{f}) < \deg(f)$.
+  Thus by induction we can complete the factorization to get a splitting field
+\end{proof}
+
+\begin{definition}
+  $K/F$ is an algebraic closure of $F$ (written $K := \bar{F}$) if $K/F$ is algebraic and every $f(x) \in F[x]$ splits completely in $K$.
+  If $F = \bar{F}$ we say that $F$ is algebraically closed.
+\end{definition}
+
+\begin{theorem}
+  The algebraic closure of a field is algebraically closed, and every field lies inside some algebraic closure.
+\end{theorem}
+
+\begin{remark}
+  $\complexes$ isn't the algebraic closure of $\rationals$, it is too big. It is however the closure of $\reals$.
+\end{remark}
+
+
+\end{document}
