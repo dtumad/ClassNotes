@@ -2,7 +2,6 @@
 *.pdf
 *.prf
 *.log
-*.sty
 *.out
 *.dvi
 *.fmt

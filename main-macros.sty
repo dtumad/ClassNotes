@@ -1,0 +1,110 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{main-macros}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{amsmath,amsthm,amssymb}
+\RequirePackage{mathtools}
+\RequirePackage{microtype}
+\RequirePackage{xparse}
+\RequirePackage{mathpartir}
+\RequirePackage{ebproof}
+\RequirePackage{booktabs}
+\RequirePackage[usenames,svgnames]{xcolor}
+\RequirePackage{mleftright}
+\RequirePackage{adjustbox}
+\RequirePackage{hyperref}
+
+% \RequirePackage{indentfirst}
+% \RequirePackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Start of the Content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProcessOptions\relax
+
+\setlength{\columnsep}{1cm}
+\setlength{\parskip}{1em}
+\setlength{\parindent}{2em}
+\binoppenalty=\maxdimen
+\relpenalty=\maxdimen
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Delimiters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NewDocumentCommand\NewPairedDelimiter{mmmmO{0mu}O{0mu}}{%
+  \NewDocumentCommand#2{mmm}{%
+    \IfNoValueTF{##2}
+      {\IfBooleanTF{##1}
+        {\mskip#6\mleft#3\mskip#5##3\mskip#5\mright#4\mskip#6}
+        {\mskip#6#3\mskip#5##3\mskip#5#4\mskip#6}}
+      {\mskip#6\mathopen{##2#3}\mskip#5##3\mskip#5\mathclose{##2#4}\mskip#6}%
+  }
+  \NewDocumentCommand#1{som}{#2{##1}{##2}{##3}}
+}
+\NewDocumentCommand\NewTripleDelimiter{mmmmmO{0mu}O{0mu}O{0mu}}{%
+  \NewDocumentCommand#2{mmmm}{%
+    \IfNoValueTF{##2}
+      {\IfBooleanTF{##1}
+        {\mskip#8\mleft#3\mskip#7##3\mskip#6\middle#4\mskip#6##4\mskip#7\mright#5\mskip#8}
+        {\mskip#8#3\mskip#7##3\mskip#6#4\mskip#6##4\mskip#7#5\mskip#8}}
+      {\mskip#8\mathopen{##2#3}\mskip#7##3\mskip#6{##2#4}\mskip#6##4\mskip#7\mathclose{##2#5}\mskip#8}%
+  }
+  \NewDocumentCommand#1{somm}{#2{##1}{##2}{##3}{##4}}
+}
+
+\NewPairedDelimiter{\parens}{\rawparens}{\lparen}{\rparen}
+\NewPairedDelimiter{\brackets}{\rawbrackets}{[}{]}
+\NewPairedDelimiter{\braces}{\rawbraces}{\lbrace}{\rbrace}
+\NewPairedDelimiter{\angles}{\rawangles}{\langle}{\rangle}
+\NewTripleDelimiter{\subst}{\rawsubst}{[}{/}{]}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Boxes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \NewDocumentCommand{\highlight}{m}{\adjustbox{padding=.2em,bgcolor=lightgray!30}{#1}}
+% \NewDocumentCommand{\markextra}{m}{\textcolor{red}{#1}}
+% \newadjustboxenv{extrabox}{varwidth=.9\textwidth,cfbox=red,color=red,padding=1em}
+% \NewDocumentCommand{\marktime}{mg}{\adjustbox{bgcolor=yellow}{\texttt{#1\IfValueT{#2}{ #2}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theorem-like environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{definition*}{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{remark*}{Remark}
+
+\usepackage{etoolbox}
+\AtBeginEnvironment{proof}{\vspace{-1.5\baselineskip}}
+\AtEndEnvironment{proof}{\vspace{1.5\baselineskip}}
+
+\newcommand{\problem}[1]{\section*{#1}}
+\newcommand{\subproblem}[1]{\subsection*{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Algebraic Objects
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\complexes}{\mathbb{C}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\field}{\mathbb{F}}
+\newcommand{\finfield}[1]{\mathbb{F}_{#1}}
+
+\newcommand{\equivmod}[3]{#1 \equiv #2\ (\text{mod} #3)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The End
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\endinput
