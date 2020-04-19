@@ -4,18 +4,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Other Packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\RequirePackage{amsmath,amsthm,amssymb}
-\RequirePackage{mathtools}
-\RequirePackage{microtype}
-\RequirePackage{xparse}
-\RequirePackage{mathpartir}
-\RequirePackage{ebproof}
-\RequirePackage{booktabs}
-\RequirePackage[usenames,svgnames]{xcolor}
-\RequirePackage{mleftright}
-\RequirePackage{adjustbox}
-\RequirePackage{hyperref}
-\RequirePackage{multicol}
+\RequirePackage{amsmath,amsthm,amssymb} % various common math symbols
+\RequirePackage{mathtools} % extension of amsmath
+\RequirePackage{microtype} % micro typography
+\RequirePackage{xparse} % nterface for document level commands
+\RequirePackage{mathpartir} % inference rules
+\RequirePackage{ebproof} % proof trees
+\RequirePackage[usenames,svgnames]{xcolor} % easier coloring
+\RequirePackage{mleftright} % variants of \left and \right used to define paired delimeters
+\RequirePackage{adjustbox} % box content macros
+\RequirePackage{hyperref} % hypertext reference across the document
+\RequirePackage{multicol} % multi column equations and text
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Start of the Content
@@ -80,7 +79,7 @@
 \newtheorem*{example}{Example}
 
 \usepackage{etoolbox}
-\AtBeginEnvironment{proof}{\vspace{-1.5\baselineskip}}
+\AtBeginEnvironment{proof}{\vspace{-1\baselineskip}}
 \AtEndEnvironment{proof}{\vspace{1.5\baselineskip}}
 
 \newcommand{\problem}[1]{\section*{#1}}
@@ -101,8 +100,11 @@
 \newcommand{\F}{\numberset{F}}
 \newcommand{\K}{\numberset{K}}
 
+\newcommand{\gen}[1]{\langle #1 \rangle}
 
 \newcommand{\equivmod}[3]{#1 \equiv #2\ (\text{mod} #3)}
+
+\newcommand{\lcm}{\text{lcm}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % The End
