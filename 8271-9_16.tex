@@ -1,0 +1,57 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 9/16 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\subsubsection*{What issue does the "NULL" byte introduce and how is it addressed?}
+
+Since a NULL byte is used to denote the end of a string, any NULL bytes in the string will cause the rest of the buffer to not be overwritten with a custom value.
+The authors solve this by removing unnecessary padding from the overflow string, which also makes the exploit more compact.
+Later on, they use $NOP$ operations rather than NULL bytes to pad the code which also avoids this pitfall.
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper discusses how buffer overflows can be used to modify the control flow of a program by modifying the return address on the stack.
+Using this technique, the authors are able to execute potentially malicious shell code, which is a large security issue.
+It further discusses how to get around some security measures that could try and prevent this manipulation, for example by placing code to be executed in the data segment rather than the code segment.
+Finally it discusses how to exploit these issues with arbitrary code, and looks at ways to make the exploit more likely to succeed, for example by adding $NOP$ operations before the injected code they want to run.
+
+\subsection*{Limitations of the paper}
+
+\begin{itemize}
+\item The paper mainly focuses on C code and Linux architecture, in order to allow heavy use of examples throughout the paper. The appendix partially expands on this, but it isn't especially significant.
+\item While the paper identifies a major security issue caused by exploiting buffer overflows, the discussion on how to prevent this type of exploit is minimal.
+\item The paper lacks context of related works, and has no references to other work or papers that could give additional insight.
+\end{itemize}
+
+\subsection*{Solutions to the limitations}
+
+\begin{itemize}
+\item The first limitations could be partially resolved by discussing different ways in which this exploit may need to be modified to function on other operating systems and in other low-level programming languages.
+\item The second limitation could be resolved by either expanding the paper to include this information, or by adding references to other work that might help address these questions. 
+\end{itemize}
+
+\subsection*{Potential follow-up work}
+
+\begin{itemize}
+\item One interesting follow up would be to develop a way to mechanically identify code that is vulnerable to this type of attack, by using some form of static or dynamic analysis of the code. 
+\item Another potential follow up would be to analyze how this exploit can be prevented, both on a individual level by developers, and on a more global level by either the OS or by the programming language itself. 
+\end{itemize}
+
+\end{document}
