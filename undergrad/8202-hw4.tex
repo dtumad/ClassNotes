@@ -1,0 +1,404 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8202 HW4}
+\author{Devon Tuma}
+\date{Spring 2020}
+
+\begin{document}
+\maketitle
+
+\problem{13.5.7}
+\begin{proof}
+  Let $K$ be an imperfect field of characteristic $p$, so $K^p \ne K$.
+  We know that $K^p \subseteq K$, so then there exists $a \in K$ with $a \not \in K^p$, i.e. $k^p \ne a$ for all $k \in K$. Then we argue that $f(x) = x^{p^n} - a$ is an irreducible inseparable polynomial over $K$.
+  We have that the formal derivative of this polynomial is $D_x f(x) = p^n x^{p^n - 1} \equiv 0$, and so any root of $f$ is a root of $D_x f$ as well. Hence $f$ is inseparable.
+
+  Then to show it is irreducible, note that if $\alpha$ is a root of $f(x) = x^{p^n} - a$ then $\alpha^{p^n} = a$, and we get $(x - \alpha)^{p^n} = x^{p^n} - a$.
+  Hence any factor of $f(x)$ must be of the form $(x - \alpha)^{q}$ for some $1 \le q < p^n$, and furthermore $q$ is of the form $p^k$ for some $k < n$ since the field has characteristic $p$.
+  But then the constant term of $(x - \alpha)^{p^k}$ is $\alpha^{p^k}$, which can't be in $K$ or else $a = ((\alpha^{p^k})^{p^{n - k - 1}})^p \in K^p$, which contradicts the definition of $a$.
+  Therefore none of the possible factors of $f$ are defined over $K$, and so we conclude $f$ is irreducible. 
+
+  Then finally since $f$ is irreducible and inseparable we have that the extension $K[x]/(f(x))$ is an inseparable finite extension of $K$, as desired.
+\end{proof}
+
+
+\problem{13.5.8}
+\begin{proof}
+  We proceed by induction on $\deg(f)$.
+  When $\deg(f) = 0$ then $f(x) = a_0$ for some $a_0$, and so since $\F{p}$ is perfect we get $f(x)^p = a_0^p = a_0 = f(x^p)$.
+  Then for the inductive case, assume the equality holds for polynomials $g$ such that $\deg(g) < n$, and let $f(x)$ have $\deg(f) = n$.
+  Then $f$ is of the form $f(x) = a_n x^n + ... + a_0$, and so letting $g(x) = a_{n-1}x^{n-1} + ... + a_0$ we get:
+  \begin{align}
+    f(x)^p & = (a_n x^n + ... + a_0)^p \\
+           & = ((a_n x^n) + (g(x))^p \\
+           & = (a_n x^n)^p + g(x)^p \\
+           & = a_n^p x^{np} + g(x^p) \\
+           & = a_n (x^p)^n + g(x^p) 
+             = f(x^p) 
+  \end{align}
+  Where line $3$ follows from the fact that $(a + b)^p = a^p + b^p$ in a finite field, line $4$ follows from the inductive hypothesis, and line $5$ follows from the fact that $\F{p}$ is perfect.
+  Therefore we conclude by induction that $f(x)^p = f(x^p)$ for all $f \in \F_p[x]$ as desired.
+\end{proof}
+
+
+\problem{13.5.9}
+\begin{proof}
+  We have by definition of binomial coefficients that $\binom{m}{k}$ is the coefficient of $a^k b^{m-k}$ in $(a + b)^m$.
+  So taking $b = 1$, $a = x$, $m = pn$, and $k = pi$ we get that $\binom{pn}{pi}$ is the coefficient of $x^{pi} 1^{pn - pi} = x^{pi}$ in $(1 + x)^{pn}$. 
+  Then by the previous exercise, we have that $(1 + x)^{pn} = ((1 + x)^p)^n = (1 + x^p)^n$ in $\F_p$, so the coefficient of $(x^p)^i = x^{pi}$ in $(1 + x^p)^n$ is $\binom{pn}{pi}$. 
+  But also by the binomial theorem we have that the coefficient of $(x^p)^i$ in $(1 + x^p)^n$ is $\binom{n}{i}$.
+  Therefore $\binom{pn}{pi} = \binom{n}{i}$ in $\F_p$ and we conclude $\equivmod{\binom{pn}{pi}}{\binom{n}{i}}{p}$
+\end{proof}
+
+
+\problem{13.6.3}
+\begin{proof}
+  Assume that $\F$ is a field that contains the $n$th roots of unity for some odd $n$.
+  Then let $\zeta$ be a $2n$th root of unity, so $\zeta$ is a root of $f(x) = x^{2n} - 1$, and we need to show $\zeta \in \F$.
+  But then note that $f(x) = x^{2n} - 1 = (x^n - 1)(x^n + 1) = -(x^n - 1)((-x)^n - 1)$, so $\zeta$ is either an $n$th root of unity or its negative is.
+  But we assumed $\F$ contains all $n$th roots of unity, and fields are closed under inverses so $\F$ also contains the negatives of the $n$th roots of unity, so $\F$ contains all roots of $f$.
+  Then since $\zeta$ was a root of $f(x)$ we get that $\zeta \in \F$, and we conclude that $\F$ contains all $2n$th roots of unity as desired.
+\end{proof}
+
+
+\problem{13.6.4}
+\begin{proof}
+  Note that the $n$th root of unity are the roots of $f(x) = x^n - 1 = x^{p^km} - 1$.
+  But then in characteristic $p$ we have that $f(x) = x^{p^km} - 1 = (x^m - 1)^{p^k}$, so the distinct roots of $f(x)$ are the distinct roots of $x^m - 1$, so the distinct $n$th roots of unity are the distinct roots of $x^m - 1$.
+  Since $x^m - 1$ has at most $m$ distinct roots, we see that the number of $n$th roots of unity is at most $m$.
+
+  Then to show the number of roots is at least $m$, it suffices to show that $x^m - 1$ and its derivative are relatively prime.
+  But note $\frac{d}{dx}(x^m - 1) = mx^{m-1} \ne 0$, where we know it isn't zero since it is relatively prime to the characteristic.
+  But then all the roots of $mx^{m-1}$ are $0$, and $0$ is not a root of $x^m - 1$, so $x^m - 1$ polynomial is indeed separable.
+  Since all roots of $x^m - 1$ are distinct, we get that the number of $n$th roots of unity is at lest $m$, and finally we conclude that it is exactly $m$ as desired.
+\end{proof}
+
+
+\problem{13.6.5}
+\begin{proof}
+  Let $\K/\Q$ be a finite extension and let $[\K:\Q] = k$, and assume for contradiction that $\K$ contains infinitely many roots of unity.
+  Then consider the cyclotomic polynomials $\Phi_n(x)$.
+  Since $\K$ contains infinitely many roots of unity, it contains a root of $\Phi_n$ for arbitrarily large $n$.
+  In particular it will contain a root for a $\Phi_m$ with $m$ satisfying $\varphi(m) > k$ (such an $m$ exists since $n$ was arbitrarily large and $\phi$ is strictly increasing while $k$ is fixed).
+  But we know that $\deg(\Phi_m) = \varphi(m)$, and by construction $\varphi(m) > k$, so $\K$ contains a root of the polynomial $\Phi_m$ which has degree larger than its extension degree.
+  Therefore $\K$ contains the extension generated by this root of $\Phi_m$, which is an extension of degree $\phi(m)$ by the irreducibility of $\Phi_m$.
+  But this is a contradiction since extension degree is both multiplicative and integral, so we conclude that $\K$ only contains finitely may roots of unity as desired.
+\end{proof}
+
+
+\problem{13.6.6}
+\begin{proof}
+  The $2n$th roots of unity are the roots of $f(x) = x^{2n}-1 = (x^n-1)(x^n+1)$.
+  But note that all the roots of $x^n - 1$ are $n$th roots of unity, so they aren't primitive $2n$th roots of unity, and hence aren't roots of $\Phi_{2n}$.
+  Then the only possible primitive $2n$th roots of unity are the roots of $x^n + 1$. But note that since $n$ is odd we have $x^n + 1 = -((-x)^n - 1) = -\Phi_n(-x)$, so the roots of $x^n + 1$ are the negatives of the primitive $n$th roots of unity.
+  But note that this implies that all these roots are primitive $2n$th roots, since for such root $\zeta$ any $k < n$ we have $-\zeta^{n+k} = -\zeta^n\zeta^k = \zeta^k$ which can't be $1$ by the fact $\zeta$ is a primitive $n$th root of unity.
+  Therefore each of the roots of $x^n + 1$ are primitive $2n$th roots of unity, and so altogether we conclude that these are exactly the primitive $2n$th roots of unity.
+  Finally then by the definition of cyclotomic polynomials we conclude that $\Phi_{2n}(x) = \Phi_n(-x)$, since the roots on both sides are exactly the primitive $2n$th roots of unit.
+\end{proof}
+
+
+\problem{13.6.9}
+\begin{proof}
+  Let $A$ be an $n \times n$ matrix over $\C$ for which $A^k = I$ for some integer $k \ge 1$. Then note that $A^k - I$, so its minimal polynomial divides $x^k - 1$, since otherwise we could construct an even smaller minimal polynomial via the division algorithm.
+  But note that this polynomial is separable, because its roots are the $k$th roots of unity.
+  Hence any divisor of it is separable, and in particular its minimal polynomial is separable.
+  Finally this implies that the eigenvalues of $A$ are distinct and so $A$ is diagonalizable.
+
+  Then consider the matrix $A = \begin{pmatrix}1 & \alpha \\ 0 & 1\end{pmatrix}$ where $\alpha$ is an element of a field of characteristic $p$.
+  We have that
+  \begin{equation}
+    \begin{pmatrix}
+      1 & \alpha \\ 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+      1 & k\alpha \\ 0 & 1
+    \end{pmatrix} =
+    \begin{pmatrix}
+      1 & k\alpha + \alpha \\ 0 & 1
+    \end{pmatrix} =
+    \begin{pmatrix}
+      1 & (k+1)\alpha \\ 0 & 1
+    \end{pmatrix}
+  \end{equation}
+  Therefore by induction we conclude that $A^k = \begin{pmatrix}1 & k\alpha \\ 0 & 1\end{pmatrix}$. But then we note that since the field has characteristic $p$ we get $p\alpha = 0$, so that $A^p = I$ as desired.
+  Furthermore we have that $(A-I)^2 = 0$, so the minimal polynomial for $A$ must divide $(x-1)^2$.
+  But we also see $A-I \ne 0$, so the minimal polynomial can't be $x-1$.
+  Therefore the minimal polynomial must be $(x-1)^2$, which is inseparable.
+  Hence $A$ has repeated eigenvalues, and it can only be diagonalizable if it is equal to $\lambda I$, which clearly isn't the case. So we conclude $A$ is not diagonalizable.
+\end{proof}
+
+
+\problem{14.1.4}
+\begin{proof}
+  If there were an isomorphism $\varphi: \Q(\sqrt{2}) \rightarrow \Q(\sqrt{3})$ then the image $\alpha = \varphi(\sqrt{2})$ would satisfy $\alpha^2 = \varphi(2) = \varphi(1) + \varphi(1) = 1 + 1 = 2$.
+  Writing $\alpha$ in terms of the basis $\{1, \sqrt{3}\}$ for $\Q(\sqrt{3})$, we get that there exists $a,b \in \Q$ with $\alpha^2 = (a + b\sqrt{3})^2 = 2$. Expanding the LHS we get $a^2 + 3b^2 + 2ab\sqrt{3} = 2$. Equating the coefficients of $\sqrt{3}$ on both sides gives $2ab = 0$, so either $a = 0$ or $b = 0$.
+
+  In the first case were $a = 0$, we get $3b^2 = 2$ and so $b^2 = 2/3$.
+  Then note that when the LHS is written as a reduced fraction, the numerator and denominator will contain an even number of each prime factor, while on the RHS this isn't true, so we have a contradiction.
+  On the other hand when $b = 0$ we get $a^2 = 2$, which contradicts the fact that $a \in \Q$. So in either case we get a contradiction and we conclude the two fields must not be isomorphic.
+\end{proof}
+
+
+\problem{14.2.4}
+\begin{proof}
+  Let $p$ be a prime, and let $f(x) = x^p - 2$.
+  Then the roots of $f$ are of the form $\zeta_p^k\omega$, where $\zeta_p$ is a $p$th root of unity and $\omega = \sqrt[p]{2}$ is any fixed $p$th root of $2$.
+  Note that we can just consider the case with $0 \le k < p$, since the powers of $\zeta_p$ form a cyclic group of order $p$.
+  Then let $\sigma$ be an automorphism in the Galois group, and consider how it permutes these roots.
+  By the definition of a field automorphism we have $\sigma(\zeta_p^k\omega) = \sigma(\zeta_p)^k\sigma(\omega)$, so it suffices to consider how $\sigma$ acts on $\zeta_p$ and $\omega$.
+  
+  Let $\sigma_{i,j}$ denote the automorphisms such that $\zeta_p$ goes to some power $\zeta_p^i$ with $1 \le i < p$ and $\omega$ goes to $\omega\zeta_p^j$ with $0 \le j < p$.
+  Then $\sigma_{i,j}$ is a member of the Galois group since a root $\zeta_p^k\omega$ will map to $\zeta_p^{ki + j}\omega$ which is still a root.
+  Note that this gives $p-1$ choices for $i$ and $p$ choices for $j$.
+  Furthermore all these automorphisms are distinct since if the $i$ values differs than the image of  $\omega\zeta_p$ will differ and if $j$ values differ then the images of $\omega$ will differ.
+  Hence this gives at least $p(p-1)$ distinct automorphisms in the Galois group.
+  
+  But the splitting field of $x^p - 2$ is also at most a degree $p(p-1)$ extension since we have $[\Q(\omega):\Q] = p$ and also that $[\Q(\zeta_p):\Q] = \deg(\Phi_p) = \varphi(p) = p-1$.
+  Hence the number of automorphisms in the Galois group is exactly $p(p-1)$, and we conclude that the $p(p-1)$ distinct automorphisms in the previous paragraph are exactly the elements of the Galois group:
+  \begin{equation*}
+    G = \{ \sigma_{i,j} \}_{1 \le i < p;\ 0 \le j < p}
+  \end{equation*}
+\end{proof}
+
+
+\problem{14.2.5}
+\begin{proof}
+  We define an isomorphism $h: G \rightarrow M$ from the group $G$ at the end of the last problem to group $M$ of matrices $\begin{pmatrix} a & b \\ 0 & 1 \end{pmatrix}$ with $a,b \in \F_p$, $a \ne 0$ as follows:
+  \begin{equation*}
+    \sigma_{i,j}
+    \mapsto{h}
+    \begin{pmatrix} i & j \\ 0 & 1 \end{pmatrix}
+  \end{equation*}
+  This map is well defined by the fact that the constraints on $i$ and $j$ in the definition of $G$ coincide exactly with the constraint that $a,b \in F_p$ with $a \ne 0$ (where we've identified $\F_p$ with the integers $0,...,p-1$ in the natural way).
+
+  Then we show this is a group homomorphism.
+  First, note that the identity element of the Galois group $G$ is the map $\parens*{\zeta_p^k\omega \mapsto \zeta_p^k\omega}$, which corresponds to $\sigma_{1,0}$.
+  Then under $h$ this maps to the matrix $\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$, which is exactly the identity element of $M$, and so $h$ respects the identity elements.
+
+  Then note that under composition we have $\sigma_{i,j} \circ \sigma_{i',j'} = \sigma_{ii', ij' + j}$ since we have point-wise equality on each of the roots (Where we let $x_k = \zeta_p^k\omega$):
+  \begin{equation*}
+    \sigma_{i,j} \circ \sigma_{i',j'} (x_k)
+    = \sigma_{i,j}(x_{i'k + j'})
+    = x_{ii'k + ij' + j}
+    = \sigma_{ii', ij' + j}(x_k)
+  \end{equation*}
+  Using this we get that:
+  \begin{equation*}
+    h(\sigma_{i,j} \circ \sigma_{i',j'} (x_k))
+    = h(\sigma_{ii', ij' + j}(x_k))
+    = \begin{pmatrix} ii' & ij' + j \\ 0 & 1 \end{pmatrix}
+    = \begin{pmatrix} i & j \\ 0 & 1 \end{pmatrix}\begin{pmatrix} i' & j' \\ 0 & 1 \end{pmatrix}
+    = h(\sigma_{i,j}) h( \sigma_{i',j'} (x_k))
+  \end{equation*}
+  And therefore $h$ respects the group operations, and we get that it
+  is in fact a group homomorphism.
+
+  Furthermore, we know that $h$ is a surjection, since for any values $a,b$ in the top row of the matrix, that will be the image of $\sigma_{a,b}$, which is an element of $G$ by the restriction that $a,b \in \F_p$ with $a \ne 0$.\.
+  But both sets are finite, so this implies it is bijective and so an isomorphism.
+  Finally we conclude that both groups are isomorphic by an explicit isomorphism.
+\end{proof}
+
+
+\problem{14.2.11}
+\begin{proof}
+  Let $f(x) \in \Z[x]$ be an irreducible quartic whose splitting field has Galois group $S_4$ over $\Q$.
+  Let $\theta$ be a root of $f$ and let $K = \Q(\theta)$.
+  Since $f$ is irreducible, it must be the minimal polynomial for its root $\theta$.
+  Therefore $[\Q(\theta) : \Q] = \deg(m_{\theta,\Q}) = \deg(f) = 4$.
+
+  Since the Galois group for $f$ is all of $S_4$, we know that any permutation of the $4$ roots of of $f$ is a distinct element of the Galois group, and so $f$ must have distinct roots.
+  Therefore by the Fundamental Theorem of Galois Theory, the subfield $K$ corresponds to the group of automorphisms fixing the root $\theta$ and permuting the rest of the roots, which is isomorphic to $S_3$ by the fact $f$ has distinct roots.
+  But note that this group has size $3! = 6$, so since $S_4$ has $4! = 24$ elements, any proper subgroup of $S_4$ that strictly contained this copy of $S_3$ would have size $12$ by Lagrange.
+  But the only subgroup of $S_4$ of size $12$ is $A_4$, which we see doesn't contain this copy of $S_3$ by noting that some permutations of the three roots besides $\theta$ are odd permutations.
+  Hence there is no subgroup above this copy of $S_3$, and so by the Fundamental Theorem of Galois Theory there are no proper subgroups of $K = \Q(\theta)$.
+
+  Then there aren't any Galois extensions of $\Q$ of degree $4$ with no proper subfields, so we conclude that $K/F$ isn't Galois.
+\end{proof}
+
+
+\problem{14.2.13}
+\begin{proof}
+  Assume that $f(x) = a_0 + a_1x + a_2x^2 + a_3x^3$ is a cubic polynomial over $\Q$ with a complex root $\theta$.
+  Then we know that the complex conjugation is an automorphism on subfields of $\C$, and it is also non-trivial since $\theta \not \in \R$.
+  But this automorphism has order $2$ since double conjugation is the identity.
+  Therefore the Galois group for the splitting field contains an element of order $2$, so by Lagrange it can't be $\Z/3\Z$.
+  Taking contrapositives we see that if the Galois group is the cyclic group of order $3$ then the polynomial can't have complex roots.
+\end{proof}
+
+
+\problem{14.2.17}
+Let $K/F$ be any finite extension and let $\alpha \in K$. Let $L$ be a Galois extension of $F$ containing $K$ and let $H \le Gal(L/F)$ be the subgroup corresponding to $K$.
+Define the norm of $\alpha$ from $K$ to $F$ to be $N_{K/F}(\alpha) = \prod_{\sigma \in C} \sigma(\alpha)$, where the product is taken over a set $C$ of coset representatives for $H$ in $Gal(L/F)$ by the Fundamental Theorem of Galois Theory.
+
+\subproblem{a}
+\begin{proof}
+  Since $L/F$ is Galois, it suffices to show $N_{K/F}(\alpha)$ is fixed by all of $Gal(L/F)$, since the fixed field of this is just $F$.
+  So let some $\sigma_0 \in Gal(L/F)$ be given.
+  But then note that $\sigma_0$ composition with $\sigma_0$ sends distinct cosets of $H$ to distinct cosets of $H$ by the fact that it is invertible, so the $M_{\sigma_0}$ map given by $\sigma \mapsto \sigma_0 \circ \sigma$ map is injective.
+  Therefore if we let $C$ be as above (The set over which the norm product is taken), we have that $C = M_{\sigma_0}(C)$ since an injective map on surjective, so we get:
+  \begin{equation*}
+    \sigma_0(N_{K/F}(\alpha))
+    = \sigma_0\parens*{\prod_{\sigma \in C} \sigma(\alpha)}
+    = \prod_{\sigma \in C} \sigma_0(\sigma(\alpha))
+    = \prod_{\sigma \in M_{\sigma_0}} \sigma(\alpha)
+    = \prod_{\sigma \in C} \sigma(\alpha)
+    = N_{K/F}(\alpha)
+  \end{equation*}
+  So we see that the norm is fixed by arbitrary elements of $Gal(L/F)$, and conclude that it must be an element of $F$ as desired.
+\end{proof}
+
+\subproblem{b}
+\begin{proof}
+  Using basic properties of field automorphisms and commutativity we get:
+  \begin{equation*}
+    N_{K/F}(\alpha\beta)
+    = \prod_{\sigma \in C} \sigma(\alpha\beta)
+    = \prod_{\sigma \in C} \sigma(\alpha)\sigma(\beta)
+    = \prod_{\sigma \in C} \sigma(\alpha)\prod_{\sigma \in C} \sigma(\beta)
+    = N_{K/F}(\alpha)N_{K/F}(\beta)
+  \end{equation*}
+\end{proof}
+
+\subproblem{c}
+\begin{proof}
+  We know that since $K = F(\sqrt{D})$ is a quadratic extension that the minimal polynomial for $\sqrt{D}$ is $x^2 - D$.
+  Therefore the only other root is $-\sqrt{D}$, and so the only automorphisms permuting the roots are the identity and the map swapping them.
+  Then these two maps, say $\sigma_0, \sigma_1$ respectively, are the only possible embeddings of $K$ that fix $F$.
+  Hence the norm is taken over only these two maps and we get:
+  \begin{equation*}
+    N_{K/F}(a + b\sqrt{D})
+    = \sigma_0(a + b\sqrt{D}) \sigma_1(a + b\sqrt{D})
+    = (a + b\sqrt{D})(a - b\sqrt{D})
+    = a^2 - Db^2
+  \end{equation*}
+\end{proof}
+
+\subproblem{d}
+\begin{proof}
+  Since $\alpha \in K$, we know that $F(\alpha) \subseteq K$, which implies that
+  \begin{equation*}
+    n = [K:F] = [K:F(\alpha)][F(\alpha):\alpha] = [K:F(\alpha)]\deg(m_{\alpha}) = [K:F(\alpha)]d
+  \end{equation*}
+  and so $d$ divides $n$.
+
+  By definition, the elements of the Galois group $Gal(K/F)$ fixing $\alpha$ are exactly the elements of the subgroup $Gal(K/F(\alpha))$.
+  But by the fundamental theorem of Galois theory we know that the size of this group is exactly $[K:F(\alpha)]$, and we already saw that $n = [K:F(\alpha)]d$, so this implies that the the number of of elements of the Galois group fixing $\alpha$ is $n/d$.
+  
+  Therefore if we think of the elements of the Galois group as acting on $\alpha$, we see that there are $n/d$ elements in the stabilizer.
+  Furthermore the number of Galois conjugates of $\alpha$ is exactly the number of orbits of $\alpha$.
+  But by the orbit stabilizer theorem, the number of orbits is exactly the size of the group divided by the size of the stabilizer, so we see that the number of Galois conjugates is $n / (n/d) = d$, and each conjugate (equivalently orbit) is repeated once for each element of the stabilizer, so each is repeated $n/d$ times.
+
+  Then $m_\alpha$ has at least one root in the Galois extension $L$, so it is separable and has $d$ distinct roots.
+  But then these roots of $\alpha$'s minimal polynomial are all Galois conjugates of $\alpha$, and we already saw that there were only $d$ such conjugates, so these must be all of the Galois conjugates of $\alpha$.
+  Call these roots $\theta_1,...,\theta_d$.
+  Then $N_{K/F}(\alpha) = \theta_1^{n/d}...\theta_d^{n/d} = (\theta_1...\theta_d)^{n/d}$.
+  But note that $m_\alpha(x) = (x-\theta_1)...(x-\theta_d)$, so equating the constant terms and negating we have $\theta_1...\theta_d = (-1)^da_0$.
+  Hence $(\theta_1...\theta_d)^{n/d} = ((-1)^da_0)^{n/d} = (-1)^na_0^{n/d}$, so we get $N_{K/F}(\alpha) = (-1)^na_0^{n/d}$, which is what we wanted to show. 
+\end{proof}
+
+
+\problem{14.2.18}
+\subproblem{a}
+\begin{proof}
+  Since $L/F$ is Galois, it suffices to show $Tr_{K/F}(\alpha)$ is fixed by all of $Gal(L/F)$, since the fixed field of this is just $F$.
+  So let some $\sigma_0 \in Gal(L/F)$ be given.
+  But letting $C$ and $M_{\sigma_0}$ be as in the last problem, we have $C = M_{\sigma_0}(C)$ by the same arguments, so we get:
+  \begin{equation*}
+    \sigma_0(Tr_{K/F}(\alpha))
+    = \sigma_0\parens*{\sum_{\sigma \in C} \sigma(\alpha)}
+    = \sum_{\sigma \in C} \sigma_0(\sigma(\alpha))
+    = \sum_{\sigma \in M_{\sigma_0}} \sigma(\alpha)
+    = \sum_{\sigma \in C} \sigma(\alpha)
+    = Tr_{K/F}(\alpha)
+  \end{equation*}
+  So we see that the trace is fixed by arbitrary elements of $Gal(L/F)$, and conclude that it must be an element of $F$ as desired.
+\end{proof}
+
+\subproblem{b}
+\begin{proof}
+  Using basic properties of field automorphisms and commutativity we get:
+  \begin{equation*}
+    Tr_{K/F}(\alpha + \beta)
+    = \sum_{\sigma \in C} \sigma(\alpha + \beta)
+    = \sum_{\sigma \in C} \sigma(\alpha) + \sigma(\beta)
+    = \sum_{\sigma \in C} \sigma(\alpha) + \sum_{\sigma \in C} \sigma(\beta)
+    = Tr_{K/F}(\alpha) + Tr_{K/F}(\beta)
+  \end{equation*}
+\end{proof}
+
+\subproblem{c}
+\begin{proof}
+  By the same argument as the previous problem, we can take the sum in the trace to be over just the identity map and the $\sqrt{D} \mapsto -\sqrt{D}$ map, denoted $\sigma_0$ and $\sigma_1$ respectively:
+  \begin{equation*}
+    Tr_{K/F}(a + b\sqrt{D})
+    = \sigma_0(a + b\sqrt{D}) +  \sigma_1(a + b\sqrt{D})
+    = (a + b\sqrt{D}) + (a - b\sqrt{D})
+    = 2a
+  \end{equation*}
+\end{proof}
+
+\subproblem{D}
+\begin{proof}
+  By the same arguments as the previous problem, the $d$ distinct Galois conjugates of $\alpha$ must be the $d$ roots of $m_\alpha$, and they all must be repeated $n/d$ times.
+  Call these roots $\theta_1,...,\theta_d$.
+  Then $Tr_{K/F}(\alpha) = (\frac{n}{d}\theta_1)+...+(\frac{n}{d}\theta_d) = \frac{n}{d}(\theta_1+...+\theta_d)$.
+  But note that $m_\alpha(x) = (x-\theta_1)...(x-\theta_d)$, so equating the coefficients of the $d-1$ terms and negating we have $a_{d-1} = -(\theta_1+...+\theta_d)$.
+  Hence $Tr_{K/F}(\alpha) = -\frac{n}{d}a_{d-1}$, which is what we wanted to show. 
+\end{proof}
+
+
+\problem{14.2.31}
+Let $K$ be a finite extension of $F$ with $[K:F] = n$, and let $\alpha \in K$.
+
+\subproblem{a}
+\begin{proof}
+  Let $T_\alpha$ be the left multiplication by $\alpha$ map $x \mapsto \alpha x$, and we want to show this is an $F$-linear transformation.
+  Then this respects sums:
+  \begin{equation*}
+    T_\alpha(k_1 + k_2)
+    = \alpha(k_1 + k_2)
+    = \alpha k_1 + \alpha k_2
+    = T_\alpha(k_1) + T_\alpha(k_2)
+  \end{equation*}
+  and it respects $F$ multiplication:
+  \begin{equation*}
+    T_\alpha(f k)
+    = \alpha f k
+    = f \alpha k
+    = f T_\alpha(k)
+  \end{equation*}
+  So this is in fact an $F$-linear transformation.
+\end{proof}
+
+\subproblem{b}
+\begin{proof}
+  Let $m_\alpha = a_0 + ... + a_nx^n$ be the minimal polynomial for $\alpha$ over $F$.
+  Then note that $T_\alpha$ satisfies $m_\alpha(T_\alpha) = 0$, since we have point-wise equality for any $k \in K$:
+  \begin{align*}
+    (m_\alpha(T_\alpha))(k)
+    &= (a_0 + a_1(T_\alpha) + ... + a_n(T_\alpha)^n)(k) \\
+    &= a_0 + a_1(T_\alpha(k)) + ... a_n(T_\alpha(k))^n \\
+    &= ...
+  \end{align*}
+  Where we used the linearity of $T_\alpha$ to pull out terms. Furthermore, $m_\alpha$ is irreducible, so this must actually be the minimal polynomial of $T_\alpha$, since the minimal polynomial must divide any polynomial with $T_\alpha$ as a root.
+\end{proof}
+
+\subproblem{c}
+\begin{proof}
+  It suffices to show that the characteristic polynomial for $T_\alpha$ is $m_\alpha^{n/d}$, since then the eigenvalues of $T_\alpha$ will be the roots of the separable polynomial $m_\alpha$ each with multiplicity $n/d$, and so by the explicit characterizations of trace as the sum of eigenvalues and determinant as the product of eigenvalues we'll get that the trace is $\sum_i \frac{n}{d}\theta_i = Tr_{K/F}(\alpha)$ and the determinant is $\prod_i \theta_i^{n/d} = N_{K/F}(\alpha)$, which are exactly the things we want to show.
+
+  Then note that each automorphism stabilizing $\alpha$ corresponds to a linearly independent vector in the eigenspace for the eigenvalue $\alpha$, and there were $n/d$ elements in this stabilizer, so this means the eigenspace has dimension $n/d$ and so $\alpha$ has multiplicity $n/d$ as a root of the characteristic polynomial.
+  But we see that the characteristic polynomial for $T_\alpha$ must be a multiple of the minimal polynomial $m_\alpha$, since the minimal polynomial is irreducible (If it weren't we could get a proper factor of the minimal polynomial via the division algorithm).
+  Therefore each eigenvalue has the same multiplicity, and in particular they all have the same multiplicity as the root $\alpha$, namely $n/d$.
+  So we get that the characteristic polynomial is $m_\alpha^{n/d}$, and by the argument in the preceding paragraph the claim follows.
+\end{proof}
+
+\end{document}

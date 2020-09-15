@@ -1,0 +1,142 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8202 HW5}
+\author{Devon Tuma}
+\date{Spring 2020}
+
+\begin{document}
+\maketitle
+
+\problem{14.3.3}
+\begin{proof}
+  Assume that $\F$ is a finite field, and consider the polynomial
+  \begin{equation*}
+    f(x) = 1 + \prod_{\alpha \in \F} (x - \alpha)
+  \end{equation*}
+  By construction, this polynomial lies in $\F[x]$ and is of degree $\ge 2$ (Since fields have at least two elements).
+  However, this polynomial has no roots in $\F$ since $f(\alpha) = 1 + 0 = 1$ for any $\alpha \in \F$.
+  Hence $\F$ is not algebraically closed.
+  Contrapositively, any algebraically closed field must be infinite.
+\end{proof}
+
+
+\problem{14.3.5}
+We know that the splitting fields for the polynomials $f_1(x) = x^3-x+1$ and $f_2(x) = x^3-x-1$ are $\F_3[x]/(f_1(x))$ and $\F_3[x]/(f_2(x))$ respectively.
+Then we claim that the map $\bar\varphi: \F_3[x]/(f_1(x)) \rightarrow \F_3[x]/(f_2(x))$ defined by $\varphi(x) = 2x$ is an isomorphism between the two splitting fields.
+\begin{proof}
+  By the first isomorphism theorem, it suffices to consider the extension $\varphi : \F_3[x] \rightarrow \F_3[x]/(f_2(x))$, and show that the kernel of this map is $(f_1(x))$.
+  Then using the fact that $x^3 = x+1$ in $\F_3[x]/(x^3-x-1)$, we have
+  \begin{equation*}
+    \varphi(f_1(x))
+    = 8x^3 - 2x + 1
+    = 2x^3 - 2x + 1
+    = x^3 - x + 2
+    = x^3 - x - 1
+    = 0
+  \end{equation*}
+  So $(f_1(x)) \subseteq \ker(\varphi)$.
+  On the other hand, if $\varphi(g(x)) = 0$, then $g(2x) = 0$.
+  But $f_1(2x) = 8x^3 - 2x + 1 = x^3 - x -1 = 0$, and $f_1(x)$ is irreducible in $\F_3$ as it has no roots, so $f_1(x)$ must divide $g(x)$, meaning $g(x) \in \ker(\varphi)$.
+  Therefore we have $(f_1(x)) = \ker(\varphi)$, and we conclude that $\bar\varphi$ is an isomorphism.
+\end{proof}
+
+
+\problem{14.3.10}
+\begin{proof}
+  We know that $(\Z/(p^n-1)\Z)^\times$ is a group of order $\varphi(p^n-1)$.
+  Then note that $p$ is relatively prime to $p^n-1$, since $1$ is clearly an integer linear combination of the two.
+  Therefore $p \in (\Z/(p^n-1)\Z)^\times$.
+  But $\equivmod{p^n}{1}{p^n-1}$, and for any $m < n$ we have $p^m < p^n$ so this is the smallest positive power with this property, so we see that $p$ is an element of order $n$.
+  Hence by Lagrange we conclude that $n$ divides the order of $(\Z/(p^n-1)\Z)^\times$, which is $\varphi(p^n-1)$.
+\end{proof}
+
+
+\problem{14.4.2}
+The element $\zeta = \sqrt 2 + \sqrt 3 + \sqrt 5$ is primitive in $\F = \Q(\sqrt 2, \sqrt 3, \sqrt 5)$.
+\begin{proof}
+  We know that each of $\sqrt 2$, $\sqrt 3$, and $\sqrt 5$ have degree $2$ minimal polynomial.
+  Furthermore these minimal polynomials have no linear term, so the second root is just the negation of the first.
+  Hence the Galois group $Gal(\F/\Q)$ consists of the maps negating some subset of the three square-roots.
+  Then we can see by inspection that the only such automorphism fixing $\zeta$ is the identity automorphism.
+  Since $\zeta$ is not fixed by any nontrivial elements of the Galois group, we conclude that this element is in fact primitive.
+\end{proof}
+
+
+\problem{14.5.3}
+\begin{proof}
+  First, note that $\sigma_{1}$ and $\sigma_{-1}$ both fix $\alpha$, while $\sigma_{2}$ and $\sigma_{-2}$ both send it to $\zeta_5^2+\zeta_5^{-2}$.
+  So the only conjugate of $\alpha$ is $\beta = \zeta_5^2+\zeta_5^{-2}$.
+  Then the minimal polynomial for $\alpha$ must be $(x-\alpha)(x-\beta)$, which we compute to be
+  \begin{equation*}
+    (x-\alpha)(x-\beta)
+    = x^2 - (\alpha + \beta)x + \alpha\beta
+    = x^2 + x - 1
+  \end{equation*}
+  To find the quadratic equation for $\zeta_5$ over $\Q(\alpha)$, note that only $\sigma_1$ and $\sigma_{-1}$ restrict to automorphisms fixing $\Q(\alpha)$.
+  So the conjugate of $\zeta_5$ is $\zeta_{5}^{-1}$, and we get that its minimal polynomial is $(x-\zeta_5)(x-\zeta_5^{-1}) = x^2 - \alpha x + 1$.
+  By the quadratic equation this gives $\zeta_5 = (\alpha + \sqrt{\alpha^2 - 4})/2$.
+  Using the quadratic equation on the earlier equation we also have $\alpha = (-1 + \sqrt{5})/2$, which together with the previous equation gives an explicit characterization of $\zeta_5$ in terms of radicals:
+  \begin{equation*}
+    \zeta_5
+    = \frac{\alpha + \sqrt{\alpha^2 - 4}}{2}
+    = \frac{-1 + \sqrt{5}}{4} + \frac{\sqrt{((-1 + \sqrt{5})/2)^2 - 4}}{2}
+  \end{equation*}
+\end{proof}
+
+
+\problem{14.5.7}
+\begin{proof}
+  First, $\Q(\zeta_n)$ is closed under complex conjugation, since $\bar\zeta_n = \zeta_{-n}$ and conjugation is an automorphism of $\C$.
+  Furthermore, complex conjugation fixes any real number, so in particular fixes elements of $\Q$.
+  Therefore complex conjugation restricts to an element of $Gal(\Q(\zeta_n)/\Q)$.
+  Also complex conjugation is its own inverse, so it must be an automorphism of order $2$, and we conclude that it must be $\sigma_{-1}$ since by the isomorphism $Gal(\Q(\zeta_n)/\Q) \cong (\Z/n\Z)^\times$ that is the only element of order $2$.
+  Finally, note that $\R$ is the fixed field of $\C$ under conjugation, so the subfield of reals in $\Q(\zeta_n)$ is the fixed field of $\sigma_{-1}$.
+  This fixed field certainly includes $\zeta_n + \zeta_n^{-1}$, but it is also generated by just this element since $\zeta_n$ is primitive.
+  So we conclude that $\Q(\zeta_n + \zeta_n^{-1})$ is the maximal real subfield as desired.
+\end{proof}
+
+
+\problem{14.5.10}
+\begin{proof}
+  We saw in class that $\Q(\sqrt[3]{2})$ is not a normal extension, since $x^3-2$ does not completely split over this field (it has two complex roots but the extension is contained in $\R$).
+  Therefore if it is a subfield of some Galois extension $\K$, we know by the Fundamental Theorem of Galois Theory that it must correspond to a non-normal subgroup of the Galois Group.
+  But the Galois group of a cyclotomic extension is cyclic, so Abelian, and hence has only normal subgroups.
+  So we conclude that $\Q(\sqrt[3]{2})$ can't be a subfield of any cyclotomic extension.
+\end{proof}
+
+
+\problem{14.6.2}
+\subproblem{a: $\Z/2Z$}
+\begin{proof}
+  We have $x^3-x^2-4 = (x-2)(x^2+x+2)$, so the Galois group is the same as that of $x^2+x+2$.
+  This quadratic has discriminant $1-8=-7$ which isn't a perfect square, so we conclude the Galois group is isomorphic to $\Z/2\Z$
+\end{proof}
+
+\subproblem{b: $\Z/2\Z$}
+\begin{proof}
+  We have $x^2-2x+4 = (x+2)(x^2-2x+2)$, so the Galois group is the same as that of $x^2-2x+2$.
+  This quadratic has discriminant $4-8=-4$ which isn't a perfect square in $\Q$, so we conclude the Galois group is isomorphic to $\Z/2\Z$.
+\end{proof}
+
+\subproblem{c: $\Z/2\Z$}
+\begin{proof}
+  a=1 b=0 c=-1 d=1
+  This cubic polynomial has discriminant $4-27 = -23 < 0$, so it reduces into a linear factor and an irreducible quadratic.
+  Therefore the Galois group is the same as that of the quadratic factor, which since it is irreducible is isomorphic to $\Z/2\Z$.
+\end{proof}
+
+\subproblem{d: $\Z/1\Z$}
+\begin{proof}
+  This polynomial has discriminant $49$, so it splits completely into linear factors, and therefore has trivial Galois group.
+\end{proof}
+
+
+\end{document}
