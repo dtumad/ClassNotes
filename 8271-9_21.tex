@@ -1,0 +1,56 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 9/21 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item[1] Why are missing-check bugs security-critical?
+
+  Depending on the semantics, many functions have important constraints on how they can be used securely. For example, failing to check whether a memcpy() call returns an error code could lead to reading or writing incorrect data bytes.
+  Because errors of this sort can lead to security issues, missing check bugs in this context are security-critical. Furthermore, the need for checks is highly dependent on the particular semantics of the APIs being used, so developers can easily miss these checks, making this class of errors more security-critical.
+
+\item[2] What is the high-level idea used in Crix that detects missing-check bugs?
+
+  First, Crix identifies variables it believes to be security critical. From this it finds slices of code using this variable that have similar semantics. Finally, it compares the checks surrounding these uses between these code slices to identify potentially problematic uses. These are then flagged for further confirmation.
+  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper discuses the Crix system for identifying missing check bugs in code, based on analysis of the semantics of security-critical variables. As a particular example, the paper applies the system to the linux kernel to evaluate its efficacy in a large and security-critical project. The paper also contains a general study of missing-check bugs, which the rest of the project is based upon. In particular, it identifies two main classes of security-critical variables, state variables and critical-use variables, and these are the main analysis targets for Crix.
+The identification of errors is based on statistical inference via comparison between similar peer slices to identify deviations is usage of critical variables. In this way, the paper avoids the very difficult problem of determining the proper semantics of variables.
+
+\subsection*{Limitations of the paper}
+\begin{itemize}
+\item The paper focuses on statistical inference as a method to identify the semantics of whether any checks are necessary. While this does help solve the issue of how to understand semantics and contextx, it does leave a potential hole in identifying issues with new or rarely used functionality.
+\item The paper is mainly focused on C code, and kernel programming in particular. This makes sense because of the large number of SLOC in the Linux kernel, and because of the large number of security concerns assosiated with an operating system, but doesn't account for the differences present in other types of use cases.
+\end{itemize}
+
+\subsection*{Solutions to the limitations}
+
+The second limitation could be partially resolved by analyzing other types of security-critical codebases to look at differences in things like the false positive rate. From this analysis it could be possible to determine how well the approach generalizes to other use cases. 
+
+\subsection*{Potential follow-up work}
+\begin{itemize}
+\item One potential follow up work would be further analysis more robust ways to identify error handling functions (and by extensions identify critical variables more robustly). One particular area would be to look at other languages, or more generally to give developers simple ways to specify such functions for use in static analysis by Crix.
+\item Another area of interest might be looking at the possibility of automatically repairing errors that are detected by Crix. Comparison to peer slices in particular could be one way to determine which checks should be inserted, and where they should be placed.
+
+\end{itemize}
+
+\end{document}

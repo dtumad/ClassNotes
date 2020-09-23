@@ -1,0 +1,48 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 9/23 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] What is SMAP?
+
+  SMAP is a hardware mechanism for preventing certain pieces of code from accessing certain areas of memory. In normal use, SMAP is used to prevent kernel code from accessing user space, for instance to prevent the kernel from executing malicious code stored in user space. This functionality can be efficiently disabled and enabled to allow kernel code to access user code as needed, e.g. for IO operations. More specifically, SMAP prevents code in S-mode from accessing data in U-pages.
+  
+\item [2] How does SEIMI prevent higher-privileged code from accessing lower-privileged data?
+
+  SEIMI functions by leveraging SMAP as a method for controlling program access of sensitive data. By executing the code in privileged kernel mode, it is possible to use SMAP as a method for preventing access to sensitive information. Note however that this method opens up a new set of problems, namely in how to prevent the code from abusing the extra privileges granted by being run in kernel mode. The paper shows though that it is possible to overcome these issues in order to make the overall approach workable.
+  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper discusses the implementation of SEIMI, a system for isolating memory from untrusted user code. The approach revolves around running the untrusted code in kernel space and leveraging SMAP in order to prevent the code from accessing user space memory. It also discusses how to run user code in privileged mode safely and practically, by using techniques such as visualization to prevent the untrusted code from abusing its privileged state maliciously.  
+
+\subsection*{Limitations of the paper}
+
+\begin{itemize}
+\item The approach to limiting execution of privileged instructions is potentially non-applicable to new instructions. The paper discusses some particular situations that would make this less problematic, for example new instructions can often be enabled/disabled via control registers. However this is not as totally generic, and there are theoretic holes that could exist in some new cases.
+\item The implementation of SEIMI is somewhat ad hoc, in that it makes use of SMAP in a way not originally intended. Although it seems to have strong security guarantees, the implementation could be more efficient if it were made a systematic part of the hardware system (as SMAP itself is).
+\end{itemize}
+
+\subsection*{Potential follow-up work}
+
+One obvious follow up work would be to look at ways to circumvent the security measures put in place to make kernel mode execution of untrusted user code safe. Since this approach for maintaining security is novel, it could be useful to spend more time examining attack vectors to identify any potential vulnerabilities with this approach.
+
+\end{document}
