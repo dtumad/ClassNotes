@@ -1,0 +1,78 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\newcommand{\presheaf}{\mathcal{P}}
+\newcommand{\sheaf}{\mathcal{F}}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8300 8/28 Problems}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\problem{1. The presheaf kernel of a morphism of sheaves is a sheaf}
+\begin{proof}
+  Let $\varphi: \sheaf \rightarrow \sheaf'$ be a morphism of sheaves, and $\mathcal{K} = \ker \varphi$.
+  The presheaf kernel is a presheaf by definition, so we just need to check the additional two properties of a sheaf.
+
+  First, let $U$ be open in $X$ and $\{V_i\}$ be an open cover of $U$.
+  Let $s \in \mathcal{K}(U)$ and assume $s|_{V_i} = 0$ for all $V_i$, and we want to show $s = 0$.
+  But then note $\mathcal{K}(U) \subseteq \sheaf(U)$ as abelian groups, and $\sheaf$ is a sheaf.
+  Furthermore the restrictions of $s$ to the $V_i$ are still all zero when $s$ is thought of as an element of $\sheaf(U)$, so we get that $s = 0$ as desired.
+
+  Then let $s_i \in \mathcal{K}(V_i)$ be a collection of sections such that $s_i|_{V_i \cap V_j} = s_j|_{V_i \cap V_j}$ for all $i,j$.
+  Again we can think of all of these sections as elements of $\sheaf(V_i)$, and so since $\sheaf$ is a sheaf we can find an element $s \in \sheaf(U)$ such that $s|_{V_i} = s_i$ for all $i$.
+  Then it suffices for us to show that $s \in \mathcal{K}(U)$, so it remains to show that $\varphi_U(s) = 0$.
+  But note that by the definition of a morphism of sheaves, we have $\varphi_U(s)|_{V_i} = \varphi_{V_i}(s|_{V_i})$, which is zero since we have that $s|_{V_i} = s_i \in \ker \varphi_{V_i}$, and so we see $\varphi_U(s)$ is locally zero on the $V_i$.
+  Therefore since $\sheaf'$ is a sheaf, we can apply the first property to get that $\varphi_U(s) = 0$, which gives $s \in \mathcal{K}(U)$ as desired.
+\end{proof}
+
+
+\problem{2. Give an example of a morphism of sheaves where the presheaf cokernel is not a sheaf}
+
+Take any morphism $\varphi: \sheaf \rightarrow \sheaf'$ where the image of $\varphi_U$ is all of $\sheaf'(U)$ for every $U$.
+Then the cokernel at each of the $U$ are isomorphic as groups, so the cokernel presheaf is isomorphic to the constant presheaf.
+But the constant presheaf isn't a sheaf, so this gives a desired example.
+
+\problem{3. Show that the constant sheaf is the sheaf associated to the constant presheaf}
+\begin{proof}
+  Let $\presheaf$ be the constant presheaf and $\presheaf'$ be the constant sheaf.
+  It suffices to show that the sheaf $\presheaf'$ satisfies the universal property of the sheaf assosiated to the constant presheaf $\presheaf$.
+  We define $\theta : \presheaf \rightarrow \presheaf'$ by taking $\theta_U : \presheaf(U) \rightarrow \presheaf'(U)$ to be the inclusion map, which is well defined since any globally constant function on $U$ is in particular locally constant on $U$.
+  Then let $\sheaf$ be any sheaf and $\varphi : \presheaf \rightarrow \sheaf$ be a morphism, and we need to show $\varphi$ factors uniquely through $\theta$.
+
+  We need to define a  $\psi : \presheaf' \rightarrow \sheaf$ by defining $\psi_U : \presheaf'(U) \rightarrow \sheaf(U)$, so let $f$ be a locally constant function on $U$. Then since it is locally constant, the set of inverse images of each $a \in A$ under $f$ form a dijoint cover of $U$.
+  Therefore any restriction to this covering trivially satisfies the second sheaf property, and if we define the restriction $\psi_U(f)|_{f^{-1}(a)}$ to be $\varphi_U(a)$ for each $a \in A$ then this extends to a global $\psi_U(f)$.
+  Furthermore, we have $\psi_U \circ \theta_U = \varphi_U$, since if the $f$ is the previous construction is globally constant and not just locally constant then the resulting value will be the globally constant one.
+  Finally, this map is unique, since any other map that agrees with this one on the locally constant components will extend the same way.
+\end{proof}
+
+
+\problem{4. Show that a morphism of sheave is injective (respectively, surjective, bijective) iff the induced morphisms on all stalks are injective (respectively, surjective, bijective).}
+\begin{proof}
+  First we assume that $\varphi : \sheaf \rightarrow \sheaf'$ is an injective morphism of sheaves, so that $\ker \varphi = 0$.
+  Then let $x \in X$ and we want to show the inducied morphism $\varphi_x$ is injective, or equivalently that $\ker \varphi_x = 0$.
+  So assume we have some $s|_x \in \ker \varphi_x$ assosiated with $U$, so that $0 = \varphi_x(s|_x)$.
+  Then note that since sheaf morphisms respect inclusion we get $0 = \varphi_x(s|_x) = \varphi_V(s|_V)$ for any open $V$ containing $x$.
+  But the $\varphi_V$ is injective by assumption so this implies $S|_V = 0$, and this holds for all $V$ containing $x$, so we can use the first sheaf property to get $s = 0$, and hence we conclude $\ker \varphi_x = 0$ as desired.
+
+  Then for the converse, assume that the induced morphism of stalks $\varphi_x$ is injective for all $x$, and we need to show $\varphi$ is injective, so assume that $0 = \varphi_U(s)$ and we need to show $s = 0$.
+  By the first sheaf property, it suffices to check the restrictions of $s$ to the sets of an open covering are all $0$.
+  For any $x \in U$, we have by the universal property of sheaf morphisms $\varphi_x(s|_x) = \varphi_U(s)|_x = 0|_x = 0$.
+  Hence $s|_x = 0$ by injectivity of the induced morphisms, so $s|_{V_x} = 0$ for some open set $V_x \subseteq U$ containing $x$.
+  But this set ${V_x}$ contains each element of $U$ by construction, so it is an open cover, and by the first sheaf property we conclude $s = 0$.
+
+  The equivalent fact for surjectivity then follows from the fact that kernels are cokernels in the dual category, and so the fact follows from the previous argument applied to the dual category. The statement for bijections then follows by combining the statement for injectives and surjectives.
+  
+\end{proof}
+
+
+\end{document}

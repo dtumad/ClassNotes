@@ -1,0 +1,59 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 10/05 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] What is forced execution and why is it useful in malware analysis?
+
+  Forced execution is the idea of modifying normal control flow of a program in order to examine behavior of the program in different situations.
+  This is especially important in the case of malware because these programs often have specific conditions that trigger malicious behavior that we would like to analyze.
+  Furthermore, malware software can contain mechanisms to detect VMs or debuggers and modify execution path based on these in order to obfuscate the threat posed by the malware.
+  Since understanding the function of malware is very important in working to prevent attacks, forced execution is very valuable in analyzing malware that tries to conceal or hide its intended attack methods.
+  
+\item [2] What is the proposed Probabilistic Memory Pre-planning and why is it cost-effective?
+
+  It is a method for allocating memory before program execution that makes failure during forced execution less likely while preserving program semantics.
+  The first key feature is maintaining self-contained memory behavior, so that memory accesses to initialized memory locations are with high probability going to lead to other areas of pre-allocated memory.
+  Furthermore, self-disambiguated memory behavior means that different memory addresses are likely to be unassociated if accessed before initialization, so that the scheme does not introduce unforeseen dependencies.
+  The PMP scheme also relies on manual instantiation of program values with special values during program execution, so that they don't interfere with the memory scheme.
+  This method is very cost effective because it removes the need to track individual memory values and pointers, and instead relies on the probabilistic guarantees to make sure that the program executes properly
+  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper develops a new and more practical method for forced execution of target programs.
+The method uses a pre-planning scheme that allows it to be much more efficient than previous forced execution methods, and provides probabilistic guarantees of success.
+It also evaluates the success of this method on specific example programs and finds both faster execution and more effective rates than previous forced execution algorithms.
+
+\subsection*{Limitations of the paper}
+
+The paper focuses its analysis on 400 real-world malware samples, but this may not account for certain pathological examples of programs that are especially problematic for this method of forced execution.
+
+\subsection*{Solutions to the limitations}
+
+Analysis of which types of programs or program behaviors give the worst probabilistic behaviors could help better understand the potential limitations of the method, and whether any future malware is likely to ever have such properties.
+
+\subsection*{Potential follow-up work}
+
+One interesting piece of follow-up work might be to look at ways in which malware programs can try to circumvent the probabilistic guarantees of the PMP system.
+In particular, understanding potential countermeasures taken malware, for example manually zeroing out variables after declarations, could help inform more sophisticated versions of the PMP that are harder to thwart.
+
+\end{document}

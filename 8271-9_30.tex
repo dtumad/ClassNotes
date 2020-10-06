@@ -1,0 +1,53 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 ?/? Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] What is Intel MPK? Which MPK-related registers are used to control memory permissions?
+
+  MPK allows partitioning memory by assosiating virtual pages with different protection keys to create distinct domains.
+  The access permisions for these domains are controlled by the PKRU register, controlled by the fast WRPKRU instruction.
+  The EAX register can also control how the PKRU register changes when XRSTOR instruction is called.
+  
+\item [2] How does ERIM prevent untrusted code from abusing the instructions that can manipulate memory permissions?
+
+  ERIM uses inspection of the binary code to examine each instance of a WRPKRU or XRSTOR instruction to determine if they are safe.
+  A WRPKRU instance is deemed safe if it is followed by either reserved memory access or a sequence of instuctions that checks the permissions in the PKRU register set by WRPKRU.
+  A XRSTOR instance is deemed safe if it is followed by a check to the EAX bit that controlls whether XRSTOR affects PKRU.
+  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper discusses ERIM, a method for isolating memory by partitioning virtual pages based on the PKRU register provided by intel MPK.
+ERIM then provides call gates that can be used by programs to access isolated areas of memory safely.
+This seperation is enforced by binary inspection of the code to determine whether all instructions that affect this register are safe from exploitation by an attacker.
+ERIM also provides a systemic way to modify binary code in order to make it safe from exploitation.
+Alternatively, it is possible to wrap two seperate dynamically linked libraries in code to make it compatible with the ERIM system as wel.
+
+\subsection*{Limitations of the paper}
+
+\subsection*{Solutions to the limitations}
+
+\subsection*{Potential follow-up work}
+
+One potential piece of follow-up work would be to build an analyzer that can determine whether the private stacks in a multi-threaded application are properly allocated for compatibility with ERIM, since improper allocations can still compromise security in a multi-threaded ERIM system.
+
+\end{document}

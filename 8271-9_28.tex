@@ -1,0 +1,51 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 9/28 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] How does the Chromium Sandbox work and what limitations does it have?
+
+  The Chromium sandbox works by isolating a rendering engine separately from the general browser kernel.
+  This means that even if an attacker exploits a vulnerability to gain control of the rendering engine, they have limited ability to exploit this to attack the users system itself.
+  This however does not prevent all attacks, as malicious website could still for example read cookies from another website if they corrupt the rendering engine, since the same-origin policy is enforced internally to the rendering engine.
+  The sand-boxing furthermore has granularity with a number of different rendering engine processes, in order to isolate different tabs or certain security-sensitive tasks.
+  The actual implementation of the sandbox uses windows security tokens to control access to information on the machine.
+  This reliance on Windows definitions of security access creates a number of additional security holes.
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper discusses the architecture of the Chromium browser, which Google Chrome is itself built upon.
+Specifically, it discusses how the split between a browser kernel and a rendering engine helps reduce security vulnerabilities.
+The goal of this split is to mitigate high-risk vulnerabilities, especially those allowing arbitrary code execution.
+More generally, it focuses on three potential goals by an attacker, namely installing persistent malware, monitoring keystrokes, and file theft.
+
+
+\subsection*{Limitations of the paper}
+
+The paper mainly considers security by considering past attacks and looking at whether this type of architecture would have prevented such attacks from occurring. It therefore lacks a general analysis of security properties, which may be difficult to create but also would be very valuable.
+
+\subsection*{Solutions to the limitations}
+
+\subsection*{Potential follow-up work}
+
+One potential follow-up work would be looking at making a more generic implementation that doesn't rely on OS specific security features as much. Besides increasing portability, generalizing things in this way could also address some of the existing issues with the interactions between the existing system and windows itself.
+
+\end{document}
