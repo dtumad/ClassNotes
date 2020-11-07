@@ -1,0 +1,60 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 ?/? Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] What is the root problem in processors that is exploited for the Spectre attacks?
+
+  Processors use speculative execution to improve performance by avoiding idle time while waiting for expensive operations.
+  This allows them to predict branches and continue execution, reverting back the information is wrong.
+  However, the reversion can leave trace information in areas like the cache, which creates a potential side-channel that can leak information to attackers.
+  
+\item[2] Why can't we simply disable the speculative execution in processors?
+
+  Completely disabling it is to significant of a performance hit.
+  It is possible however to conditionally disable it in security critical hardwarae or in specific security critical processes or threads
+  Complete mitigation this way isn't possible though because chip manufacturers don't want the major performance hit of completely removing this.
+
+\item[3] Come up with a potential mitigation and discuss why it could be helpful for mitigating Spectre attacks.
+
+  One idea could be to block speculative execution from reading memory, but still allow it to perform computations and register manipulation.
+  This allows some of the performance benefit since some speculative execution still occurs, but eliminates many of the potential side channel attacks.
+  This is less extreme than completely disabling speculative execution, but future work would still need to be done to determine how this affects performance.
+  Compiler optimization of instruction order that is tailored for this type of speculative execution could also partially help mitigate this performance hit.
+  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper introduces the idea of spectre attacks, that use speculative execution to leak information through different side channels.
+It also discusses some specific examples of this type of attack, such as branch poisoning attacks.
+Finally, it discusses a number of potential mitigations for the attack, although none are a complete solution.
+
+\subsection*{Limitations of the paper}
+
+The paper doesn't spend much time focusing on the spectre attacks in full generality. While the focus on cache based side channels makes it easier to understand, it might mislead people about the total scope of the problem.
+
+\subsection*{Potential follow-up work}
+
+Significant follow-up work can be done on potential mitigations into this problem. While a complete solution may be difficult or not possible, there are still many mitigations that could help reduce risk.
+
+Future work could also compare existing mitigations for performance cost vs. security benefit. It might also be good to look at how different mitigations are more or less effective when paired together, to see if certain combinations might be sufficient for many situations.
+
+\end{document}

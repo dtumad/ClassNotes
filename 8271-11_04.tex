@@ -1,0 +1,50 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 11/04 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] Why is exploit generation particularly challenging in PHP?
+
+  Many elements of a page are generated dynamically, and are therefore hard to understand without understanding how the code will execute.
+  Even code itself can often be generated on the fly by the website, which makes analysis in general very difficult.
+  There is also the fact that different parts of code and generated code are executed at different tiers that can matter to how they affect each other.
+  
+\item [2] How would the built-in functions affect the symbolic execution of PHP, and how are built-in functions handled?
+
+  The symbolic execution only targets the modules that contain pontentially vulnerable sinks, and does not prioritize the rest.
+  Certain built-in functions are also tagged as sanitizing for certain sanitization patterns, based on their semantics.
+  NAVEX also needs solver specifications for the language, but in general NAVEX is applicable to any system of built-in functions with such a specification.
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper disucusses a new method to generate exploits in code that contains many dynamic aspects, that uses methods from static analysis and extends them.
+This combination of dynamic and static component makes both run more efficiently to better generate vulnerabilites.
+
+\subsection*{Limitations of the paper}
+
+The system does not have a full implementation of file upload capabilities, which is a very important potential attack vector.
+Adding this in would therefore be a very valuable change
+
+\subsection*{Potential follow-up work}
+
+There are still a number of false positives that still occur, so one follow-up work that might be worthwhile is looking more closely at trying to eliminate these and understand where they are coming from.
+
+\end{document}

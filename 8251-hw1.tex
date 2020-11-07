@@ -1,0 +1,177 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+\newcommand{\disc}{\text{disc}} 
+
+\title{8251 HW1}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\problem{1.16.}
+Show that $(1 - \omega)(1 - \omega^2)\dots(1 - \omega^{p-1}) = p$.
+
+\begin{proof}
+  Setting $g(t) := (t - \omega)\dots(t - \omega^{p-1})$, we want to show that $g(1) = p$.
+  From equation (1.2) we have that
+  \begin{equation*}
+    t^p - 1 = (t - 1)(t - \omega)\dots(t - \omega^{p-1}) = (t-1)g(x)
+  \end{equation*}
+  If we take formal derivatives of both sides, we get that $pt^{p-1} = g(x) + (t-1)g'(x)$, and evaluating this at $1$ we see that $p = g(1) + 0 * g'(1) = g(1)$, which is exactly what we wanted to show.
+\end{proof}
+
+
+\problem{1.21}
+Show that every member of $\Q[\omega]$ is uniquely representable in the form $$a_0 + a_1\omega + \dots + a_{p-2}\omega^{p-2}, \ a_i \in \Q$$
+
+\begin{proof}
+  We need to show that $\{1, \omega, \dots, \omega^{p-2}\}$ is a $\Q$-basis for $\Q[\omega]$.
+  
+  To show that it is a spanning set, it suffices to show $\omega$ is a root of $f(t) = t^{p-1} + \dots + t + 1$, since then $\omega^{p-1} = -\omega^{p-2}-\dots-t-1$ and any power $\omega^m$ with $m \ge p - 1$ can be recursively reduced to a smaller power by substituting this equation.
+  But note that we have $\omega f(\omega) = 1 + \omega^{p-1} + \dots + \omega^2 + \omega = f(\omega)$, and $\omega \ne 1$, so we must have $f(\omega) = 0$ as desired.
+
+  Then to show the set is linearly independent, it suffices to show $f(t)$ is irreducible, since any nontrivial linear dependence among the $\{1, \omega, \dots, \omega^{p-2}\}$ defines a polynoial with $\omega$ as a root, of degree stricly less than $p-1$, which is then a nontrivial factor of $f(t)$.
+  Furthermore, it suffices to show $f(t+1)$ is irreducible, since $g(t) |\ f(t)$ iff $f(t+1) |\ g(t+1)$. Then note that $(t-1)f(t) = t^p - 1$, so that $f(t+1) = ((t+1)^p - 1) / t)$.
+  Applying the binomial thoerem, we see $f(t+1) = \sum_{n = 1}^p \binom{p}{n} t^{n-1}$.
+  But then all coefficients but the first coefficient are divisible by $p$, and the last coefficient is exactly $p$ which isn't divisible by $p^2$, so we can apply Eisenstein's criterion to get irreducibility as desired.
+\end{proof}
+
+  
+\problem{1.22}
+Show that if $\alpha \in \Z[\omega]$ and $p |\ \alpha = \alpha_0 + \alpha_1\omega + \dots + \alpha_{p-2}\omega^{p-2}$, then all the $\alpha_i$ are divisible by $p$.
+
+\begin{proof}
+  If we have divisiblity, let $\beta$ be such that $p\beta = \alpha$.
+  Since irreducibility in $\Q[x]$ implies irreducibility in $\Z[x]$, the previous exercise also implies a similar representation for elements of $\Z[x]$.
+  In particular, $\beta$ has a representation of the form $\beta = \beta_0 + \beta_1\omega + \dots + \beta_{p-2}\omega^{p-2}$ with $\beta_i \in \Z$.
+  But then by the linear independence of the powers of $\omega$, we must have $\alpha_i = p\beta_i$, and we conclude that $p | \alpha_i$ for all $i$.
+\end{proof}
+
+\problem{2.4}
+Suppose $a_0, \dots, a_{n-1}$ are algebraic integers and $\alpha$ is a complex number satisfying $\alpha^n + a_{n-1}\alpha^{n-1} + \dots + a_0 = 0$. Show taht the ring $\Z[a_0, \dots, a_{n-1}, \alpha]$ has finitely generated additive group.
+
+\begin{proof}
+  We know that elements of $\Z[a_0, \dots, a_{n-1}, \alpha]$ are finite $\Z$-linear combinations of products of the form $a_0^{k_0} \dots a_{n-1}^{k_{n-1}} \alpha^k$, so it suffices to show that only many of these products are independent.
+  By assumption, we have $\alpha^n = -a_{n-1}\alpha^{n-1} - \dots - a_0$, so we can certainly reduce any term with a power of $\alpha$ greater than $n$ to a linear combination of terms with powers of $\alpha$ strictly less than $n$ by recursively substituting this equation (each substitution strictly reduces the maximal power of $\alpha$ so this process terminates).
+
+  But we also have that each $a_i$ is an algebraic integra, so there exists monic polynomials $p_i \in \Z[x]$ such that $p_i(a_i) = 0$ for all $i$.
+  Each $p_i$ is monic, so is of the form $x^{deg(p_i)} + p'_i(x)$ where the trailing terms in $p'_i$ have degree strictly less than $deg(p_i)$.
+  Hence we have $a_i^{deg(p_i)} = - p'_i(a_i)$, where each $p'_i(a_i)$ is a $\Z$-linear combination of powers of $a_i$, with each power of $a_i$ having degree less than $deg(p_i)$.
+  So again we can recursively substitute these values, and the process will again eventually terminate since each substituion strictly reduces the maximal degree of a power of $a_i$.
+
+  Hence after all of the substitutions, we can write any element as a linear combination of terms of the form $a_0^{k_0} \dots a_{n-1}^{k_{n-1}} \alpha^k$, with $k_i < deg(p_i)$ and $k < n$, and so this forms a finite generating set as desired.
+  Then since $\alpha \Z[a_0, \dots, a_{n-1}, \alpha] \subset \Z[a_0, \dots, a_{n-1}, \alpha]$, we finally conclude that $\alpha$ is an algebraic integer as well.
+\end{proof}
+
+
+\problem{2.6}
+Show that if $f$ and $g$ are polynomials over a field $K$ and $f^2 |\ g$ in $K[x]$ then $f |\ g'$.
+
+\begin{proof}
+  Since $f^2 |\ g$, we have $g = f^2h$ for some $h \in K[x]$.
+  Taking formal derivatives, we have $$g' = 2ff'h+f^2h' = f(2f'h+fh')$$ and we see that $f |\ g'$ exactly as desired.
+\end{proof}
+
+
+\problem{2.10}
+Show that if $m |\ r$ and $\varphi(r) \le \varphi(m)$ then $r = m$.
+
+\begin{proof}
+  Since $m |\ r$, we have $m \le r$, and so it suffices to show $r \le m$.
+
+  Let $m = p_0^{e_0} p_1^{e_1} \dots p_n^{e_n}$ be the prime factorization of $m$.
+  Then since $m |\ r$, the prime factorization of $r$ must be of the form $r = k * p_0^{e_0 + d_0} p_1^{e_1 + d_1} \dots p_n^{e_n + d_n}$ for some $k$ relatively prime to all of the $p_i$.
+  Using the standard identities for $\varphi$, we then get:
+  \begin{equation*}
+    \varphi(m) = \prod_{0 \le i \le a} (p_i^{e_i} - p_i^{e_i - 1}) \le
+    \varphi(k) \prod_{0 \le i \le a} (p_i^{e_i + d_i} - p_i^{e_i + d_i - 1})
+    = \varphi(r)
+  \end{equation*}
+  And we already had $\varphi(m) \ge \varphi(r)$, so we have in fact $\varphi(m) = \varphi(r)$.
+  But then looking at the above equation egain, we see that equality holds only if $d_i = 0$ for all $i$ and $\varphi(k) = 1$.
+  $\varphi(k) = 1$ implies $k = 1$, and then if we plug these values back into the oringal prime factorizations we see that they are now identical, and we conclude $r = m$ as desired.
+\end{proof}
+
+
+\problem{2.25}
+Show that for any algebraic number $\alpha$, there exists $m \in \Z$, $m \ne 0$, such that $m\alpha$ is an algebraic integer.
+
+\begin{proof}
+  Let $\alpha$ be algebraic, and $p \in \Q[x]$ a witness to this, so $p(\alpha) = 0$.
+  Clearing denominators on the coefficients of $p$, we can write $p = kf$, for some $f \in \Z[x]$ and $k \in \Q$.
+  Note that $f(\alpha) = p(\alpha)/k = 0$, so $\alpha$ is a root of $f$.
+  Hence $0 = f(\alpha) = c_n\alpha^n + \dots + c_1\alpha + c_0$, where the coefficeients $c_i$ are all integers.
+  We will show $c_n\alpha$ is integral ($c_n$ is non-zero since $p$, and hence $f$, is nontrivial).
+  
+  Multiplying the equation by $c_n^{n-1}$ we get:
+  \begin{align*}
+    0 = c_n^{n-1} f(\alpha)
+    &= c_n^n\alpha^n + c_{n-1}c_n^{n-1}\alpha^{n-1} + c_{n-2}c_n^{n-1}\alpha^{n-2} + \dots + c_0c_n^{n-1} \\
+    &= (c_n\alpha)^n + c_{n-1}(c_n\alpha)^{n-1} + c_{n-2}c_n(c_n\alpha)^{n-2} + \dots + c_0c_n^{n-1}
+  \end{align*}
+  And we see that $c_n\alpha$ is a root of the polynomial $x^n + c_{n-1}x^{n-1} + c_{n-1}c_nx^{n-2} + \dots + c_0 c_n^{n-1}$, which is monic and has integer coefficients.
+  Hence $c_n\alpha$ is an algebraic integer, as desired.
+\end{proof}
+
+
+\problem{2.28}
+Let $f(x) = x^3 + ax + b$, with $a,b \in \Z$ and assume $f$ is irreducible over $\Q$ with $\alpha$ a root of $f$.
+
+\textbf{(a)} Show that $f'(\alpha) = -(2a\alpha + 3b)/\alpha$.
+
+\begin{proof}
+  We have $f'(x) = 3x^2 + a$, so $f'(\alpha) = 3\alpha^2 + a = (3\alpha^3 + a\alpha)/\alpha$.
+  But since $\alpha$ is a root of $f$, we also know $\alpha^3 = -a\alpha - b$, and substituting this into the previous equation gives $f'(\alpha) = -(3a\alpha - 3b - a\alpha)/\alpha = -(2a\alpha + 3b)/\alpha$ as desired.
+\end{proof}
+
+\textbf{(b)} Show that $2a\alpha+3b$ is a root of $(\frac{x-3b}{2a})^3+a(\frac{x-3b}{2a})+b$, Use this to find $N_\Q^{\Q[\alpha]}(2a\alpha+3b)$.
+
+\begin{proof}
+  Note that the given equation is just $f(g(x))$ where $g(x):=(x-3b)/2a$.
+  Furthermore, we have $g(2a\alpha+3b)=2a\alpha/2a=\alpha$, so we have $f(g(2a\alpha+3b)) = f(\alpha) = 0$ by definition of $\alpha$.
+  Hence $2a\alpha+3b$ is a root of $f \circ g$ as desired.
+\end{proof}
+
+  Then this must be the minimal polynomial for $2a\alpha+3b$ since we assumed $f$ was irreducible, so to find $N_\Q^{\Q[\alpha]}(2a\alpha+3b)$ we just need to find the product of all its roots (since these roots are exactly the conjugates).
+  But note that after normalizing by the leading coefficient to make the polynomial monic, this is just the constant term of the resulting polynomial.
+  The leading coefficient is $1/8a^3$, and the constant term is $-27b^3/8a^3-3b/2+b$, so we conclude that $N_\Q^{\Q[\alpha]}(2a\alpha+3b) = -27b^3-12ba^3 + 8ba^3 = -27b^3-4ba^3$.
+
+\textbf{(c)} Show that $\disc(\alpha) = -(4a^3+27b^2)$
+
+\begin{proof}
+  By theorem 8, we have $\disc(\alpha) = N(f'(\alpha))$.
+  Then by part (a) we know $f'(\alpha) = -(2a\alpha + 3b)/\alpha$, so using multiplicativity of the norm, we have $\disc(\alpha) = -N(2a\alpha + 3b)/N(\alpha)$.
+  Furthermore, we know $N(\alpha) = b$ since $f$ is irreducible and monic, and plugging in this and the result of (b) gives $\disc(\alpha) = (-27b^3-4ba^3)/b = -(4a^3 + 27b^2)$ as desired.
+\end{proof}
+
+\textbf{(d)} Suppose $\alpha^3 = \alpha + 1$. Prove that $\{1,\alpha,\alpha^2}$ is an integral basis for $\mathbb{A} \cap \Q[\alpha]$.
+
+\begin{proof}
+  If $\alpha^3 = \alpha + 1$ then $\alpha$ is a root of $x^3 - x - 1$. This is irrudicible since it has no roots, so we can apply (c) to get $\disc(\alpha) = -23$.
+  Since this is squarefree, we can apply 27.e to get that $\{1,\alpha,\alpha^2\}$ is an integral basis.
+  If instead $\alpha^3 + \alpha = 1$, then $\alpha$ is instead a root of $x^3 + x - 1$, so $\disc(\alpha) = -31$, which is again squarefree so we have the same integral basis.
+\end{proof}
+
+
+\problem{2.37}
+Let $\alpha$ be an algebraic number of degree $n$ over $\Q$ and lef $f$ and $g$ be two polynomials over $\Q$, each of degree < $n$, such that $f(\alpha) = g(\alpha)$. Show that $f = g$.
+
+\begin{proof}
+  Since $f(\alpha) = g(\alpha)$, we have $(f - g)(\alpha) = 0$.
+  Furthermore, we have $deg(f-g) \le max\{deg(f),\ deg(g)\} < n$.
+  But $\alpha$ is of degree $n$, so it can't be a solution to a non-trivial polynomial of degree strictly less than $n$.
+  Therefore we conclude $f - g = 0$ and so finally $f = g$ as desired.
+\end{proof}
+
+
+
+
+\end{document}

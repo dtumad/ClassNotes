@@ -1,0 +1,53 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 10/21 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] How did the authors evaluate the validity of predicted scenarios and what are the results?
+
+  The authors used external evaluators to determine validity of the predicted scenarios, using 16 external people that had not been involved at all in the creation of the scenarios.
+  The first part of this was to do a comparison study, to test whether the system can generate routines that appear equally valid to real routines.
+  They found that over half of users rated all of the scenarios as strongly valid, and for the up/4-grams the generated scenarios did even better than the real ones.
+  This gives very positive results for the generated n-grams being similarly valid to real user scenarios.
+  Also the unnatural routines were often rated as invalid and sometimes even unsafe.
+  Additionally, a sequence generation study was performed.
+  The system still performed well enough in this case, even when evaluators provided history values that were not in the training data set.
+  
+\item [2] Describe three most important lessons your learnt from this paper regarding smart home.
+
+  Firstly, smart homes place significant importance on adaptiveness, to a much greater extent that I had realized, which creates many privacy concerns but can also allow for much greater privacy as well.
+  Secondly, the importance of trying to mitigate the functionality-privacy trade-off when designing smart home systems.
+  Finally I hadn't previously thought about the privacy concerns that come from collecting logging information from real smart-home systems.
+
+  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper discusses a language model system for generating realistic sequences of events in a smart-home system.
+These can be used both in desiging and testing a variety of sytems.
+The authors also use real trials to determine the validity of the designed system, and find that it is rated highly in comparison to manually created user scenarios.
+
+\subsection*{Potential follow-up work}
+
+One potential follow-up work would be finding a way to improve the sequence generation capabilities (as opposed to the total n-gram generation).
+The validity studies found that users were less in agreement about the correctness on this front, so it could be a good area of improvement.
+
+\end{document}

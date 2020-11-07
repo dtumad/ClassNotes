@@ -1,0 +1,39 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 10/14 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] CRLite has 5 design goals. How is each goal achieved? Briefly describe them.
+
+  Efficiency is acheived by minimizing the size of filter cascades with a bloom filter.
+  Timelessness is acheived by by having more up to date revocations for the users.
+  Privacy is acheived by not revealing any information about browser history.
+  Deployability is acheived by backword compatibility with other systems.
+  Auditability is acheived by use cryptographic logs that allow verification of the system by anyone that wants to check for errors.
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper discusses a new system called CRLite for keeping TLS revocations up to date in browsers.
+This alternative is meant to solve a number of different design issues that are lacking in other systems, as shown above.
+This is important because out-of-date certificate information can be abused by attackers to harm users.
+This is especially important because many browsers, and especially mobile and client applications, do not properly check for these revocations, making them vulnerable.
+
+\end{document}

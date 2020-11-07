@@ -1,0 +1,52 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 10/26 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] What is the attack being prevented by SAVIOR? Why is this so critical?
+
+  SAVIOR aims to prevent attacks wherein an attacker maliciously changes the readings of sensors to autonomous vehicles, in order to modify the vehicles behavior.
+  These attacks are very dangerous because they aren't prevented at all by traditional software security mechanisms, since the attack is on the physical properties themselves.
+  Solving this is critical as autonomous vehicles become more ubiquitous, since they can cause major damage if they receive bad signals.
+  
+\item [2] Do you think the detection of SAVIOR is practical?
+
+  The algorithm is likely to be very effective, since it should work whenever an attacker can't target all sensors at once.
+  This makes it much more difficult to attack the system, especially in advanced systems that have many different sensors and actuators.
+  It also works very well at preventing mixed signal attacks, where the attack works by giving sensor values with contradictory informations.
+  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper talks about a system called SAVIOR that is meant to prevent attacks on autonomous vehicles.
+It works by first calculating an off-line system of equations to represent the physical properties of the vehicle.
+From this it is able to compare actual and measured relationships between sensor values, and detect whether sensors have been maliciously attacked.
+
+\subsection*{Limitations of the paper}
+
+The paper could be improved by having more information about how different combinations of sensors and actuators could be more or less vulnerable.
+It could be interesting to look at which combinations are helped the most by using the SAVIOR system.
+
+\subsection*{Potential follow-up work}
+
+One follow-up would be to look at ways of mitigating attacks after they have been detected, or to detect possible real values of sensors based on the physical model.
+
+\end{document}

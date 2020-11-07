@@ -1,0 +1,50 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 10/28 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] What is the problem MPTEE addressing?
+
+  MPTEE is meant to provide flexible and efficient memory protection at a very low level.
+  The system is meant to fix some holes in the SGX system, such as the ability to modify the corresponding permissions.
+  
+\item [2] How can MPTEE uses only three registers to offer 6 permissions?
+
+  Different combinations of the three represent different permissions, allowing the effective number of permissions to be higher.
+  This type of permission reduction relies on the fact that the different registers are distinguished to give them an ordering, so that this additional structure can be exploited in creating the 6 possible permissions.
+  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper discusses a system for allowing permission changing memory protection through Intel SGX using a system called MPTEE.
+This is important because regular SGX1 does not support this and SGX2 is at risk of bypassing and abusing attacks if used natively without MPTEE.
+The system also maintains enforcement integrity through memory isolation and control-data integrity.
+Memory isolation works by saving code and permissions in an isolated region, and control data integrity prevents attackers from modifying return addresses and function pointers, to prevent attackers from searching around for the sensititve control data.
+
+\subsection*{Limitations of the paper}
+
+The paper does not spend much time looking at the differences between SGX1 and SGX2, although it does suggest that the differences don't make MPTEE obselete.
+
+\subsection*{Potential follow-up work}
+
+One potential follow-up might be to look at potential extensions that could be acheived with use of one or two additional registers (which would allow a significant number of extra permissions, as discussed above).
+
+\end{document}
