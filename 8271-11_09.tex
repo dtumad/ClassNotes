@@ -1,0 +1,60 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 11/09 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] Why do we need isolation against third-party libraries at all?
+
+  Third party libraries are a significant source of modern library vulnerabilities, especially after browsers began isolating different sources and renderers more to prevent other types of attacks.
+  Third party libraries are dangerous because developers often take less time to consider vulnerabilities coming from other people's code, and because the way these vulnerabilities affect the upstream code is very subtle.
+  It is also important because third party libraries may have different security policies, release processes, etc., that can make them more or less vulnerable than the applications that import them.
+  
+\item [2] How does RLBox leverage the C++ type system for isolation?
+
+  The first step is the creation of $\verb|Tainted<T>|$ types that are used to mark data that is destined for or coming from a third party library.
+  This wrapper can be used to ensure that safety checks are actually occurring because the type system will prevent use of wrapped types in situations where safe values are needed.
+  There is also some support for operators on tainted types, that simply defer the actual computation to the underlying types.
+  Embedding the checking into the code not only improves the quality of the checks, but it also means that the security is checked with every change or modification to the code.
+  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper generally focuses on the need for isolation of third-party libraries inside of browsers, and in particular focuses on the RLBox framework, which is designed to facilitate the process of retrofitting library isolation.
+RLBox works by acting as an interface between the renderer and sandbox in order to mediate and enforce security checks on data flowing between these layers.
+This allows the framework to track tainted data through program execution flow, and from this it is possible to identify security vulnerabilities such as data sanitization issues.
+Because it uses the native type system, it is also much less brittle and is more directly tied to the code than more traditional solutions to the issue.
+
+\subsection*{Limitations of the paper}
+
+The paper doesn't relate the work back to more general ideas about type systems very much, instead focusing a lot on specifics about the system and implementation into Firefox.
+The idea of using a wrapper type that forces developers to consider potential security effects is for example very similar to a $\verb|maybe|$ type that is used to explicitly separate out null pointers from other pointers in order to force developers to consider the implications.
+
+\subsection*{Solutions to the limitations}
+
+One possibility for this limitation would be to consider how this wrapper and associated types might be realized as a monad or another similar construct.
+This more general framework for understanding the system could also help make other analysis easier or more interesting as well.
+
+\subsection*{Potential follow-up work}
+
+One interesting follow-up work might be to consider greater automation possibilities and checking in the conversion between wrapped tainted types and non-tainted types.
+This conversion step offers a lot of opportunities for other types of security checks or more general checks, and systematically studying this to see how effective it is at solving different types of vulnerabilities could be very valuable.
+
+\end{document}
