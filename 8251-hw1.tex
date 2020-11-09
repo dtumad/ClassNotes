@@ -36,12 +36,12 @@ Show that every member of $\Q[\omega]$ is uniquely representable in the form $$a
   We need to show that $\{1, \omega, \dots, \omega^{p-2}\}$ is a $\Q$-basis for $\Q[\omega]$.
   
   To show that it is a spanning set, it suffices to show $\omega$ is a root of $f(t) = t^{p-1} + \dots + t + 1$, since then $\omega^{p-1} = -\omega^{p-2}-\dots-t-1$ and any power $\omega^m$ with $m \ge p - 1$ can be recursively reduced to a smaller power by substituting this equation.
-  But note that we have $\omega f(\omega) = 1 + \omega^{p-1} + \dots + \omega^2 + \omega = f(\omega)$, and $\omega \ne 1$, so we must have $f(\omega) = 0$ as desired.
+  But note that we have $\omega f(\omega) = 1 + \omega^{p-1} + \dots + \omega^2 + \omega = f(\omega)$, and $\omega \ne 1$, so we must have $f(\omega) = 0$, so $\omega$ is a root as desired.
 
-  Then to show the set is linearly independent, it suffices to show $f(t)$ is irreducible, since any nontrivial linear dependence among the $\{1, \omega, \dots, \omega^{p-2}\}$ defines a polynoial with $\omega$ as a root, of degree stricly less than $p-1$, which is then a nontrivial factor of $f(t)$.
-  Furthermore, it suffices to show $f(t+1)$ is irreducible, since $g(t) \mid f(t)$ iff $f(t+1) \mid g(t+1)$. Then note that $(t-1)f(t) = t^p - 1$, so that $f(t+1) = ((t+1)^p - 1) / t)$.
-  Applying the binomial thoerem, we see $f(t+1) = \sum_{n = 1}^p \binom{p}{n} t^{n-1}$.
-  But then all coefficients but the first coefficient are divisible by $p$, and the last coefficient is exactly $p$ which isn't divisible by $p^2$, so we can apply Eisenstein's criterion to get irreducibility as desired.
+  Then to show the set is linearly independent, it suffices to show $f(t)$ is irreducible, since any nontrivial linear dependence among the $\{1, \omega, \dots, \omega^{p-2}\}$ defines a polynomial with $\omega$ as a root, of degree strictly less than $p-1$, which is then a nontrivial factor of $f(t)$.
+  Equivalently, it suffices to show $f(t+1)$ is irreducible, since $g(t) \mid f(t)$ iff $f(t+1) \mid g(t+1)$. Then note that $(t-1)f(t) = t^p - 1$, so that $f(t+1) = ((t+1)^p - 1) / t)$.
+  Applying the binomial theorem, we see $f(t+1) = \sum_{n = 1}^p \binom{p}{n} t^{n-1}$.
+  But then all coefficients but the first coefficient are divisible by $p$, and the last coefficient is exactly $p$ which isn't divisible by $p^2$, so we can apply Eisenstein's criterion to get irreducibility, which is exactly what we needed.
 \end{proof}
 
   
@@ -49,23 +49,23 @@ Show that every member of $\Q[\omega]$ is uniquely representable in the form $$a
 Show that if $\alpha \in \Z[\omega]$ and $p \mid \alpha = \alpha_0 + \alpha_1\omega + \dots + \alpha_{p-2}\omega^{p-2}$, then all the $\alpha_i$ are divisible by $p$.
 
 \begin{proof}
-  If we have divisiblity, let $\beta$ be such that $p\beta = \alpha$.
-  Since irreducibility in $\Q[x]$ implies irreducibility in $\Z[x]$, the previous exercise also implies a similar representation for elements of $\Z[x]$.
+  Since we have $p \mid \alpha$, we can find $\beta$ such that $p\beta = \alpha$.
+  Since irreducibility in $\Q[x]$ implies irreducibility in $\Z[x]$, the problem 22 also implies a similar representation for elements of $\Z[x]$ in terms of powers of $\omega$.
   In particular, $\beta$ has a representation of the form $\beta = \beta_0 + \beta_1\omega + \dots + \beta_{p-2}\omega^{p-2}$ with $\beta_i \in \Z$.
   But then by the linear independence of the powers of $\omega$, we must have $\alpha_i = p\beta_i$, and we conclude that $p | \alpha_i$ for all $i$.
 \end{proof}
 
 \problem{2.4}
-Suppose $a_0, \dots, a_{n-1}$ are algebraic integers and $\alpha$ is a complex number satisfying $\alpha^n + a_{n-1}\alpha^{n-1} + \dots + a_0 = 0$. Show taht the ring $\Z[a_0, \dots, a_{n-1}, \alpha]$ has finitely generated additive group.
+Suppose $a_0, \dots, a_{n-1}$ are algebraic integers and $\alpha$ is a complex number satisfying $\alpha^n + a_{n-1}\alpha^{n-1} + \dots + a_0 = 0$. Show that the ring $\Z[a_0, \dots, a_{n-1}, \alpha]$ has finitely generated additive group.
 
 \begin{proof}
-  We know that elements of $\Z[a_0, \dots, a_{n-1}, \alpha]$ are finite $\Z$-linear combinations of products of the form $a_0^{k_0} \dots a_{n-1}^{k_{n-1}} \alpha^k$, so it suffices to show that only many of these products are independent.
+  We know that elements of $\Z[a_0, \dots, a_{n-1}, \alpha]$ are finite $\Z$-linear combinations of products of the form $a_0^{k_0} \dots a_{n-1}^{k_{n-1}} \alpha^k$, so it suffices to show that only finitely many of these products are independent.
   By assumption, we have $\alpha^n = -a_{n-1}\alpha^{n-1} - \dots - a_0$, so we can certainly reduce any term with a power of $\alpha$ greater than $n$ to a linear combination of terms with powers of $\alpha$ strictly less than $n$ by recursively substituting this equation (each substitution strictly reduces the maximal power of $\alpha$ so this process terminates).
 
-  But we also have that each $a_i$ is an algebraic integra, so there exists monic polynomials $p_i \in \Z[x]$ such that $p_i(a_i) = 0$ for all $i$.
+  But we also have that each $a_i$ is an algebraic integer, so there exists monic polynomials $p_i \in \Z[x]$ such that $p_i(a_i) = 0$ for all $i$.
   Each $p_i$ is monic, so is of the form $x^{deg(p_i)} + p'_i(x)$ where the trailing terms in $p'_i$ have degree strictly less than $deg(p_i)$.
   Hence we have $a_i^{deg(p_i)} = - p'_i(a_i)$, where each $p'_i(a_i)$ is a $\Z$-linear combination of powers of $a_i$, with each power of $a_i$ having degree less than $deg(p_i)$.
-  So again we can recursively substitute these values, and the process will again eventually terminate since each substituion strictly reduces the maximal degree of a power of $a_i$.
+  So again we can recursively substitute these values, and the process will again eventually terminate since each substitution strictly reduces the maximal degree of a power of $a_i$.
 
   Hence after all of the substitutions, we can write any element as a linear combination of terms of the form $a_0^{k_0} \dots a_{n-1}^{k_{n-1}} \alpha^k$, with $k_i < deg(p_i)$ and $k < n$, and so this forms a finite generating set as desired.
   Then since $\alpha \Z[a_0, \dots, a_{n-1}, \alpha] \subset \Z[a_0, \dots, a_{n-1}, \alpha]$, we finally conclude that $\alpha$ is an algebraic integer as well.
@@ -96,8 +96,8 @@ Show that if $m |\ r$ and $\varphi(r) \le \varphi(m)$ then $r = m$.
     = \varphi(r)
   \end{equation*}
   And we already had $\varphi(m) \ge \varphi(r)$, so we have in fact $\varphi(m) = \varphi(r)$.
-  But then looking at the above equation egain, we see that equality holds only if $d_i = 0$ for all $i$ and $\varphi(k) = 1$.
-  $\varphi(k) = 1$ implies $k = 1$, and then if we plug these values back into the oringal prime factorizations we see that they are now identical, and we conclude $r = m$ as desired.
+  But then looking at the above equation again, we see that equality holds only if $d_i = 0$ for all $i$ and $\varphi(k) = 1$.
+  $\varphi(k) = 1$ implies $k = 1$, and then if we plug these values back into the original prime factorizations we see that they are now identical, and we conclude $r = m$ as desired.
 \end{proof}
 
 
@@ -108,7 +108,7 @@ Show that for any algebraic number $\alpha$, there exists $m \in \Z$, $m \ne 0$,
   Let $\alpha$ be algebraic, and $p \in \Q[x]$ a witness to this, so $p(\alpha) = 0$.
   Clearing denominators on the coefficients of $p$, we can write $p = kf$, for some $f \in \Z[x]$ and $k \in \Q$.
   Note that $f(\alpha) = p(\alpha)/k = 0$, so $\alpha$ is a root of $f$.
-  Hence $0 = f(\alpha) = c_n\alpha^n + \dots + c_1\alpha + c_0$, where the coefficeients $c_i$ are all integers.
+  Hence $0 = f(\alpha) = c_n\alpha^n + \dots + c_1\alpha + c_0$, where the coefficients $c_i$ are all integers.
   We will show $c_n\alpha$ is integral ($c_n$ is non-zero since $p$, and hence $f$, is nontrivial).
   
   Multiplying the equation by $c_n^{n-1}$ we get:
@@ -155,14 +155,14 @@ Let $f(x) = x^3 + ax + b$, with $a,b \in \Z$ and assume $f$ is irreducible over 
 \textbf{(d)} Suppose $\alpha^3 = \alpha + 1$. Prove that $\{1,\alpha,\alpha^2\}$ is an integral basis for $\mathbb{A} \cap \Q[\alpha]$.
 
 \begin{proof}
-  If $\alpha^3 = \alpha + 1$ then $\alpha$ is a root of $x^3 - x - 1$. This is irrudicible since it has no roots, so we can apply (c) to get $\disc(\alpha) = -23$.
-  Since this is squarefree, we can apply 27.e to get that $\{1,\alpha,\alpha^2\}$ is an integral basis.
-  If instead $\alpha^3 + \alpha = 1$, then $\alpha$ is instead a root of $x^3 + x - 1$, so $\disc(\alpha) = -31$, which is again squarefree so we have the same integral basis.
+  If $\alpha^3 = \alpha + 1$ then $\alpha$ is a root of $x^3 - x - 1$. This is irreducible since it has no roots, so we can apply (c) to get $\disc(\alpha) = -23$.
+  Since this is square-free, we can apply 27.e to get that $\{1,\alpha,\alpha^2\}$ is an integral basis.
+  If instead $\alpha^3 + \alpha = 1$, then $\alpha$ is instead a root of $x^3 + x - 1$, so $\disc(\alpha) = -31$, which is again square-free so we have the same integral basis.
 \end{proof}
 
 
 \problem{2.37}
-Let $\alpha$ be an algebraic number of degree $n$ over $\Q$ and lef $f$ and $g$ be two polynomials over $\Q$, each of degree < $n$, such that $f(\alpha) = g(\alpha)$. Show that $f = g$.
+Let $\alpha$ be an algebraic number of degree $n$ over $\Q$ and let $f$ and $g$ be two polynomials over $\Q$, each of degree < $n$, such that $f(\alpha) = g(\alpha)$. Show that $f = g$.
 
 \begin{proof}
   Since $f(\alpha) = g(\alpha)$, we have $(f - g)(\alpha) = 0$.
@@ -217,7 +217,7 @@ Let $K$ and $L$ be number fields, $K \subset L$, $R := \mathbb{A} \cap K$, $S :=
 \textbf{(a)} Let $I$ and $J$ be ideals of $R$, and suppose $IS \mid JS$. Show $I \mid J$.
 
 \begin{proof}
-  Let $I = P_1P_2 \dots P_n$ be the prime factorization of $I$ in $R$ (The $P_i$ need not be distinct), and similarily let $J = Q_1Q_2 \dots Q_m$ be the prime factorization of $J$ in $R$.
+  Let $I = P_1P_2 \dots P_n$ be the prime factorization of $I$ in $R$ (The $P_i$ need not be distinct), and similarly let $J = Q_1Q_2 \dots Q_m$ be the prime factorization of $J$ in $R$.
   We need to show that each $P_i$ corresponds to some $Q_k$.
   When we move to $S$, each factor $P_iS$ will split into a further prime ideals, which must all appear in the prime factorization of $JS$ since $IS \mid JS$.
   But by uniqueness of prime factorization, the factors of $P_iS$ must all come from the same $Q_jS$ factor of $JS$, since otherwise we would get a distinct representation of $J$ as a product of prime ideals, even though we know this representation is unique.
@@ -281,7 +281,7 @@ Let $R$ be a commutative ring, $I$ an ideal; for each $f \in R[x]$, let $\bar f$
 
 \begin{proof}
   We have $\bar g \mid \bar f$ iff $\bar{gh} = \bar g \bar h = \bar f$ for some $\bar h \in (R/I)[x]$.
-  By definion of equality in the quotient, this happens iff $f - gh \in I[x]$, or equivalently iff $f = gh + k$ for some $k \in I[x]$.
+  By definition of equality in the quotient, this happens iff $f - gh \in I[x]$, or equivalently iff $f = gh + k$ for some $k \in I[x]$.
   But then altogether this happens iff $f \in (g, I)$ since elements of $(g,I)$ are linear combinations of $g$ and an element of $I$, which is exactly what we wanted to show.
 \end{proof}
 
