@@ -39,14 +39,14 @@ Show that every member of $\Q[\omega]$ is uniquely representable in the form $$a
   But note that we have $\omega f(\omega) = 1 + \omega^{p-1} + \dots + \omega^2 + \omega = f(\omega)$, and $\omega \ne 1$, so we must have $f(\omega) = 0$ as desired.
 
   Then to show the set is linearly independent, it suffices to show $f(t)$ is irreducible, since any nontrivial linear dependence among the $\{1, \omega, \dots, \omega^{p-2}\}$ defines a polynoial with $\omega$ as a root, of degree stricly less than $p-1$, which is then a nontrivial factor of $f(t)$.
-  Furthermore, it suffices to show $f(t+1)$ is irreducible, since $g(t) |\ f(t)$ iff $f(t+1) |\ g(t+1)$. Then note that $(t-1)f(t) = t^p - 1$, so that $f(t+1) = ((t+1)^p - 1) / t)$.
+  Furthermore, it suffices to show $f(t+1)$ is irreducible, since $g(t) \mid f(t)$ iff $f(t+1) \mid g(t+1)$. Then note that $(t-1)f(t) = t^p - 1$, so that $f(t+1) = ((t+1)^p - 1) / t)$.
   Applying the binomial thoerem, we see $f(t+1) = \sum_{n = 1}^p \binom{p}{n} t^{n-1}$.
   But then all coefficients but the first coefficient are divisible by $p$, and the last coefficient is exactly $p$ which isn't divisible by $p^2$, so we can apply Eisenstein's criterion to get irreducibility as desired.
 \end{proof}
 
   
 \problem{1.22}
-Show that if $\alpha \in \Z[\omega]$ and $p |\ \alpha = \alpha_0 + \alpha_1\omega + \dots + \alpha_{p-2}\omega^{p-2}$, then all the $\alpha_i$ are divisible by $p$.
+Show that if $\alpha \in \Z[\omega]$ and $p \mid \alpha = \alpha_0 + \alpha_1\omega + \dots + \alpha_{p-2}\omega^{p-2}$, then all the $\alpha_i$ are divisible by $p$.
 
 \begin{proof}
   If we have divisiblity, let $\beta$ be such that $p\beta = \alpha$.
@@ -152,7 +152,7 @@ Let $f(x) = x^3 + ax + b$, with $a,b \in \Z$ and assume $f$ is irreducible over 
   Furthermore, we know $N(\alpha) = b$ since $f$ is irreducible and monic, and plugging in this and the result of (b) gives $\disc(\alpha) = (-27b^3-4ba^3)/b = -(4a^3 + 27b^2)$ as desired.
 \end{proof}
 
-\textbf{(d)} Suppose $\alpha^3 = \alpha + 1$. Prove that $\{1,\alpha,\alpha^2}$ is an integral basis for $\mathbb{A} \cap \Q[\alpha]$.
+\textbf{(d)} Suppose $\alpha^3 = \alpha + 1$. Prove that $\{1,\alpha,\alpha^2\}$ is an integral basis for $\mathbb{A} \cap \Q[\alpha]$.
 
 \begin{proof}
   If $\alpha^3 = \alpha + 1$ then $\alpha$ is a root of $x^3 - x - 1$. This is irrudicible since it has no roots, so we can apply (c) to get $\disc(\alpha) = -23$.
@@ -172,6 +172,129 @@ Let $\alpha$ be an algebraic number of degree $n$ over $\Q$ and lef $f$ and $g$ 
 \end{proof}
 
 
+\problem{3.2}
+Show that any finite integral domain is a field
+
+\begin{proof}
+  Let $R$ be a finite integral domain and let $x \in R$ be non-zero.
+  Consider the sequence of elements $x^1, x^2, x^3, \dots$.
+  Since $R$ is finite, this must eventually repeat, so eventually we have $x^n = x^{n + k}$ for some $k > 0$.
+  Hence $x^n * 1 = x^n * x^k$, and since $R$ is an integral domain we can cancel the $x^n$ to get $1 = x^k$ ($x^n$ is non-zero since $x$ is non-zero).
+  Finally then $x * x^{k-1} = 1$, and since each element has an inverse we conclude $R$ is a field.
+\end{proof}
+
+
+\problem{3.3}
+Let $G$ be a free abelian group of rank $n$, with additive notation. Show that for any $m \in \Z$, $G/mG$ is the direct sum of $n$ cyclic groups of order $m$
+
+\begin{proof}
+  Since $G$ is free abelian of rank $n$, we have $G \cong \Z^n$, and so $G/mG \cong \Z^n / m \Z^n$, and we just need to show that $\Z^n / m \Z^n \cong (\Z/m\Z)^n$.
+  We have a surjection $\varphi$ from $\Z^n$ to $(\Z/m\Z)^n$ defined by the sum of the surjective projection maps in each coordinate.
+  By the first isomorphism theorem then $\Z^n / \ker \varphi \cong (\Z/m\Z)^n$, and so it suffices to check $\ker \varphi = m \Z^n$.
+  But note that $\varphi(x) = 0$, iff every entry in $x$ must be divisible by $m$, and so iff $x$ is an element of $m\Z^n$, as desired.
+\end{proof}
+
+
+\problem{3.7}
+Show that if $I$ and $J$ are ideals in a commutative ring $R$ such that $1 \in I + J$, then $1 \in I^m + J^n$ for all $m,n$.
+
+\begin{proof}
+  Since $1 \in I + J$, we must have an expression $1 = \alpha + \beta$, with $\alpha \in I$ and $\beta \in J$.
+  Then for any fixed $m$ and $n$, we have:
+  \begin{align*}
+    1 = 1^{m + n}
+    &= (\alpha + \beta)^{m + n} \\
+    &= \alpha^{m+n} + \dots + c_{m+1}\alpha^{m+1}\beta^{n-1} +  c_{m}\alpha^m\beta^n + \dots + \beta^{m+n} \\
+    &= \alpha^m (\alpha^n + \dots + c_{m+1}\alpha^{1}\beta^{n-1}) + \beta^n (c_{m}\alpha^m + \dots + \beta^{m})    
+  \end{align*}
+  Where the $c_i = \binom{n+m}{i}$. 
+  Therefore we see that $1$ is a linear combination of $\alpha^m \in I^m$ and $\beta^n \in I^n$, and so $1 \in I^m + J^n$ as desired.
+\end{proof}
+
+
+\problem{3.9}
+Let $K$ and $L$ be number fields, $K \subset L$, $R := \mathbb{A} \cap K$, $S := \mathbb{A} \cap L$
+\textbf{(a)} Let $I$ and $J$ be ideals of $R$, and suppose $IS \mid JS$. Show $I \mid J$.
+
+\begin{proof}
+  Let $I = P_1P_2 \dots P_n$ be the prime factorization of $I$ in $R$ (The $P_i$ need not be distinct), and similarily let $J = Q_1Q_2 \dots Q_m$ be the prime factorization of $J$ in $R$.
+  We need to show that each $P_i$ corresponds to some $Q_k$.
+  When we move to $S$, each factor $P_iS$ will split into a further prime ideals, which must all appear in the prime factorization of $JS$ since $IS \mid JS$.
+  But by uniqueness of prime factorization, the factors of $P_iS$ must all come from the same $Q_jS$ factor of $JS$, since otherwise we would get a distinct representation of $J$ as a product of prime ideals, even though we know this representation is unique.
+  Therefore since each $P_i$ has a corresponding $Q_j$ with identical factors in $S$, we conclude that $I \mid J$.  
+\end{proof}
+
+\textbf{(b)} Show that for any ideal $I$ in $R$, we have $I = IS \cap R$.
+
+\begin{proof}
+  Certainly we have $I \subseteq IS \cap R$, since for any $x \in I$ we have $x = x*1 \in IS$ and $x \in R$.
+  Then for the other inclusion $IS \cap R \subseteq I$, it suffices by theorem 19 to show $I \mid IS \cap R$, and so by part (a) it suffices to show $IS \mid (IS \cap R)S$.
+  But then by theorem 19 again, it suffices to show $IS \cap R \mid IS \cap R$, which is trivially true, so we're done.
+\end{proof}
+
+\textbf{(c)} Characterize those ideals $I$ of $S$ such that $I = (I \cap R)S$.
+
+\begin{proof}
+  First, we always have $(I \cap R)S \subseteq I$, since by theorem 19 this is equivalent to $I \cap R = I \cap R$, which is clearly true.
+  Therefore we just need to characterize the ideals such that $I \subseteq (I \cap R)S$.
+  This is exactly the ideals of $S$ where every element of $I$ is a finite $S$-linear combination of elements of $R$.
+  This certainly includes the ideals that are images of ideals in $R$, so includes all ideals of the form $IS$ for $I$ an ideal of $R$.
+  But it also can't include any more ideals, since it always suffices to find just a finite set of generators, because for any infinite generating set we can find a basis by viewing the ideal as an $R$-submodule.
+  Therefore this is an exact characterization of these ideals.
+\end{proof}
+
+
+\problem{3.16}
+Let $K$ and $L$ be number fields, $K \subset L$, $R = \mathbb{A} \cap K$, $S = \mathbb{A} \cap L$. Denote by $G(R)$ and $G(S)$ the ideal class groups of $R$ and $S$, respectively.
+
+\textbf{(a)} Show that there is a homomorphism $G(S) \rightarrow G(R)$ defined by taking any $I$ in a given class $C$ and sending $C$ to the class containing $N_K^L(I)$.
+
+\begin{proof}
+  First, $N_K^L$ is multiplicative and sends principle ideals to principle ideals, by problem 15.
+  Therefore we need to only check that this is a well defined function on the quotient.
+  So let $I$ and $J$ be members of the same ideal class, so $\alpha I = \beta J$ for some $\alpha, \beta$.
+  Applying norms to both sides we have $N_K^L(\alpha I) = N_K^L(\beta J)$.
+  But then by the properties of $N_K^L$ established in problem 15, we have $(N_K^L(\alpha) N_K^L(I) = (N_K^L(\beta)) N_K^L(J)$, so the images of $I$ and $J$ lie in the same ideal class as well, and the function is indeed well defined.
+\end{proof}
+
+\textbf{(b)} Let $Q$ be a prime of $S$ lying over a prime $P$ or $R$. Let $d_Q$ denote the order of the class containing $Q$ in $G(S)$, $d_P$ the order of the class containing $P$ in $G(R)$. Prove that $d_P \mid d_Q f(Q|P)$.
+
+\begin{proof}
+  First, by definition of the ideal norm we have $N_K^L(Q) = P^{f(Q|P)}$.
+  We need to show that $d_P \mid d_Q f(Q|P)$, and it suffices to show $d_P/d_Q = k f(Q|P)$ for some $k$.
+  But by part (a) the ideals in a given ideal class in $K$ in have a density of at most $f(Q|P)$ in the corresponding ideal class in $L$, so this holds and we're done.
+\end{proof}
+
+
+\problem{3.25}
+Let $R$ be a commutative ring, $I$ an ideal; for each $f \in R[x]$, let $\bar f$ denote the image of $f$ under the homomorphism $R \rightarrow (R/I)[x]$.
+
+\textbf{(a)} Show that $\bar f = \bar g$ iff $f - g \in I[x]$.
+
+\begin{proof}
+  Let $f_i$ and $g_i$ denote the $i$th coefficient of the respective polynomial.
+  Then polynomials are determined uniquely by their coefficients, so $\bar f = \bar g$ iff $\bar f_i = \bar g_i$ for all $i$, where the quotient is now taken in just $R/I$.
+  But then equality in the quotient implies that $\bar f_i = \bar g_i$ if and only if $f_i - g_i \in I$ for all $i$, which then implies that $f - g \in I[x]$, since all of its coefficients are in $I$, so we are done.
+\end{proof}
+
+\textbf{(b)} Show that $\bar g \mid \bar f$ iff $f \in (I,g)$.
+
+\begin{proof}
+  We have $\bar g \mid \bar f$ iff $\bar{gh} = \bar g \bar h = \bar f$ for some $\bar h \in (R/I)[x]$.
+  By definion of equality in the quotient, this happens iff $f - gh \in I[x]$, or equivalently iff $f = gh + k$ for some $k \in I[x]$.
+  But then altogether this happens iff $f \in (g, I)$ since elements of $(g,I)$ are linear combinations of $g$ and an element of $I$, which is exactly what we wanted to show.
+\end{proof}
+
+\textbf{(c)} Show that $R[x]/(I,g)$ is isomorphic to $(R/I)[x]/(\bar g)$.
+
+\begin{proof}
+  Define $\varphi : R[x] \rightarrow (R/I)[x]/(\bar g)$ to be the composition of the two corresponding projection functions to the quotient.
+  This is a surjective ring homomorphism, since it is the composition of projections which are both surjective.
+  So by the first isomorphism theorem, we have $R[x]/(\ker \varphi) \cong (R/I)[x]/(\bar g)$, and so it suffices for us to show $\ker \varphi = (I,g)$.
+
+  Then we have $f \in \ker \varphi$ iff $\bar f \in (\bar g)$, and therefore iff $\bar g \mid \bar f$. But then by (b) this happens iff $f \in (I,g)$.
+  Hence we conclude $\ker \varphi = (I, g)$, which is what we needed to show.
+\end{proof}
 
 
 \end{document}
