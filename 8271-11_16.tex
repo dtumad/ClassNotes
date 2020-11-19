@@ -1,0 +1,58 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 ?/? Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] What are the major findings of this study?
+
+  The survery found persisting vulnerabilites at all three stages, including generation, storage, and autofilling.
+  At the generation stage, they analyzed the randomness of psuedorandom password generation used by the different password managers, and found that password strenght varied greatly and was especially affected by the settings used to generate the passwords.
+  In particular, settings requiring that passwords require characters from a number of different character sets could influence the distributions very noticibly.
+  They also found that some password generators would occasionally randomly generate weak passwords.
+  This is expected if passwords are totally random, but is undesired behaviour on an individual level.
+
+  The main issue identified at the storage level seems to be the lack of uniformity across browsers and operating systems.
+  While the dedicated password management systems used a combination of AES encryption and a key derivation function to store and encrypt passwords, the browser based managers were comparitively less secure, especially depending on the operating system, since they mostly rely on the operating system to provide encyrption and storage of passwords.
+
+  The autofilling functionality had the most potential attack vectors, and they found that many previously identified vulnerabilites still exist in a number of the password managers.
+  There are a large number of scenarios under which password managers should not fill a form, such as forms from different origins and forms originating from incorrect https certificates.
+  The study found that most password managers had a number of situations handled improperly, suggesting that while there has been improvement in the area, there are still areas that need improvement in order to protect users.
+  
+\item [2] Would you use a password manager and why?
+
+  I personally use browser password managers for a large number of sites, mainly for storage and autofilling, rarely for password generation.
+  Personally I feel the ease of use of the password manager outweighs the potential issues, especially since most of my passwords are for sites that I don't care very much about at all.
+  I also tend not to auto-generate passwords since then I won't be able to access the site from a different machine that doesn't have the same password managers.
+  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper is a survey of the current state of password managers, looking at how they have addressed specific vulnerabilities that have been identified in previous work.
+The paper considers vulnerabilites at all levels, from password generation to storage to autofilling.
+At each of these levels, they identify improvements since prior work, as well as continuing vulnerabilites.
+
+\subsection*{Potential follow-up work}
+
+One potential area for password managers to improve on could be avoiding individually insecure randomly generated passwords.
+The paper suggests that while passwords are generated fairly randomly by password generators, this can give individually weak passwords sometimes due to random chance.
+It might be interesting to look at the entropy of character distributions within an individual password, and attempt to reject passwords that don't exhibit sufficient randomness.
+
+\end{document}

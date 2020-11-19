@@ -1,0 +1,56 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 11/18 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] What are the major findings of this study?
+
+  The major findings are that most phishing campaigns are short-lived (on average 21 hours), and have on average a 7.4\% conversion rate, which while low is very much non-negligible.
+  Furthermore, a small collection of highly successful campaigns account for a very large portion (89\%) of affected victims.
+  They also found that many of these highly successful campaigns were able to circumvent mitigations in the ecosystems for long periods of time, even up to as long as nine months.
+  This suggests that more mitigation effort should include proactive detection of sophisticated websites that attempt to evade existing browser-based warning systems.
+  Another major finding is that there is a large window before the first victim of a phishing attack reports a website, on average 9 hours after the website begins receiving traffic from potential victims, suggesting that user-reports are a sub-optimal method of attack detection.
+  
+\item [2] What would you recommend to improve the phishing ecosystem?
+
+  I think one way to help combat these types of attacks is generally increasing on-line literacy, in order to help people better protect themselves from these types of attacks.
+  The fact that most attacks are only able to compromise less than 10\% of visitors suggests that many visitors are able to effectively identify phishing attacks on websites they visit, and so helping others develop this same ability to identify fraudulent websites could be one major way to prevent attacks.
+
+  Another suggestion might be to promote two-factor authentication or biometric authentication, as these technologies would make people less vulnerable to attacks even if a password is compromised.
+  This way even if a person is affected by a phishing attack, they will not experience as much harm since their accounts have another layer of protection. 
+  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Limitations of the paper}
+
+One major limitation is that the research is tied to the traffic of one particular organization, which could skew the findings depending on what types of attackers are interested in compromising this organization.
+There could also be a bias in the results depending on the demographics of the members of this organization, as people with jobs like software engineering are likely more computer literate and able to protect themselves from these types of attacks.
+
+\subsection*{Solutions to the limitations}
+
+The simplest solution is to apply the Golden Hour analysis system to other organization and ecosystems in order to compare the findings to that of this paper.
+This could even provide an interesting line of future work for researchers in the area to pursue.
+
+\subsection*{Potential follow-up work}
+
+Another interesting piece of follow-up work would be an in depth analysis of the victims of phishing attacks to better understand which types of people and users are most at risk of falling victim to a phishing attack.
+This understanding could help mitigation efforts target the most at risk users in order to prevent these users from falling victim to attacks.
+
+\end{document}

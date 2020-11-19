@@ -1,0 +1,159 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+\newcommand{\disc}{\text{disc}}
+\newcommand{\legendre}[2]{\genfrac{(}{)}{}{}{#1}{#2}}
+
+\DeclareMathOperator{\Gal}{Gal}
+
+\title{8251 HW2}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\problem{4.4}
+
+\subproblem{a}
+\begin{proof}
+  Let $b = \prod_i p_i^{r_i}$ be a prime factorization of $b$, and assume $(a,b) = (a',b) = 1$. Then by considering prime factorizations $a$ and $a'$ are not divisible by any of the $p_i$. Therefore we can use the result of 4.3.(a) to get:
+  \begin{equation*}
+    \legendre{aa'}{b} = \legendre{aa'}{\prod_i p_i^{r_i}}
+    = \prod_i \legendre{aa'}{p_i}^{r_i}
+    = \prod_i \legendre{a}{p_i}^{r_i} \legendre{a'}{p_i}^{r_i}
+    = \prod_i \legendre{a}{p_i}^{r_i} \prod_i \legendre{a'}{p_i}^{r_i}
+    = \legendre{a}{\prod_i p_i^{r_i}} \legendre{a'}{\prod_i p_i^{r_i}}
+    = \legendre{a}{b} \legendre{a'}{b}
+  \end{equation*}
+  If we then let $b' = \prod_j q_j^{s_j}$ be a prime factorization of $b'$, and further assume $(a,b') = 1$, then using the definitions we get:
+  \begin{equation*}
+    \legendre{a}{bb'} = \legendre{a}{\prod_i p_i^{r_i} \prod_j q_j^{s_j}}
+    = \prod_i \legendre{a}{p_i}^{r_i} \prod_j \legendre{a}{q_j}^{s_j}
+    = \legendre{a}{\prod_i p_i^{r_i}} \legendre {a}{\prod_j q_j^{s_j}}
+    = \legendre{a}{b} \legendre{a}{b'}
+  \end{equation*}
+\end{proof}
+
+\subproblem{b}
+\begin{proof}
+  Since $a \equiv a' \pmod b$, we also have $a \equiv a' \pmod p_i$ for each prime factor $p_i$ of $b$. Therefore $\legendre{a}{p_i} = \legendre{a'}{p_i}$ for each prime factor of $b$ since the Legendre symbol is defined by a property of the reduction modulo $p_i$. Therefore we get
+  \begin{equation*}
+    \legendre{a}{b} = \legendre{a}{\prod_i p_i^{r_i}}
+    = \prod_i \legendre{a}{p_i}^{r_i}
+    = \prod_i \legendre{a'}{p_i}^{r_i}
+    = \legendre{a'}{\prod_i p_i^{r_i}}
+    = \legendre{a'}{b}
+  \end{equation*}
+\end{proof}
+
+\subproblem{c}
+\begin{proof}
+  We already saw that this identity holds in the special case where $b$ is a prime and this is the Legendre sybmol (problem 4.3.(a)).
+  Hence by the multiplicative definition of the Jacobi symbol, $\legendre{-1}{b} = 1$ if and only if an even number of prime factors of $b$ (with multiplicity) are congruent to $-1$ modulo $4$.
+  But $b$ having an even number of factors being contgruent to $-1$ is exactly equivalent to $b$ itself being equivalent to $1$ modulo $4$.
+  So we conclude $\legendre{-1}{b} = 1$ if $b \equiv 1 \pmod 4$ and is $-1$ otherwise, as desired.
+\end{proof}
+
+\subproblem{d}
+\begin{proof}
+  Again we know that this formula holds in the special case where $b$ is a prime and this is the Legendre symbol by the quadratic reciprocity law, so by the multiplicative definition of the Jacobi symbol, $\legendre{2}{b} = 1$ if an even number of prime factors of $b$ (with multiplicity) are congruent to $\pm 3$ modulo $8$.
+  But note that $3^2 \equiv (-3)^2 \equiv 1 \pmod 8$ and $-3 * 3 \equiv 3 * -3 \equiv -1 \pmod 8$, so having an even number of factors being congruent to $\pm 3$ is exactly equivalent to $b$ itself being equivalent to $\pm 1$ module $8$.
+  So we conclude $\legendre{2}{b} = 1$ if $b \equiv \pm 1 \pmod 8$ and is $-1$ otherwise, as desired.
+\end{proof}
+
+\subproblem{e}
+\begin{proof}
+  Again, assume $(a,b) = 1$ so that $\legendre{a}{b}$ is well defined. Then using part (a) we get the following identity (up to a yet to be determined sign):
+  \begin{equation*}
+    \legendre{a}{b} = \legendre{a}{\prod_i p_i^{r_i}}
+    = \prod_i \legendre{a}{p_i}^{r_i}
+    = \stackrel{?}{\pm} \prod_i \legendre{p_i}{a}^{r_i}
+    = \stackrel{?}{\pm} \legendre{\prod_i p_i^{r_i}}{a}
+    = \stackrel{?}{\pm} \legendre{b}{a}
+  \end{equation*}
+  where the final sign is $-1$ if and only if $a \equiv -1 \pmod 4$ and an odd number of the $p_i$ (with multiplicity) are equivalent to $-1 \pmod 4$.
+  But having an odd number of factors congruent to $-1$ is equivelent to $b$ being congruent to $-1$ itself, so we conclude that the final sign is $-1$ iff $a \equiv b \equiv -1 \pmod 4$, exactly as desired. 
+\end{proof}
+
+\subproblem{f}
+\begin{proof}
+  using the previously proved identities:
+  \begin{align*}
+    \legendre{2413}{4903}
+    = \legendre{4903}{2413} \text{ by (e)} 
+    &= \legendre{77}{2413} \text{ by (b)} 
+    = \legendre{26}{77} \text{ by (e) and (b)}
+    = \legendre{2}{77} \legendre{13}{77} \text{ by (a)} 
+    = - \legendre{13}{77} \text{ by (d)} \\
+    &= - \legendre{12}{13} \text{ by (e) and (b)} 
+    = - \legendre{3}{13} \text{ by (a) and (d)} 
+    = - \legendre{1}{3} \text{ by (e) and (b)} 
+    = -1
+  \end{align*}
+\end{proof}
+
+
+\problem{4.15}
+Let $F$ be any field. Show that distinct automorphisms $\sigma_1, \dots \sigma_n$ of $F$ are always linearly independent over $F$.
+
+\begin{proof}
+  Assume for contradiction we have a linear dependence $a_1\sigma_1 + \dots a_n\sigma_n = 0$, with $a_i \in F$ not zero, and further assume $n$ is minimial such that this happens.
+  Since the $\sigma_i$ are distinct, there exists some $x \in F$ with $\sigma_1(x) \ne \sigma_n(x)$.
+  Then we have pointwise equality between $\sum_i a_i \sigma_i(x) \sigma_i$ and the zero automorphism, since for every $y \in F$ we have:
+  \begin{equation*}
+    \parens*{\sum_i a_i \sigma_i(x) \sigma_i}(y)
+    = \sum_i a_i \sigma_i(x) \sigma_i(y)
+    = \sum_i a_i \sigma_i(xy)
+    = \parens*{\sum_i a_i \sigma_i}(xy)
+  \end{equation*}
+  And so we have $\sum_i a_i \sigma_i(x) \sigma_i = 0$.
+  But we also have $\sum_i a_i \sigma_1(x) \sigma_i = \sigma_1(x) \sum_i a_i \sigma_i = 0$, and subtracting these two gives $\sum_{i \ne 1} a_i (\sigma_i - \sigma_1)(x) \sigma_i = 0$.
+  But then note that $(\sigma_n - \sigma_1)(x) \ne 0$ by our choice of $x$ so this is a new nontrivial linear dependence, so this contradicts the assumption that $n$ is minimal.
+  Therefore we conclude that the $\sigma_i$ are in fact linearly independent.
+\end{proof}
+
+
+\problem{29}
+Show that if $K$ and $L$ are both abelian extensions of $\Q$ then so is $KL$.
+
+\begin{proof}
+  It suffices to show that the galois group $\Gal(KL/\Q)$ can be embedded in the direct product $\Gal(K/\Q) \times \Gal(L/\Q)$, since the direct product of Abelian groups is Abelian.
+  Since both $K$ and $L$ are contained in the compositum $KL$, we can define a map $\varphi : Gal(KL/\Q) \rightarrow \Gal(K/\Q) \times \Gal(L/\Q)$ by restriction $\sigma \mapsto (\sigma|_K, \sigma|_L)$.
+  This is clearly a group homomorphism, since the sum of restrictions is the restriction of sums, and the identity map restricts to the identity map, so we need only check that this map is injective.
+
+  But every element of $KL$ can be expressed as combination of sums, products, and inverses of elements in $K$ and $L$, so any automorphism that is the identity on both $K$ and $L$ is also the identity on $KL$.
+  Therefore if both the restrictions $\sigma|_K$ and $\sigma|_L$ are the identity, we also have that $\sigma$ is the identity.
+  Hence $\ker \varphi$ is trivial, and $\varphi$ is an embedding, completing the proof.
+\end{proof}
+
+
+\problem{30}
+Show that every abelian extension of $\Q$ is the composition of abelian extensions of prime power degree.
+
+\begin{proof}
+  Let $K$ be an abelian extension of $\Q$ and $G = \Gal(K/\Q)$ its Galois group.
+  Since $K$ is an abelian extension, $G$ is a finite Abelian group, and we can write $G = \prod_i (\Z/p_i\Z)^{r_i}$ for some primes $p_i$ by the fundamental theorem of finite Abelian groups.
+  Then consider the following sequence of inclusions of Abelian groups:
+  \begin{equation*}
+    0 \xhookrightarrow{} (\Z/p_1\Z)^{r_1}
+    \xhookrightarrow{} (\Z/p_1\Z)^{r_1} \times (\Z/p_2\Z)^{r_2}
+    \xhookrightarrow{} \dots \xhookrightarrow{}
+    \prod_i (\Z/p_i\Z)^{r_i} = G    
+  \end{equation*}
+  By the fundamental theorem of Galois theory this corresponds to a sequence of field extensions:
+  \begin{equation*}
+    \Q \rightarrow{} K_1 \rightarrow{} K_2 \rightarrow{} \dots
+    \rightarrow{} K
+  \end{equation*}
+  where the degree of each extension is exactly the index of the corresponding Galois group.
+  But each of the extensions of the Galois groups was of prime power index by construction, so all these extensions are of prime power degree as well, and so we are done.
+\end{proof}
+
+\end{document}
