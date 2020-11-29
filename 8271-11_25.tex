@@ -1,0 +1,48 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 11/25 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] What is DP and why is it an important property?
+
+  Differential privacy is a property of an algorithm where changing one data point in the input will not drastically affect the resulting output value.
+  Intuitively, a small change in the input leads to a small change in the distribution of outputs (mirroring the mathematical ideas of continuous / differentiable functions).
+  More formally, DP is defined in terms of the probability of the algorithm returning the same value if a single input variable is changed.
+  This is an important property because if provides privacy gauntnesses in situations like a survey where data needs to be collected at some level, but participants would like to maintain privacy.
+  
+\item [2] Identify several important scenarios where DP can be applied to.
+
+  One significant use case is surveys and censuses where an organization would like to aggregate data from some population and publish it, without leaking significant information about any individual person surveyed.
+  For example, a survey releasing the total profits from bakeries in a town would leak information if the town has only one bakery.
+  Another important use case could be medical records, which need to be kept private, while also giving the public and health officials sufficient aggregated data to make informed decisions about their health.
+  Similarly medical or psychological studies would like to avoid leaking information about participated in the study.
+
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper discusses the concept of differential privacy, and provides a new foundation with which to understand and utilize the concept.
+The re-framing of the definition aims to solve an issue in previous literature where various writers disagreed on the exact assumptions and gauntnesses of differential privacy.
+
+\subsection*{Potential follow-up work}
+
+Because differential privacy has been applied to such a wide variety of areas outside the most direct use cases (such as fairness and statistical validity), it could be an interesting future work to look at how this reformulation might apply differently in those situations, or if there is no significant changes needed. 
+
+\end{document}
