@@ -1,0 +1,57 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 12/07 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] What are evasion attacks in ML?
+
+  Evasion attacks are when an adversary modifies an input value in some way in order to avoid detection by ML algorithms.
+  In general such an attack attempts to change non-functional parts of the input so that the input could still act maliciously in some way.
+  Usually it is assumed that the attacker has access to the learned model as an oracle, and can query against it when attempting to modify the input value.
+  The formal modeling of this can either involve a transformation $\phi$ from the input entities to feature vectors in which they attempt transform the input entity, or as a direct transformation of the feature vector in which they attempt to transform the vector while minimizing some cost function.
+  
+\item [2] How does the paper validate the robustness of ML approaches?
+
+  The paper first models attacks and defenses as optimization problems, where the defender attempts to maximize the cost function for the attacker across the possible attack strategies.
+  This allows them to simultaneously model the attackers response to any of the possible defense strategies.
+  They then validate by using an arbitrary attack model as a proxy for any realizable attack, computing an optimal classifier for this particular realization, and comparing to the defense given by just retraining against the given model.
+  They also validate generalization by running against a collection of proxies instead, each using the classifier trained against the single attack model.
+  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper focuses on investigating ways to prevent evasion attacks against machine learning models, and presents an approach to choosing the feature space that can help make ML approaches more robust and attack resistant.
+They first evaluate models of evasion attacks in the context of PDF malware detection, and demonstrate that the chosen feature space has large impacts on the robustness.
+They then present a way to increase robustness via the use of what they call \textit{Conserved Features} that are more difficult to change without affecting the underlying malicious functionality.
+Finally they examine different methods of model hardening and show that they provide drastically different degrees of attack protection and robustness.
+
+\subsection*{Limitations of the paper}
+
+The paper limits its focus to iterative retraining in order to ensure that the method is applicable to all situations, which provides high generality but potentially misses other effective approaches that apply to only select situations.
+It also focuses specifically on PDF malware detection, although it tries to keep the approach general enough that it can be adapted to other situations as well.
+Both limitations can be worked around in practice by adapting the approach, but until that has been done it may be difficult to apply the paper's results to some practical situations with full confidence.
+
+\subsection*{Potential follow-up work}
+
+A survey of the real world attacks that are most common in practice may be useful, in order to provide another area to evaluate defenses against.
+In particular, it might be that realizable attacks only encompass some specific subset of attacks that can be better defended against than the more general context, in which case a more specific approach may prove more effective.
+
+\end{document}
