@@ -1,0 +1,54 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 11/30 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] What are the major findings regarding attacks?
+
+  The first major finding was the prevalence of airdrop hunting, which is a new type of adversarial attack on contracts (accounting for 93.5\% of identified attacks).
+  Another finding was a gradual shift in attack types over time, from reentrency and call injection in early years to airdrop hunting and integer overflow more recently.
+  Also, they found that integer overflow and airdrop hunting attacks are overrepresented in the class of successful attacks as compared to there proportion of the attempted attacks, suggesting they succeed more often than other attack types.
+  
+  
+\item [2] Why are these defense mechanisms not effective (i.e., by-passable)?
+
+  One individual example of an ineffective defense mechanism was due to a failure to use SafeMath in all methods, with one custom function missing this.
+  More broadly this suggests an issue with defense mechanisms that must be manually applied everywhere by developers to be effective, rather than a global solution.
+  It also points to a need for more widely used code analysis tools that could identify missing defenses of this type.
+
+  Another issue with existing defenses is that analysis methods are not updated with the Etherium standards or API.
+  For example some integer overflow vulnerabilities missed by previous analysis are caused by new 'multitransfer' functions.
+  This suggests more work needs to be done to keep tools up to date with the current state of the Etherium ecosystem.
+
+  Finally, another issue is that existing reentrancy analysis tools have failed to handle cross-function reentrancy attacks, wherein the recursive calls of the attack span multiple different functions.  
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper focuses on analyzing real-world attacks and defenses in the Etherium smart contract ecosystem.
+They also separately focus on adversarial actions affecting contracts and the adversarial consequences resulting from these actions.
+This analysis identifies both real-world examples of attacks already discussed in the literature, as well as identifying new types of attacks as well.
+
+\subsection*{Potential follow-up work}
+
+The paper provides a solid framework that could be used for other types of attacks as well, assuming the construction of Adversarial Transaction Signatures for these other types of attacks.
+Therefore one simple piece of follow-up work would be to extend the analysis to other types of attacks that might affect the Etherium ecosystem.
+
+\end{document}

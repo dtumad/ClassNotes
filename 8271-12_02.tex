@@ -1,0 +1,51 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{8271 12/01 Reading}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+\section*{Question Answering}
+
+\begin{itemize}
+\item [1] How do the poisoning attacks work against linear regression models?
+
+  The goal of a poisoning attack is to inject points into the training set that adversarial affect the resulting behavior of the model.
+  In general the number of poisoning points injected into the data set is some small portion of the entire data (or else counter-measures are essentially impossible).
+  The adversary is therefore essentially trying to solve an optimization problem of finding a set of poisoning points that will have the maximal desired effect on the model itself.
+  This is possible to solve explicitly with full access to the training data and the training algorithm, but in general involves some amount of statistical guesswork to solve in the more general black-box setting.
+  
+\item [2] How is the robustness of TRIM?
+
+  TRIM functions by iteratively training on subsets of the points that have low residuals, in an attempt to mitigate the influence of extreme points (which are more likely to be a result of poisoning attacks).
+  The authors show that such an algorithm eventually terminates, and has similar performance to more traditional algorithms in the majority of situations.
+  They also found this defense to be more effective than most other existing defenses on most of the data sets, particularly in the case when the poisoning rate is very high.
+  In general, TRIM is robust enough to have similar performance on very low poisoning rates, while still achieving strong defenses at greater poisoning rates.
+\end{itemize}
+
+\section*{Paper Critiques}
+
+\subsection*{Short Summary}
+
+The paper discusses poisoning attacks on machine learning algorithms, as well as a number of countermeasures against these types of attacks.
+They furthermore exhibit a statistical attack on models that can succeed with minimal information about the parameters of the training process.
+Finally the paper gives a particular defense against these types of attacks, with formal guarantees about the convergence and effectiveness of their proposed defense.
+
+\subsection*{Potential follow-up work}
+
+The most obvious follow-up work to consider would be to extend this type of algorithm to more general types of machine learning models.
+However, the complexity of non-linear regression models may make this much more difficult to do, and potentially even totally infeasible.
+
+It might also be interesting to consider the possibility of a hybrid algorithm that attempts to identify the poisoning rate of the data, and deploy this type of defense dynamically only in cases with high poisoning rates.
+
+\end{document}
