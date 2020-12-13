@@ -12,7 +12,7 @@
 
 \DeclareMathOperator{\Gal}{Gal}
 
-\title{8251 HW2}
+\title{8251 HW22}
 \author{Devon Tuma}
 \date{Fall 2020}
 
@@ -22,6 +22,7 @@
 \problem{4.4}
 
 \subproblem{a}
+Prove that $\legendre{aa'}{b} = \legendre{a}{b}\legendre{a'}{b}$, and that $\legendre{a}{bb'} = \legendre{a}{b}\legendre{a}{b'}$.
 \begin{proof}
   Let $b = \prod_i p_i^{r_i}$ be a prime factorization of $b$, and assume $(a,b) = (a',b) = 1$. Then by considering prime factorizations $a$ and $a'$ are not divisible by any of the $p_i$. Therefore we can use the result of 4.3.(a) to get:
   \begin{equation*}
@@ -42,6 +43,7 @@
 \end{proof}
 
 \subproblem{b}
+Prove that if $\equivmod{a}{a'}{b}$ then $\legendre{a}{b} = \legendre{a'}{b}$.
 \begin{proof}
   Since $a \equiv a' \pmod b$, we also have $a \equiv a' \pmod p_i$ for each prime factor $p_i$ of $b$. Therefore $\legendre{a}{p_i} = \legendre{a'}{p_i}$ for each prime factor of $b$ since the Legendre symbol is defined by a property of the reduction modulo $p_i$. Therefore we get
   \begin{equation*}
@@ -54,6 +56,7 @@
 \end{proof}
 
 \subproblem{c}
+Prove that $\legendre{-1}{b}$ is $1$ if $\equivmod{b}{1}{4}$ and is $-1$ if $\equivmod{b}{-1}{4}$.
 \begin{proof}
   We already saw that this identity holds in the special case where $b$ is a prime and this is the Legendre sybmol (problem 4.3.(a)).
   Hence by the multiplicative definition of the Jacobi symbol, $\legendre{-1}{b} = 1$ if and only if an even number of prime factors of $b$ (with multiplicity) are congruent to $-1$ modulo $4$.
@@ -62,6 +65,7 @@
 \end{proof}
 
 \subproblem{d}
+Prove that $\legendre{2}{b}$ is $1$ if $\equivmod{b}{\pm 1}{8}$ and is $-1$ if $\equivmod{b}{\pm 3}{8}$.
 \begin{proof}
   Again we know that this formula holds in the special case where $b$ is a prime and this is the Legendre symbol by the quadratic reciprocity law, so by the multiplicative definition of the Jacobi symbol, $\legendre{2}{b} = 1$ if an even number of prime factors of $b$ (with multiplicity) are congruent to $\pm 3$ modulo $8$.
   But note that $3^2 \equiv (-3)^2 \equiv 1 \pmod 8$ and $-3 * 3 \equiv 3 * -3 \equiv -1 \pmod 8$, so having an even number of factors being congruent to $\pm 3$ is exactly equivalent to $b$ itself being equivalent to $\pm 1$ module $8$.
@@ -69,6 +73,7 @@
 \end{proof}
 
 \subproblem{e}
+Prove that $\legendre{a}{b}$ is $\legendre{b}{a}$ if $\equivmod{a \text{ or } b}{1}{4}$ and is $-legendre{b}{a}$ otherwise.
 \begin{proof}
   Again, assume $(a,b) = 1$ so that $\legendre{a}{b}$ is well defined. Then using part (a) we get the following identity (up to a yet to be determined sign):
   \begin{equation*}
@@ -83,6 +88,7 @@
 \end{proof}
 
 \subproblem{f}
+Use the Jacobi symbol to calculate $\legendre{2413}{4903}$.
 \begin{proof}
   using the previously proved identities:
   \begin{align*}
@@ -120,7 +126,7 @@ Let $F$ be any field. Show that distinct automorphisms $\sigma_1, \dots \sigma_n
 \end{proof}
 
 
-\problem{29}
+\problem{4.29}
 Show that if $K$ and $L$ are both abelian extensions of $\Q$ then so is $KL$.
 
 \begin{proof}
@@ -134,7 +140,7 @@ Show that if $K$ and $L$ are both abelian extensions of $\Q$ then so is $KL$.
 \end{proof}
 
 
-\problem{30}
+\problem{4.30}
 Show that every abelian extension of $\Q$ is the composition of abelian extensions of prime power degree.
 
 \begin{proof}
@@ -155,5 +161,433 @@ Show that every abelian extension of $\Q$ is the composition of abelian extensio
   where the degree of each extension is exactly the index of the corresponding Galois group.
   But each of the extensions of the Galois groups was of prime power index by construction, so all these extensions are of prime power degree as well, and so we are done.
 \end{proof} 
+
+
+\problem{5.4}
+Prove that the subset of $\R^n$ defined by the inequalities
+\begin{equation*}
+  |x_1| + \dots + |x_r| + 2\parens{\sqrt{x_{r+1}^2 + x_{r+2}^2} + \dots + \sqrt{x_{n-1}^2 + x_{n}^2}} \le n
+\end{equation*}
+is convex.
+
+\begin{proof}
+  First, note that this inequality defines a closed set, since the inequality is non-strict (and hence the limit of a sequence of points satisfying the inequality will also satisfy it). Then given and line between points in the set, and a point on that line, note that the point is the limit of the recursive sequence of midpoints on the line approaching the given point. Therefore since the set is closed, it suffices to show that all the midpoints in this sequence are in the set, and then the limit will also be in the set.
+
+  It then remains to show that if $(x_1, \dots, x_n)$ and $(y_1, \dots, y_n)$ are points satisfying the given inequality, then so does $\frac{1}{2}(x_1 + y_1, \dots, x_n + y_n)$. By assumption we have:
+  \begin{equation*}
+    |x_1| + \dots + |x_r| + 2\parens*{\sqrt{x_{r+1}^2 + x_{r+2}^2} + \dots + \sqrt{x_{n-1}^2 + x_{n}^2}} \le n
+  \end{equation*}
+  \begin{equation*}
+    |y_1| + \dots + |y_r| + 2\parens*{\sqrt{y_{r+1}^2 + y_{r+2}^2} + \dots + \sqrt{y_{n-1}^2 + y_{n}^2}} \le n
+  \end{equation*}
+  Then using the triangle inequalities in $\R$ and $\R^2$ we calculate:
+  \begin{align*}
+    |x_1 + y_n| &+ \dots + |x_r + y_r| + 2\parens*{\sqrt{(x_{r+1} + y_{r+1})^2 + (x_{r+2} + y_{r+2})^2} + \dots + \sqrt{(x_{n-1} + y_{n-1})^2 + (x_{n} + y_{n})^2}} \\
+                &\le |x_1| + |y_n| + \dots + |x_r| + |y_r| + 2\parens*{\sqrt{(x_{r+1} + y_{r+1})^2 + (x_{r+2} + y_{r+2})^2} + \dots + \sqrt{(x_{n-1} + y_{n-1})^2 + (x_{n} + y_{n})^2}} \\
+                &\le |x_1| + |y_n| + \dots + |x_r| + |y_r| + 2\parens*{\sqrt{x_{r+1}^2 + x_{r+2}^2} + \sqrt{y_{r+1}^2 + y_{r+2}^2} + \sqrt{x_{n-1}^2 + x_n^2} + \sqrt{y_{n-1}^2 + y_n^2}} \\
+                &\le |x_1| + \dots + |x_r| + 2\parens*{\sqrt{x_{r+1}^2 + x_{r+2}^2} + \dots + \sqrt{x_{n-1}^2 + x_{n}^2}} + \\ &\quad \quad \quad \quad |y_1| + \dots + |y_r| + 2\parens*{\sqrt{y_{r+1}^2 + y_{r+2}^2} + \dots + \sqrt{y_{n-1}^2 + y_{n}^2}} \\
+                &\le n + n = 2n
+  \end{align*}
+  And so we conclude $(x_1 + y_1, \dots, x_r + y_r) \le 2n$, which is exactly what we needed to show.
+\end{proof}
+
+
+\problem{5.5}
+Prove by induction that $\frac{n^n}{n!} \ge 2^{n-1}$ and use this to show that $|disc(R)| \ge 4^{r-1}\pi^{2s}$.
+\begin{proof}
+  We proceed by induction on $n$. When $n = 1$ we have $\frac{1^1}{1!} = 1 = 2^{1-1}$. Then assume the formula holds for $k$ and we calculate:
+  \begin{equation*}
+    \frac{(n+1)^{n+1}}{(n+1)!} = \frac{(n+1)^n}{n!} \ge \frac{2n^n}{n!} \ge 2*2^{n-1} = 2^n
+  \end{equation*}
+  Where the third inequality is the induction hypothesis, and the second inequlaity follows from the inequality $(n+1)^n \ge (2^{1/n}n)^n = 2n^n$, which is true since $1 + \frac{1}{n} \ge 2^{1/n}$ for any $n \ge 1$. Note that $1 + \frac{1}{n} \ge 2^{1/n}$ follows by just comparing the partial differences $\frac{1}{n} - \frac{1}{n+1} \ge \frac{1}{2^n}$ and checking a base case at $n=1$. Therefore we conclude $\frac{n^n}{n!} \ge 2^{n-1}$ by indcution as desired.
+
+  Then using theorem 37 we also have the other desired inequality:
+  \begin{equation*}
+    |disc(R)| \ge \parens{\frac{n^n}{n!}\parens*{\frac{\pi}{4}}^s}^2 \ge \parens{2^{n-1}4^{-s}\pi^s}^2 = \parens{2^{r-1}\pi^s}^2 = 4^{r-1}\pi^{2s}
+  \end{equation*}
+\end{proof}
+
+
+\problem{5.7}
+Show that there are two ideal classes in $\Z[\sqrt{10}]$.
+\begin{proof}
+  Taking $\{1,\sqrt{10}\}$ as a basis for $\Z[\sqrt{10}]$, theorem 35 implies each ideal class has an ideal of norm $||J|| \le (1 + \sqrt{10})^2 \le 18$. Using theorem 37, we can refine this to get $||J|| \le 4\sqrt{10}/\pi < 5$. Therefore we consider primes lying over $2$ and $3$, and using theorem 25 we find:
+  $$2R = (2, \sqrt{10})^2 \quad \text{since}\ 2 | 10$$
+  $$3R = (3, 1+\sqrt{10})(3, 1-\sqrt{10}) \quad \text{since}\ \equivmod{10}{1^2}{3} $$
+  None of these threee ideals on the rhs are principle, since for any $a + b\sqrt{10} \in \Z[\sqrt{10}]$ we have $N(a + b\sqrt{10}) = a^2 - b^2m$, which can't be $2$ or $3$ since they aren't squares modulo $m = 10$.
+
+  Then consider the element $\alpha = 6 + 3\sqrt{10}$ which has norm $N(6 + 3\sqrt{10}) = 36 - 30 = 6$. Since it has norm $6$, we know the principle ideal $(\alpha)$ splits into an ideal over $2$ and an ideal over $3$. But this implies that the class containing $(2, \sqrt{10})$ is the inverse class of the class containing either of the $(3, 1 \pm \sqrt{10})$. But also we have that the class of $(2, \sqrt{10})$ is order $2$ by the equation for $2R$, and so is its own inverse as well. Therefore since inverses are unique we conclude that $(2, \sqrt{10})$ and $(3, 1 \pm \sqrt{10})$ all lie in the same nontrivial ideal class, and conclude that there are in total $2$ ideal classes.
+\end{proof}
+
+
+\problem{5.8}
+Show that $\Z[\sqrt{233}]$ has three ideal classes.
+\begin{proof}
+  Taking $\{1,\sqrt{223}\}$ as a basis for $\Z[\sqrt{223}]$, theorem 35 implies each ideal class has an ideal of norm $||J|| \le (1 + \sqrt{223})^2 \le 254$. Using theorem 37, we can refine this to get $||J|| \le 4\sqrt{223}/\pi < 20$. Therefore we consider primes lying over $2,3,5,7,11,13,17,19$, and using theorem 25 we find:
+  \begin{align*}
+    2R &= (2, 1+\sqrt{223})(2, 1-\sqrt{223}) \\
+    3R &= (3, 1+\sqrt{223})(3, 1-\sqrt{223}) \\
+    5R &= \text{prime} \\
+    7R &= \text{prime} \\
+    11R &= (11, 5+\sqrt{223})(11, 5-\sqrt{223}) \\
+    13R &= (13, 9+\sqrt{223})(13, 6-\sqrt{223}) \\
+    17R &= (17, 6+\sqrt{223})(17, 9-\sqrt{223}) \\
+    19R &= \text{prime} \\
+  \end{align*}
+  The norm of any single element $a + b\sqrt{223}$ is $a^2 - 223b^2$ TODO
+\end{proof}
+
+
+\problem{5.33}
+\subproblem{a}
+Let $m$ be a squarefree positive integer, and assume that $\equivmod{m}{2 \text{ or } 3}{4}$.
+Let $b$ be minimal such that $mb^2+1$ or $mb^2-1$ is a square, and assume it is $a^2$ with $a > 0$.
+Prove that $a + b\sqrt{m}$ is the fundamental unit.
+
+\begin{proof}
+  First, $a+b\sqrt{m}$ is a unit since it divides a unit:
+  \begin{equation*}
+    (a+b\sqrt{m})(a-b\sqrt{m})
+    = a^2 - b^2m = mb^2 \pm 1 - mb^2 = \pm 1
+  \end{equation*}
+  Then assume that the fundamental unit is $c + d\sqrt{m}$ with $c,d \in \Z^+$.
+  Units have norm $1$, so we have $N(c+d\sqrt{m}) = c^2 - md^2 = 1$ and so $md^2 + 1$ is a square.
+  Hence by minimality of $b$, we have $b \le d$.
+  Then we also have $c^2 = d^2m + 1 \ge bm^2 + 1 = a^2$, and so $c \ge a$ as well, giving $c + d\sqrt{m} \ge a + b\sqrt{m}$.
+  But we assumed that $c + d\sqrt{m}$ was the fundamental unit, so $(c+d\sqrt{m})^k = a + b\sqrt{m}$ for some $k \ge 1$, and so $c + d\sqrt{m} \le a + b\sqrt{m}$ as well.
+  Therefore we conclude $c + d\sqrt{m} = a + b\sqrt{m}$, and $a + b\sqrt{m}$ is the fundamental unit, which is what we wanted to show.
+\end{proof}
+
+\subproblem{b}
+Establish a similar procedure for determining the fundamental unit in $\mathbb{A} \cap \Q[\sqrt{m}]$ for squarefree $m > 1$, $\equivmod{m}{1}{4}$.
+
+\begin{proof}
+  Take $b$ to be minimal such that $mb^2+4$ or $mb^2-4$ is a square, and assume it is $a^2$ for some $a \ge 0$.
+  We argue that $(a + b\sqrt{m})/2$ is the fundamental unit.
+  First note that it is a unit since it divides a unit:
+  \begin{equation*}
+    (a+b\sqrt{m})(a-b\sqrt{m})/4
+    = (a^2 - b^2m)/4 = (mb^2 \pm 4 - mb^2)/4 = \pm 1
+  \end{equation*}
+  Then assume that the fundamental unit is $(c + d\sqrt{m})/2$ with $c,d \in \Z^+$.
+  Units have norm $1$, so we have $N((c+d\sqrt{m})/2) = (c^2 - md^2)/4 = 1$ and so $md^2 + 4$ is a square.
+  Hence by minimality of $b$, we have $b \le d$.
+  Then we also have $c^2 = d^2m + 4 \ge bm^2 + 4 = a^2$, and so $c \ge a$ as well, giving $(c + d\sqrt{m})/2 \ge (a + b\sqrt{m})/2$.
+  But we assumed that $(c + d\sqrt{m})/2$ was the fundamental unit, so $((c+d\sqrt{m})/2)^k = (a + b\sqrt{m})/2$ for some $k \ge 1$, and so $(c + d\sqrt{m})/2 \le (a + b\sqrt{m})/2$ as well.
+  Therefore we conclude $(c + d\sqrt{m})/2 = (a + b\sqrt{m})/2$, and $(a + b\sqrt{m})/2$ is the fundamental unit, which is what we wanted to show.
+\end{proof}
+
+
+\problem{5.34}
+The following python code implements the algorithm from the previous problem
+\begin{verbatim}
+from math import sqrt
+def is_square(n):
+    if int(sqrt(n))**2 == n:
+        return int(sqrt(n))
+    return None
+
+def calc_unit(m):
+    if m % 4 == 0:
+        return -1
+    if m % 4 == 3 or m % 4 == 2: k = 1
+    else: k = 4
+    a, b = None, 0
+    while a == None:
+        b += 1
+        a = is_square(m * b * b + k)
+    return "{} + {}*sqrt({})".format(a, b, m)
+\end{verbatim}
+Which gives the following results
+\begin{verbatim}
+2 -> 3 + 2*sqrt(2)
+3 -> 2 + 1*sqrt(3)
+5 -> 3 + 1*sqrt(5)
+6 -> 5 + 2*sqrt(6)
+7 -> 8 + 3*sqrt(7)
+10 -> 19 + 6*sqrt(10)
+11 -> 10 + 3*sqrt(11)
+13 -> 11 + 3*sqrt(13)
+14 -> 15 + 4*sqrt(14)
+15 -> 4 + 1*sqrt(15)
+17 -> 66 + 16*sqrt(17)
+19 -> 170 + 39*sqrt(19)
+21 -> 5 + 1*sqrt(21)
+22 -> 197 + 42*sqrt(22)
+23 -> 24 + 5*sqrt(23)
+26 -> 51 + 10*sqrt(26)
+29 -> 27 + 5*sqrt(29)
+30 -> 11 + 2*sqrt(30)
+\end{verbatim}
+
+
+\problem{6.4}
+Let $K$ be a number field, $R = \mathbb{A} \cap K$.
+Define a relation $\overset{+}{\sim}$ on the nonzero ideals of $R$ as $I \overset{+}{\sim} J$ iff $\alpha I = \beta J$ for some $\alpha, \beta \in R^+$.
+
+\subproblem{a}
+Prove this is an equivalence relation
+\begin{proof}
+  Reflixivity is clear, since clearly $1 \in R^+$ and so $1I = 1I$ for all $I$.
+  Similarily if $I \overset{+}{\sim} J$ then $\alpha I = \beta J$ for some $\alpha, \beta$, and so $\beta J = \alpha I$ and hence $J \overset{+}{\sim} I$ and the relation is symetric.
+
+  For transitivity, first not that the product of totally positive elements is totally positive, since if $\sigma(\alpha) > 0$ and $\sigma(\beta) > 0$ then $\sigma(\alpha\beta) = \sigma(\alpha)\sigma(\beta) > 0$ as well.
+  Then if we assume $I \overset{+}{\sim} J$ and $J \overset{+}{\sim} K$, we will have $\alpha I = \beta J$ and $\gamma J = \delta K$ for some $\alpha,\beta,\gamma,\delta \in R^+$.
+  But then $\gamma \alpha I = \gamma \beta J = \beta \gamma J = \beta \delta K$, where $\gamma \alpha$ and $\beta \delta$ are in $R^+$ by the multiplicative closure property.
+  So we conclude $I \overset{+}{\sim} K$, and therefore the relation is transitive and hence an equivalence relation.
+\end{proof}
+
+\subproblem{b}
+Prove that the equivalence classes under this relation form a group $G^+$ in which the identity element is the class consisting of all principle ideals $(\alpha)$, $\alpha \in R^+$.
+\begin{proof}
+  We take the same group operation as the ideal class group, so $\bar I \bar J = \bar{IJ}$ for some representatives $I$ and $J$.
+  This is well defined since if $I \overset{+}{\sim} I'$ and $J \overset{+}{\sim} J'$, with $\alpha I = \alpha' I'$ and $\beta J = \beta' J'$ for $\alpha, \alpha', \beta, \beta' \in R^+$, then we have $\alpha \beta I J = \alpha' \beta I' J = \alpha' \beta' I' J'$ and so $IJ \overset{+}{\sim} I'J'$.
+
+  The class of principle ideals $(\alpha)$ with $\alpha \in R^+$ is an identity for this operation, $I(\alpha) = \alpha I$ for any ideal $I$, which implies $I(\alpha) \overset{+}{\sim} I$ and hence $\bar I \bar{(\alpha)} = \bar I$, making this class a left identity.
+  A similar argument shows that this is a right identity as well.
+  The operation is also assosiative, since $(IJ)K \overset{+}{\sim} I(JK)$ follows from reflexivity and assosiativity of regular ideal multiplication.
+
+  Finally, we show that this operation has inverses, so let $I$ be a representative of some ideal class.
+  Then let $J$ be a representative for the inverse of the class containing $I$ in the regular ideal class group.
+  Then $IJ \sim (1)$, so there exists some $\alpha, \beta \in R$ (not necessarilly in $R^+$) such that $\alpha IJ \sim \beta (1)$.
+  Then note that $\alpha^2, \beta^2 \in R^+$, since $\sigma(x^2) = \sigma(x)^2 > 0$ for any embedding $\sigma$.
+  Then we have $\alpha^2 I (\alpha\beta J) = \alpha^2\beta^2(\alpha IJ) = \alpha^2\beta^2(1)$, with $\alpha^2, \beta^2 \in R^+$, and so $I(\alpha\beta J) \overset{+}{\sim} (1)$, and the class of $\alpha \beta J$ is an inverse for the class containing $I$.
+\end{proof}
+
+\subproblem{c}
+Show that there is a group homomorphims $f : G^+ \rightarrow G$.
+\begin{proof}
+  Define $f(\bar J) = \bar J$, so that an ideal class is sent to the ideal class of one of its representatives.
+  This is well-defined since if $I \overset{+}{\sim} J$ via $\alpha I = \beta J$ with $\alpha, \beta \in R^+$, then also $\alpha, \beta \in R$ and so $I \sim J$ as well, finally giving $f(\bar I) = f(\bar J)$.
+
+  This respects the identity element, since $f(1_{G^+}) = f(\bar{(\alpha)}) = \bar{(\alpha)} = 1_G$.
+  It is also multiplicative, since $f(\bar I \bar J) = f(\bar{IJ}) = \bar{IJ} = \bar I \bar J$.
+  Finally, it respects inverses, since $f(\bar I)f((\bar I)^{-1}) = f(\bar I (\bar I)^{-1}) = f(\bar{(1)}) = \bar{(1)}$.
+\end{proof}
+
+\subproblem{d}
+Prove that the kernel of $f$ has at most $2^r$ elements, where $r$ is the number of real embeddings $\sigma : K \rightarrow \R$.
+Conclude that $G^+$ is finite.
+\begin{proof}
+  First note that if $I$ represents an ideal class in the kernel of $f$, then $I$ must be principle since the identity class in $G$ consists of principle ideals. So it suffices to show that at most $2^r$ classes consist of principle ideals.
+  In fact, we will show that if $sgn(\sigma(\alpha)) = sgn(\sigma(\beta))$ for all real embeddings $\sigma$, then $(\alpha)$ and $(\beta)$ represent the same class, bounding the number of ideals by the $2^r$ sign combinations of the $r$ functions.
+  This also suffices to show that $G^+$ is finite by the first isomorphism theorem and the fact that $G$ is finite.
+
+  So assume that $sgn(\sigma(\alpha)) = sgn(\sigma(\beta))$ for some $\alpha, \beta \in R$ and all $\sigma : K \rightarrow \R$.
+  Then $\alpha\beta \in R^+$, since $\sigma(\alpha)\sigma(\beta) > 0$ since they have the same sign.
+  Hence $(\alpha^2)(\alpha\beta)(\alpha) = (\alpha^2)(\alpha^2)(\beta)$, where $\alpha^2, \alpha\beta \in R^+$, and so $(\alpha) \overset{+}{\sim} (\beta)$, which completes the proof.
+\end{proof}
+
+
+\problem{6.9}
+Let $u$ be the fundamental unit in a real quadratic field $K$.
+\subproblem{a}
+Show that $u$ is totally positive iff $N(u) = 1$.
+\begin{proof}
+  If $K$ is real quadratic, we have exactly one non-trivial real embedding, namely the one fixing $\Q$ and sending $\sqrt{m} \mapsto -\sqrt{m}$.
+  Then if $u$ is totally positive, and is of the form $a + b\sqrt{m}$ (the $\equivmod{m}{2 \text{ or } 3}{4}$ case), we have $a \pm b\sqrt{m} > 0$, and so $a > b \sqrt{m}$, and hence $N(u) = a^2 - mb^2 > a^2 - a^2 = 0$, which implies that the norm is $1$ (it must be either $1$ or $-1$ since $u$ is a unit).
+  The $\equivmod{m}{1}{4}$ case is the same, but with the additional factors of $1/2$.
+
+  On the other hand, if $N(u) = 1$, then $a^2 - b^2m > 0$, and so $a > b\sqrt{m}$, which means that for either of the real embeddings, $\sigma(u) = \sigma(a + b\sqrt{m}) = a \pm b\sqrt{m} > a \pm a \ge 0$, and so $u$ is totally positive. In the $\equivmod{m}{1}{4}$ case we again get the same with the additional factors of $1/2$ which don't affect the signs, and so again $u$ is totally positive.
+\end{proof}
+
+\subproblem{b}
+Prove that $h^+ = 2h$ is $u$ is totally positive, and otherwise $h^+ = h$.
+\begin{proof}
+  We saw in the proof of $6.4.(d)$ that $G^+$ is larger that $G$ be a factor equal to the number of distinct classes represented by principle ideals.
+  So it suffices to show that there are $2$ such classes if $u$ is totally positive, and $1$ otherwise.
+
+  In the first case, if $u$ is totally positive, then $-u$ is not totally positive, and so $(u) \not \overset{+}{\sim} (-1)$, giving at least two distinct classes.
+  But also there is only one non-trivial real embedding in the real quadratic case, so there is at most two distinct classes as well by $6.4.(d)$.
+  So we get exactly two classes as desired.
+  On the other hand, it $u$ is not totally positive, then $-u$ is totally positive, and so $(u) \overset{+}{\sim} (-1)$ by $1(u) = -u(-1)$, putting all principle ideals in a single class, which is what we needed to show.
+\end{proof}
+
+
+\problem{7.2}
+Let $A$ be a set of primes in a number field.
+Show that if $$f(s) = \prod_{P \in A} \parens*{1 - \frac{1}{||P||^s}}^{-nk}$$ has an extension in a neighborhood of $s = 1$ having a pole of order $mk$ at $s = 1$, then $$f'(s) = \prod_{P \in A} \parens*{1 - \frac{1}{||P||^s}}^{-nk}$$ has an extension with a pole of order $m$.
+\begin{proof}
+  Define $g(s) \coloneqq (s-1)^{mk}f(s)$, and note that this function has an analytic extension in a neighborhood of $s = 1$ since the zeroes cancel the poles of $f(s)$ at $1$.
+  Therefore we can define the $k$th root of $g$ analytically on the same neighborhood, to get that $g(s)^{1/k} = (s-1)^m(f(s))^{1/k} = (s-1)^m f'(s)$ is also analytic on a neighborhood of $s = 1$, which implies that $f'$ has an extension with a pole of order at most $m$ at $s = 1$.
+  But also note that his pole has order at least $m$, or taking $k$th powers would give an extension of $f(s) = f'(s)^k$ with a pole of order less than $mk$.
+  Therefore we conclude that $f'(s)$ has an extension with a pole of order exactly $m$ as desired.
+\end{proof}
+
+
+\problem{7.3}
+Let $A$ and $B$ be disjoint sets of primes in a number field. Show that $$d(A \cup B) = d(A) + d(B)$$ if all of these polar densities exist, and that if any two of them exist so does the third.
+\begin{proof}
+  First, assume that $d(A)$ and $d(B)$ both exist, and assume $d(A) = m_A/n_A$ and $d(B) = m_B/n_B$ so that:
+  \begin{equation*}
+    \prod_{P \in A} \parens*{1 - \frac{1}{||P||^s}}^{-n_A} \text{ has a pole of order } m_A \text{ at } s = 1
+  \end{equation*}
+  \begin{equation*}
+    \prod_{P \in B} \parens*{1 - \frac{1}{||P||^s}}^{-n_B} \text{ has a pole of order } m_B \text{ at } s = 1
+  \end{equation*}
+  Then we have that:
+  \begin{equation*}
+    \prod_{P \in A \cup B} \parens*{1 - \frac{1}{||P||^s}}^{-n_A n_B}
+    = \parens*{\prod_{P \in A} \parens*{1 - \frac{1}{||P||^s}}^{-n_A}}^{n_B}
+    \parens*{\prod_{P \in B} \parens*{1 - \frac{1}{||P||^s}}^{-n_B}}^{n_A}
+  \end{equation*}
+  where the right hand side has a pole of order $n_Bm_A + n_Am_B$.
+  Therefore we get that $d(A \cup B)$ exists, and is equal to $(n_Bm_A + n_Am_B)/n_An_B = m_A/n_A + m_B/n_B = d(A) + d(B)$, which is what we wanted to show.
+
+  Then for the other two cases, assume WLOG that $d(A \cup B)$ and $d(A)$ exist, and assume $d(A \cup B) = m/n$ and $d(A) = m_A/n_A$ so that:
+  \begin{equation*}
+    \prod_{P \in A \cup B} \parens*{1 - \frac{1}{||P||^s}}^{-n} \text{ has a pole of order } m \text{ at } s = 1
+  \end{equation*}
+  \begin{equation*}
+    \prod_{P \in A} \parens*{1 - \frac{1}{||P||^s}}^{-n_A} \text{ has a pole of order } m_A \text{ at } s = 1
+  \end{equation*}
+  Then we have that:
+  \begin{equation*}
+    \prod_{P \in A \cup B} \parens*{1 - \frac{1}{||P||^s}}^{-n n_A}
+    = \parens*{\prod_{P \in A} \parens*{1 - \frac{1}{||P||^s}}^{-n_A}}^{n}
+    \parens*{\prod_{P \in B} \parens*{1 - \frac{1}{||P||^s}}^{-n n_A}}
+  \end{equation*}
+  Where the left hand side has a pole of order $m n_A$.
+  Therefore $d(B)$ must exist since the right hand side must also have an extension in the neighborhood, and by counting poles we get that $d(B)$ is equal to $(mn_A - m_An)/nn_A = m/n - m_A/n_A = d(A \cup B) - d(A)$ as desired.
+\end{proof}
+
+
+\problem{7.15}
+\subproblem{a}
+Let $G$ be a cyclic group of order $n$. Show that the character group $\hat G$ is also cyclic of order $n$
+\begin{proof}
+  We can assume that $G = \Z/n\Z$ since cyclic groups are all isomorphic, and note that each character on $G$ is determined by $\chi(1)$ since $1$ generates $\Z/n\Z$.
+  Furthermore, the order of $\chi(1)$ must divide the order of $1$, so it must be a $n$th root of unity, and conversely any $n$th root of unity defines a character sending $1$ to that root of unity.
+  Hence $\hat{G}$ is in bijection with the $n$th roots of unity, and $|\hat{G}| = n$, so it just remains to show that $\hat{G}$ is cyclic.
+
+  Fix some primitive $n$th root of unity $\zeta_0$, and let $\chi_0$ be defined by $\chi_0(1) = \zeta_0$.
+  For any other character $\chi$, let $k$ be the power such that $\zeta_0^k = \chi(1)$.
+  Then we have $\chi_0^k(1) = (\chi_0(1))^k = \zeta_0^k = \chi(1)$, so that $\chi_0^k = \chi$, and every other character is a power of $\chi_0$, and we conclude that $\hat{G}$ is cyclic.
+\end{proof}
+
+\subproblem{b}
+Let $G$ and $H$ be finite abelian groups. Show that there is an isomorphism $\hat{G} \times \hat{H} \rightarrow \widehat{G \times H}$.
+\begin{proof}
+  Define $\varphi : \hat{G} \times \hat{H} \rightarrow \widehat{G \times H}$ by $\varphi(\chi_G, \chi_H)(x, y) = \chi_G(x)\chi_H(y)$ for all $(x,y) \in G \times H$.
+  We argue that $\varphi$ gives the desired isomorphism.
+
+  For surjectivity, assume $\chi \in \widehat{G \times H}$, and define $\chi_G \in \hat G$ by $\chi_G(x) = \chi(x, 1)$ and $\chi_H \in \hat H$ by $\chi_H(y) = \chi(1, y)$.
+  Then for any $(x,y) \in G \times H$, we have $\varphi(\chi_G, \chi_H)(x, y) = \chi_G(x)\chi_H(y) = \chi(x,1)\chi(1,y) = \chi(x,y)$, which by extensionality implies that $\varphi(\chi_G, \chi_H) = \chi$, making $\varphi$ surjective.
+
+  For injectivity, it suffices to show that the kernel is trivial, so assume that $\varphi(\chi_G, \chi_H) = 1_{\widehat{G \times H}}$.
+  Therefore $\chi_G(x)\chi_H(y) = 1$ for all $(x,y) \in G \times H$.
+  In particular, if we set $x = 1$ then $\chi_H(y) = \chi_G(1)\chi_H(y) = 1$ for all $y \in H$ and if we set $y = 1$ $\chi_G(x) = \chi_G(x)\chi_H(1) = 1$ for all $x \in G$.
+  Therefore we conclude $\chi_G = 1_{\hat G}$ and $\chi_H = 1_{\hat H}$, and the kernal is indeed trivial, and we conclude $\varphi$ is also injective, completing the proof.
+\end{proof}
+
+\subproblem{c}
+Let $G$ be a finite abelian group. Prove that $\hat G$ is isomorphic to $G$.
+\begin{proof}
+  By the fundamental theorem of finite abelian groups, we can write $G \cong \prod_i \Z/p_i\Z$ for some finite set of primes $p_i$ not necessarilly distinct.
+  Then using the results of parts (a) and (b) (note that (b) applies inductively to finite products) we have:
+  \begin{equation*}
+    \hat{G}
+    \cong \widehat{\prod_i \Z/p_i\Z}
+    \cong \prod_i \widehat{\Z/p_i\Z}
+    \cong \prod_i \Z/p_i\Z \cong G
+  \end{equation*}
+\end{proof}
+
+
+\problem{7.16}
+Prove that for nontrivial even character mod $m$ that $\sum_{k \in (\Z/m\Z)^\times} \chi(k) k = 0$, and for an odd character $\sum_{k \in (\Z/m\Z)^\times} \chi(k) \log \sin \frac{k\pi}{m} = 0$.
+\begin{proof}
+  First, in the even character case, we have $\chi(m-k) = \chi(m) + \chi(-k) = 0 + \chi(k) = \chi(k)$.
+  Also note that $k \mapsto m - k$ is an outomorphism of $(\Z/m\Z)^\times$, so:
+  \begin{equation*}
+    \sum_{k \in (\Z/m\Z)^\times} \chi(k) k = \sum_{k \in (\Z/m\Z)^\times} \chi(m - k)(m-k) = \sum_{k \in (\Z/m\Z)^\times} \chi(k)(m-k)
+  \end{equation*}
+  And using this we have:
+  \begin{equation*}
+    2\sum_{k \in (\Z/m\Z)^\times} \chi(k) k
+    = \sum_{k \in (\Z/m\Z)^\times} \chi(k) k + \sum_{k \in (\Z/m\Z)^\times} \chi(k) (m-k)
+    = \sum_{k \in (\Z/m\Z)^\times} \chi(k) (k + m - k)
+    = m\sum_{k \in (\Z/m\Z)^\times} \chi(k)
+    = 0
+  \end{equation*}
+  and we conclude that $\sum_k \chi(k) k = 0$ as desired.
+
+  For the odd case, we have $\chi(m - k) = \chi(m) + \chi(-k) = -\chi(k)$, and so again using the fact that $k \mapsto m - k$ is an automorphism, we calculate:
+  \begin{align*}
+    \sum_{k \in (\Z/m\Z)^\times} \chi(k) \log \sin \frac{k\pi}{m} 
+    &= \sum_{k \in (\Z/m\Z)^\times} \chi(m-k) \log \sin \frac{(m-k)\pi}{m} \\
+    &= \sum_{k \in (\Z/m\Z)^\times} -\chi(k) \log \sin \frac{k\pi}{m} \\
+    &= - \sum_{k \in (\Z/m\Z)^\times} \chi(k) \log \sin \frac{k\pi}{m} 
+  \end{align*}
+  and so we conclude that $\sum_{k \in (\Z/m\Z)^\times} \chi(k) \log \sin \frac{k\pi}{m} = 0$, since $y = -y$ iff $y = 0$.
+\end{proof}
+
+
+\problem{7.17}
+Let $m$ be even, $m \ge 3$, and suppose $\chi$ is a primitive character mod $m$. Set $n = m/2$.
+
+\subproblem{a}
+Show that $n$ must be even.
+\begin{proof}
+  It suffices to show that there are no primitive characters mod $2n$ for $n$ odd, so let $\chi$ be a character mod $2n$ for some odd $n$.
+  Then since $n$ is odd, $2$ and $n$ are relatively prime, and so $\varphi(2n) = \varphi(2)\varphi(n) = \varphi(n)$ where $\varphi$ is the Euler totient function.
+  But then we have $(\Z/2m\Z)^\times \cong (\Z/m\Z)^\times$ since $m | 2m$ and the groups have the same size (by above).
+  But then $\chi$ factors through this isomorphism and so is induced by a character mod $n$, and so $\chi$ is not primitive.
+  Therefore since there are no primitive characters mod $m = 2n$ for $n$ odd, we conclude that $n$ must be even.
+\end{proof}
+
+\subproblem{b}
+Show that $\equivmod{(n+1)^2}{1}{m}$, and for odd $k$, $\equivmod{(n+1)k}{n+k}{m}$.
+\begin{proof}
+  Since $n$ is even, we can write $n = 2n'$ for some $n'$, and so:
+  \begin{equation*}
+    (n+1)^2 = n^2 + 2n + 1 = \equivmod{mn' + m + 1}{1}{m}
+  \end{equation*}
+  If we further assume $k$ is odd, so $k = 2k'+1$ for some $k'$, then:
+  \begin{equation*}
+    (n+1)k = n(2k'+1) + k = \equivmod{mk' + n + k}{n + k}{m}
+  \end{equation*}
+\end{proof}
+
+\subproblem{c}
+Prove that $\chi(n + 1) = -1$.
+\begin{proof}
+  using (b) and the fact that $\chi$ is defined in elements mod $m$, we have $\chi(n + 1)^2 = \chi((n+1)^2) = \chi(1) = 1$, so $\chi(n+1) = \pm 1$.
+  But if $\chi(n+1) = 1$, then $chi$ is just the trivial character, which isn't primitive, so we must have $\chi(n+1) = -1$ as desired.
+\end{proof}
+
+\subproblem{d}
+Prove that $\chi(n + k) = - \chi(k)$ for odd $k$.
+\begin{proof}
+  Using (b) and (c) we have:
+  \begin{equation*}
+    \chi(n+k) = \chi((n+1)k) = \chi(n+1)\chi(k) = -\chi(k)
+  \end{equation*}
+  as desired
+\end{proof}
+
+
+\problem{7.39}
+
+Let $\chi_1, \dots, \chi_n$ be the even characters mod $p$, $\chi_1 = 1$, and let $X$ be the $n \times n$ matrix $X = \parens*{\chi_i(k)}$ with $\chi_i(k)$ in row $i$ and column $k$.
+Prove that $det(X) \ne 0$.
+
+\begin{proof}
+  Let $\alpha$ be a generator for $(\Z/p\Z)^\times$, and $e_n$ the power such that $\alpha^{e_n} = n$.
+  Then we have that:
+  \begin{equation*}
+    \det(X) = \det \parens*{\chi_i(k)}
+    = \det \parens*{\chi_i(\alpha^{e_k})}
+    = \det \parens*{\chi_i(\alpha)^{e_k}}
+  \end{equation*}
+  Which is a vandermonde matrix, up to swapping the column orderings to order the $e_k$ values.
+  Therefore the determinant is a vandermond determinant up to swapping signs, and we have $\det(X) = \pm \prod_{1 \le r < s \le n} (\chi_s(\alpha) - \chi_r(\alpha))$.
+  But then all the terms of the product are nonzero, since for $s \ne r$ we have $\chi_s(\alpha) \ne \chi_r(\alpha)$, since the characters are determined by there value on the generator $\alpha$.
+  So finally we conclude that $\det(X) \ne 0$ since a product of non-zero terms is non-zero in $\C$.
+\end{proof}
+
+
+
+%TODO: 2 from chapter 4, 5 from chapter 8
 
 \end{document}

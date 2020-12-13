@@ -1,0 +1,64 @@
+%&pdflatex
+\documentclass[11pt]{article}
+
+\usepackage{main-macros}
+
+\usepackage{newpxmath}
+\usepackage{newpxtext}
+\usepackage[margin=0.75in]{geometry}
+
+
+\title{Deniable post-quantum authenticated key exchanges}
+\author{Devon Tuma}
+\date{Fall 2020}
+
+\begin{document}
+\maketitle
+
+
+\section*{Motivation}
+
+\cite{deniableAKE} gives a deniable authenticated key-exchange (AKE) with some quantum-transitional security, but is not a fully post-quantum secure protocol.
+It relies on three main cryptographic primitives: a dual-reciever encryption function, a ring signature scheme, and a key encapsulation function.
+The key encapsulation function is meant to provide quantum-transitional security, and so isn't needed when adapting the protocol to be post-quantum secure.
+The encryption function can also be adapted through mostly direct translation to a post-quantum encryption scheme.
+Finally, adapting the ring signature scheme motivates the creation of a ring signature scheme that applies to the keys of post-quantum key exchanges.
+
+By further generalizing the ring-signature scheme to arbitrary group size, these ring signatures can also be applied to creating a post-quantum secure authenticated \textbf{group} key exchange (AGKE).
+\cite{latticeAGKE} describes a non-deniable post-quantum AGKE based on the Ring-LWE problem.
+The paper gives a non-authenticated GKE protocol, and applies the Katz-Yung compiler \cite{KYcompiler} to turn this into an AGKE.
+This compiler takes a non-deniable signature based approach, and so the resulting AGKE is not deniable.
+By modifying the compiler to use ring-signatures instead, the resulting Ring-LWE AGKE should be made deniable and still secure.
+
+\section*{HHS Ring Signature in ROM}
+
+\subsection*{Hard Homogonous Spaces}
+
+Hard homogonous spaces(HHS) give a general context for a number of Diffie-Hellman style key exchanges, including those with post-quantum security.
+Such a space is just a group commutative $G$ and a transitive $G$-action on some set $X$, with constraints on computational complexits of certain operations.
+For example $G$-multiplication and the $G$-action should both be efficiently computable, but the discrete logarithm problem (given $x,x' \in X$, find $g \in G$ with $x' = g * x$) should be infeasible.
+Such a space gives a natural Diffie-Hellman key exchange: Alice and Bob choose secret keys $a$ and $b$ from $G$, exchange $a * x$ and $b * x$ for some fixed $x \in X$, and then compute a shared secret $a * (b * x) = (ab) * x = b * (a * x)$.
+\cite{CSIDH} describes the post-quantum secure CSIDH protocol and has provides a full definition and discussion of HHS.
+
+\subsection*{Ring Signature Scheme}
+
+The ring signature scheme used in the deniable protocol of \cite{deniableAKE} is based on traditional Diffie-Hellman on a cyclic group $C$ of order $p$.
+This corresponds to the HHS where $X$ is the set of generators of $C$, and $G$ is the multiplicative group $(\Z/p\Z)^\times$ acting via exponentiation.
+However, direct translation to the HHS setting isn't possible, because the ring signature scheme uses both the multiplicative structure and the additive structure of $(\Z/p\Z)^\times$, which doesn't exist in the generalized setting.
+This essentially creates a dependence on classical Diffie-Helman as a 'ring action' rather than a 'group action'.
+
+However, we can modify the scheme to return to just the 'group action' situation, assuming the inverse operation in the group is efficiently computable, via the following modified protocol:
+
+\begin{itemize}
+\item[1] Generate random values $t_1, c_2, r_2, c_3, r_3 \in G$
+\item [2] Do the rest
+\end{itemize}
+
+The security proofs can also be modified appropriately to fit the more generalized setting.
+
+
+\bibliography{deniable-AGKE}{}
+\bibliographystyle{plain}
+
+\end{document}
+
