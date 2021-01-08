@@ -12,7 +12,7 @@
 
 \DeclareMathOperator{\Gal}{Gal}
 
-\title{8251 HW22}
+\title{8251 HW2}
 \author{Devon Tuma}
 \date{Fall 2020}
 
@@ -58,9 +58,9 @@ Prove that if $\equivmod{a}{a'}{b}$ then $\legendre{a}{b} = \legendre{a'}{b}$.
 \subproblem{c}
 Prove that $\legendre{-1}{b}$ is $1$ if $\equivmod{b}{1}{4}$ and is $-1$ if $\equivmod{b}{-1}{4}$.
 \begin{proof}
-  We already saw that this identity holds in the special case where $b$ is a prime and this is the Legendre sybmol (problem 4.3.(a)).
+  We already saw that this identity holds in the special case where $b$ is a prime and this is the Legendre symbol (problem 4.3.(a)).
   Hence by the multiplicative definition of the Jacobi symbol, $\legendre{-1}{b} = 1$ if and only if an even number of prime factors of $b$ (with multiplicity) are congruent to $-1$ modulo $4$.
-  But $b$ having an even number of factors being contgruent to $-1$ is exactly equivalent to $b$ itself being equivalent to $1$ modulo $4$.
+  But $b$ having an even number of factors being congruent to $-1$ is exactly equivalent to $b$ itself being equivalent to $1$ modulo $4$.
   So we conclude $\legendre{-1}{b} = 1$ if $b \equiv 1 \pmod 4$ and is $-1$ otherwise, as desired.
 \end{proof}
 
@@ -84,7 +84,7 @@ Prove that $\legendre{a}{b}$ is $\legendre{b}{a}$ if $\equivmod{a \text{ or } b}
     = \stackrel{?}{\pm} \legendre{b}{a}
   \end{equation*}
   where the final sign is $-1$ if and only if $a \equiv -1 \pmod 4$ and an odd number of the $p_i$ (with multiplicity) are equivalent to $-1 \pmod 4$.
-  But having an odd number of factors congruent to $-1$ is equivelent to $b$ being congruent to $-1$ itself, so we conclude that the final sign is $-1$ iff $a \equiv b \equiv -1 \pmod 4$, exactly as desired. 
+  But having an odd number of factors congruent to $-1$ is equivalent to $b$ being congruent to $-1$ itself, so we conclude that the final sign is $-1$ iff $a \equiv b \equiv -1 \pmod 4$, exactly as desired. 
 \end{proof}
 
 \subproblem{f}
@@ -106,13 +106,83 @@ Use the Jacobi symbol to calculate $\legendre{2413}{4903}$.
 \end{proof}
 
 
+\problem{4.10}
+Let $K$ be a number field, and let $L$ and $M$ be two finite extensions of $K$.
+Assume that $M$ is normal over $K$.
+Then the composite field $LM$ is normal over $L$ and the Galois group $Gal(LM/L)$ is embedded in $Gal(M/K)$ by restricting automorphisms to $M$.
+Let $P, Q, U, V$ be primes in $K, L, M, LM$ respectively such that $V$ lies over $Q$ and $U$, and $Q$ and $U$ lie over $P$.
+\subproblem{a}
+Prove that $D(V|Q)$ is embedded in $D(U|P)$ by restricting automorphisms
+\begin{proof}
+  Let $\sigma \in D(V|Q)$, so that $\sigma \in Gal(LM/L)$ and $\sigma(V) = V$, and we want  to show that $\sigma$ embeds into $D(U|P)$ by restricting to $\sigma|_M$.
+  We know that $\sigma|_M \in Gal(M/K)$, so it suffices to check that $\sigma|_M(U) = U$.
+  Given some $u \in U$, then we also have $u \in V$ since $V$ lies over $U$, and so by assumption $\sigma(u) \in V$.
+  But then $\sigma|_M(u) = \sigma(u)$, and so $\sigma(u)$ must be an element of $M$, and so lies in $V \cap M = U$, and we conclude $\sigma(U) \le U$.
+  On the other hand if $\sigma|_M(u) \in \sigma|_M(U)$, then $\sigma(u) \in \sigma(V)$ by the fact $\sigma \in D(V|Q)$, and so $u \in V$.
+  Hence since $u \in M$ by assumption we get $u \in V \cap M = U$, and hence $U \le \sigma(U)$, completing the proof.
+\end{proof}
+
+\subproblem{b}
+Prove that $E(V|Q)$ is embedded in $E(U|P)$ be restricting automorphisms.
+\begin{proof}
+  Using the same reasoning as in (a), it suffices to show that if $\equivmod{\sigma(\alpha)}{\alpha}{V}$ for all $\alpha \in LM$, then $\equivmod{\sigma|_M(\alpha)}{\alpha}{U}$ for all $\alpha \in M$.
+  Given any $\alpha \in M$, we can embed $\alpha \in LM$, and so by assumption we have $\equivmod{\sigma(\alpha)}{\alpha}{V}$, so that $\sigma(\alpha) - \alpha \in V$.
+  But then $\sigma(\alpha) - \alpha$ is also in $M$, since we assumed $\alpha \in M$ and $\sigma$ fixes $L \subset LM$.
+  So $\sigma|_M(\alpha) - \alpha \in V \cap M = U$, and we get that $\equivmod{\sigma|_M(\alpha)}{\alpha}{U}$ as desired.
+\end{proof}
+
+\subproblem{c}
+Prove that if $P$ is unramified in $M$ then every prime of $L$ lying over $P$ is unramified in $LM$.
+\begin{proof}
+  We prove the contrapositive, so assume some prime $Q$ lying over $P$ is ramified in $LM$, and we need to show $P$ is ramified in $M$.
+  Since $Q$ is ramified, we get that $LM/(LM)_E$ is a nontrivial extension, and so $E(R|Q)$ is nontrivial for any $R$ lying over $Q$.
+  Then by part (b) we can embed this inertia group into $E(Q'|P)$ for any prime $Q'$ lying over $P$, and so the lower inertia group is also nontrivial.
+  Finally then we get that $M/M_E$ is a nontrivial extension, and so $P$ is ramified in $M$.
+\end{proof}
+
+\subproblem{d}
+Prove that if $P$ splits completely in $M$ then every prime of $L$ lying over $P$ splits completely in $LM$.
+\begin{proof}
+  The same argument as in (c) applied using the decomposition groups and part (a) instead of the inertia groups and part (b) gives the desired result.
+\end{proof}
+
+\subproblem{e}
+Assume that $P$ is unramified in $M$, so that $\phi(U|P)$ and $\phi(V|Q)$ are defined. Prove that the restriction of $\phi(V|Q)$ to $M$ is $\phi(U|P)^{f(Q|P)}$.
+\begin{proof}
+  First, it suffices to show that these both induce the same automorphism of $(\mathbb{A} \cap M)/U$, since then using (a) they must agree on ideals of $LM$ as well, and so by uniqueness of the frobenius automorphism will be the same.
+  So let some $\alpha \in (\mathbb{A} \cap M)$ be given, and note that $\equivmod{\phi(V|Q)(\alpha)}{\alpha^{||Q||}}{V}$ by definition of the frobenius automorphism.
+  On the other hand $\equivmod{\phi(U|P)^{f(Q|P)}(\alpha)}{\alpha^{f(Q|P)||P||}}{U}$, and so pulling both back down to $M$ using (b), and the fact $Q$ lies over $P$, we see that both induce the value $U$, which by the uniqueness of the frobenius automorphism implies that they in fact agree on all of $M$, completing the proof.
+\end{proof}
+
+
+\problem{4.11}
+Consider the special case of the setup in 4.10 with $K \subset L \subset M$, with $M$ normal over $K$ and $P$ unramified in $M$.
+\subproblem{a}
+Show that $\phi(U|Q) = \phi(U|P)^{f(Q|P)}$.
+\begin{proof}
+  Since $L \subset M$ we have $LM = M$, since $M$ already contains $L$.
+  Also we have $V = U$, since $V$ lies over $U$ in the trivial extension.
+  Plugging these into the result of 4.10.e gives that $\phi(U|Q)$ restricts to $\phi(U|P)^{f(Q|P)}$, but this restriction is trivial since the extension is trivial, so in fact the two maps must be equal, giving the desired equation.
+\end{proof}
+
+\subproblem{b}
+Suppose $L$ is also normal over $K$, so $\phi(Q|P)$ is defined.
+Prove that $\phi(Q|P)$ is the restriction of $\phi(U|P)$ to $L$.
+\begin{proof}
+  By uniqueness of the frobenius automorphism, it suffices to check that the restriction of $\phi(U|P)$ to $L$ satisfies the defining equivalence of $\phi(Q|P)$.
+  Therefore we need to check that $\equivmod{\phi(U|P)(\alpha)}{\alpha^{||P||}}{Q}$ for all $\alpha \in L$.
+  Equivalently, it suffices to check that $\equivmod{\phi(U|P)(\alpha)^{f(Q|P)}}{\alpha^{f(Q|P)||P||}}{Q}$, and so using the result of (a) it suffices to show $\equivmod{\phi(U|Q)(\alpha)}{\alpha^{f(Q|P)||P||}}{Q}$.
+  But then since $||Q|| = f(Q|P)||P||$ and $\alpha \in L \subset M$, this is just the defining equivalence for the frobenius map $\phi(U|Q)$, and so certainly holds true, completing the proof.
+\end{proof}
+
+
 \problem{4.15}
 Let $F$ be any field. Show that distinct automorphisms $\sigma_1, \dots \sigma_n$ of $F$ are always linearly independent over $F$.
 
 \begin{proof}
-  Assume for contradiction we have a linear dependence $a_1\sigma_1 + \dots a_n\sigma_n = 0$, with $a_i \in F$ not zero, and further assume $n$ is minimial such that this happens.
+  Assume for contradiction we have a linear dependence $a_1\sigma_1 + \dots a_n\sigma_n = 0$, with $a_i \in F$ not zero, and further assume $n$ is minimal such that this happens.
   Since the $\sigma_i$ are distinct, there exists some $x \in F$ with $\sigma_1(x) \ne \sigma_n(x)$.
-  Then we have pointwise equality between $\sum_i a_i \sigma_i(x) \sigma_i$ and the zero automorphism, since for every $y \in F$ we have:
+  Then we have point-wise equality between $\sum_i a_i \sigma_i(x) \sigma_i$ and the zero automorphism, since for every $y \in F$ we have:
   \begin{equation*}
     \parens*{\sum_i a_i \sigma_i(x) \sigma_i}(y)
     = \sum_i a_i \sigma_i(x) \sigma_i(y)
@@ -199,7 +269,7 @@ Prove by induction that $\frac{n^n}{n!} \ge 2^{n-1}$ and use this to show that $
   \begin{equation*}
     \frac{(n+1)^{n+1}}{(n+1)!} = \frac{(n+1)^n}{n!} \ge \frac{2n^n}{n!} \ge 2*2^{n-1} = 2^n
   \end{equation*}
-  Where the third inequality is the induction hypothesis, and the second inequlaity follows from the inequality $(n+1)^n \ge (2^{1/n}n)^n = 2n^n$, which is true since $1 + \frac{1}{n} \ge 2^{1/n}$ for any $n \ge 1$. Note that $1 + \frac{1}{n} \ge 2^{1/n}$ follows by just comparing the partial differences $\frac{1}{n} - \frac{1}{n+1} \ge \frac{1}{2^n}$ and checking a base case at $n=1$. Therefore we conclude $\frac{n^n}{n!} \ge 2^{n-1}$ by indcution as desired.
+  Where the third inequality is the induction hypothesis, and the second inequality follows from the inequality $(n+1)^n \ge (2^{1/n}n)^n = 2n^n$, which is true since $1 + \frac{1}{n} \ge 2^{1/n}$ for any $n \ge 1$. Note that $1 + \frac{1}{n} \ge 2^{1/n}$ follows by just comparing the partial differences $\frac{1}{n} - \frac{1}{n+1} \ge \frac{1}{2^n}$ and checking a base case at $n=1$. Therefore we conclude $\frac{n^n}{n!} \ge 2^{n-1}$ by induction as desired.
 
   Then using theorem 37 we also have the other desired inequality:
   \begin{equation*}
@@ -214,9 +284,12 @@ Show that there are two ideal classes in $\Z[\sqrt{10}]$.
   Taking $\{1,\sqrt{10}\}$ as a basis for $\Z[\sqrt{10}]$, theorem 35 implies each ideal class has an ideal of norm $||J|| \le (1 + \sqrt{10})^2 \le 18$. Using theorem 37, we can refine this to get $||J|| \le 4\sqrt{10}/\pi < 5$. Therefore we consider primes lying over $2$ and $3$, and using theorem 25 we find:
   $$2R = (2, \sqrt{10})^2 \quad \text{since}\ 2 | 10$$
   $$3R = (3, 1+\sqrt{10})(3, 1-\sqrt{10}) \quad \text{since}\ \equivmod{10}{1^2}{3} $$
-  None of these threee ideals on the rhs are principle, since for any $a + b\sqrt{10} \in \Z[\sqrt{10}]$ we have $N(a + b\sqrt{10}) = a^2 - b^2m$, which can't be $2$ or $3$ since they aren't squares modulo $m = 10$.
+  None of these three ideals on the rhs are principle, since for any $a + b\sqrt{10} \in \Z[\sqrt{10}]$ we have $N(a + b\sqrt{10}) = a^2 - b^2m$, which can't be $2$ or $3$ since they aren't squares modulo $m = 10$.
 
-  Then consider the element $\alpha = 6 + 3\sqrt{10}$ which has norm $N(6 + 3\sqrt{10}) = 36 - 30 = 6$. Since it has norm $6$, we know the principle ideal $(\alpha)$ splits into an ideal over $2$ and an ideal over $3$. But this implies that the class containing $(2, \sqrt{10})$ is the inverse class of the class containing either of the $(3, 1 \pm \sqrt{10})$. But also we have that the class of $(2, \sqrt{10})$ is order $2$ by the equation for $2R$, and so is its own inverse as well. Therefore since inverses are unique we conclude that $(2, \sqrt{10})$ and $(3, 1 \pm \sqrt{10})$ all lie in the same nontrivial ideal class, and conclude that there are in total $2$ ideal classes.
+  Then consider the element $\alpha = 6 + 3\sqrt{10}$ which has norm $N(6 + 3\sqrt{10}) = 36 - 30 = 6$.
+  Since it has norm $6$, we know the principle ideal $(\alpha)$ splits into an ideal over $2$ and an ideal over $3$.
+  But this implies that the class containing $(2, \sqrt{10})$ is the inverse class of the class containing either of the $(3, 1 \pm \sqrt{10})$. But also we have that the class of $(2, \sqrt{10})$ is order $2$ by the equation for $2R$, and so is its own inverse as well.
+  Therefore since inverses are unique we conclude that $(2, \sqrt{10})$ and $(3, 1 \pm \sqrt{10})$ all lie in the same nontrivial ideal class, and conclude that there are in total $2$ ideal classes.
 \end{proof}
 
 
@@ -234,13 +307,25 @@ Show that $\Z[\sqrt{233}]$ has three ideal classes.
     17R &= (17, 6+\sqrt{223})(17, 9-\sqrt{223}) \\
     19R &= \text{prime} \\
   \end{align*}
-  The norm of any single element $a + b\sqrt{223}$ is $a^2 - 223b^2$ TODO
+  The norm of any single element $a + b\sqrt{223}$ is $a^2 - 223b^2$, and so the norm is always a square mod $223$.
+  Using the Jacobi symbol, we can check that $3$, $11$, and $13$ are not squares mod $223$, so none of the ideals they split into are principle.
+  On the other hand, $2$ is a square mod $223$, and both of the ideals it splits into are equal to the principle ideal $(15 - \sqrt{223})$ (since $-(15 - \sqrt{223})^2 + 2(15 - \sqrt{223}) = 2$ all the generators can be constructed as linear combinations of the one generator).
+  Similarly $17$ is a square mod $223$ and both ideals it splits into are equal to the principle ideal $(54 - \sqrt{223})$ by a similar construction.
+  Therefore it remains to classify the ideal classes containing the primes lying over $3$, $11$, and $13$.
+  
+  Consider the element $\alpha = 16 + \sqrt{223}$ which has norm $N(16 + \sqrt{223}) = 16^2 - 223 = 33$.
+  Therefore the principle ideal $(\alpha)$ splits into a prime lying over $3$ and a prime lying over $11$.
+  Therefore the class containing this ideal over $3$ is inverse to the class containing the ideal over $11$.
+  But we also know that the ideals over $3$ and $11$ are inverses with each other, so by the uniqueness of inverses, each of the ideals over $3$ is in the same class as one of the ideals over $11$.
+  Furthermore, all $4$ can't lie in the same ideal class, since the opposite cross products of the classes containing the ideals are not principle ideals.
+  Therefore these $4$ ideals lie in two distinct non-trivial ideal classes.
+  A similar argument shows that the same is true for the ideals over $3$ and $13$, so we conclude that in total there are 2 non-trivial ideal classes, and hence $\Z[\sqrt{223}]$ has 3 ideal classes.
 \end{proof}
 
 
 \problem{5.33}
 \subproblem{a}
-Let $m$ be a squarefree positive integer, and assume that $\equivmod{m}{2 \text{ or } 3}{4}$.
+Let $m$ be a square-free positive integer, and assume that $\equivmod{m}{2 \text{ or } 3}{4}$.
 Let $b$ be minimal such that $mb^2+1$ or $mb^2-1$ is a square, and assume it is $a^2$ with $a > 0$.
 Prove that $a + b\sqrt{m}$ is the fundamental unit.
 
@@ -259,7 +344,7 @@ Prove that $a + b\sqrt{m}$ is the fundamental unit.
 \end{proof}
 
 \subproblem{b}
-Establish a similar procedure for determining the fundamental unit in $\mathbb{A} \cap \Q[\sqrt{m}]$ for squarefree $m > 1$, $\equivmod{m}{1}{4}$.
+Establish a similar procedure for determining the fundamental unit in $\mathbb{A} \cap \Q[\sqrt{m}]$ for square-free $m > 1$, $\equivmod{m}{1}{4}$.
 
 \begin{proof}
   Take $b$ to be minimal such that $mb^2+4$ or $mb^2-4$ is a square, and assume it is $a^2$ for some $a \ge 0$.
@@ -328,8 +413,8 @@ Define a relation $\overset{+}{\sim}$ on the nonzero ideals of $R$ as $I \overse
 \subproblem{a}
 Prove this is an equivalence relation
 \begin{proof}
-  Reflixivity is clear, since clearly $1 \in R^+$ and so $1I = 1I$ for all $I$.
-  Similarily if $I \overset{+}{\sim} J$ then $\alpha I = \beta J$ for some $\alpha, \beta$, and so $\beta J = \alpha I$ and hence $J \overset{+}{\sim} I$ and the relation is symetric.
+  Reflexivity is clear, since clearly $1 \in R^+$ and so $1I = 1I$ for all $I$.
+  Similarly if $I \overset{+}{\sim} J$ then $\alpha I = \beta J$ for some $\alpha, \beta$, and so $\beta J = \alpha I$ and hence $J \overset{+}{\sim} I$ and the relation is symmetric.
 
   For transitivity, first not that the product of totally positive elements is totally positive, since if $\sigma(\alpha) > 0$ and $\sigma(\beta) > 0$ then $\sigma(\alpha\beta) = \sigma(\alpha)\sigma(\beta) > 0$ as well.
   Then if we assume $I \overset{+}{\sim} J$ and $J \overset{+}{\sim} K$, we will have $\alpha I = \beta J$ and $\gamma J = \delta K$ for some $\alpha,\beta,\gamma,\delta \in R^+$.
@@ -345,17 +430,17 @@ Prove that the equivalence classes under this relation form a group $G^+$ in whi
 
   The class of principle ideals $(\alpha)$ with $\alpha \in R^+$ is an identity for this operation, $I(\alpha) = \alpha I$ for any ideal $I$, which implies $I(\alpha) \overset{+}{\sim} I$ and hence $\bar I \bar{(\alpha)} = \bar I$, making this class a left identity.
   A similar argument shows that this is a right identity as well.
-  The operation is also assosiative, since $(IJ)K \overset{+}{\sim} I(JK)$ follows from reflexivity and assosiativity of regular ideal multiplication.
+  The operation is also associative, since $(IJ)K \overset{+}{\sim} I(JK)$ follows from reflexivity and associativity of regular ideal multiplication.
 
   Finally, we show that this operation has inverses, so let $I$ be a representative of some ideal class.
   Then let $J$ be a representative for the inverse of the class containing $I$ in the regular ideal class group.
-  Then $IJ \sim (1)$, so there exists some $\alpha, \beta \in R$ (not necessarilly in $R^+$) such that $\alpha IJ \sim \beta (1)$.
+  Then $IJ \sim (1)$, so there exists some $\alpha, \beta \in R$ (not necessarily in $R^+$) such that $\alpha IJ \sim \beta (1)$.
   Then note that $\alpha^2, \beta^2 \in R^+$, since $\sigma(x^2) = \sigma(x)^2 > 0$ for any embedding $\sigma$.
   Then we have $\alpha^2 I (\alpha\beta J) = \alpha^2\beta^2(\alpha IJ) = \alpha^2\beta^2(1)$, with $\alpha^2, \beta^2 \in R^+$, and so $I(\alpha\beta J) \overset{+}{\sim} (1)$, and the class of $\alpha \beta J$ is an inverse for the class containing $I$.
 \end{proof}
 
 \subproblem{c}
-Show that there is a group homomorphims $f : G^+ \rightarrow G$.
+Show that there is a group homomorphisms $f : G^+ \rightarrow G$.
 \begin{proof}
   Define $f(\bar J) = \bar J$, so that an ideal class is sent to the ideal class of one of its representatives.
   This is well-defined since if $I \overset{+}{\sim} J$ via $\alpha I = \beta J$ with $\alpha, \beta \in R^+$, then also $\alpha, \beta \in R$ and so $I \sim J$ as well, finally giving $f(\bar I) = f(\bar J)$.
@@ -408,7 +493,7 @@ Prove that $h^+ = 2h$ is $u$ is totally positive, and otherwise $h^+ = h$.
 Let $A$ be a set of primes in a number field.
 Show that if $$f(s) = \prod_{P \in A} \parens*{1 - \frac{1}{||P||^s}}^{-nk}$$ has an extension in a neighborhood of $s = 1$ having a pole of order $mk$ at $s = 1$, then $$f'(s) = \prod_{P \in A} \parens*{1 - \frac{1}{||P||^s}}^{-nk}$$ has an extension with a pole of order $m$.
 \begin{proof}
-  Define $g(s) \coloneqq (s-1)^{mk}f(s)$, and note that this function has an analytic extension in a neighborhood of $s = 1$ since the zeroes cancel the poles of $f(s)$ at $1$.
+  Define $g(s) \coloneqq (s-1)^{mk}f(s)$, and note that this function has an analytic extension in a neighborhood of $s = 1$ since the zeros cancel the poles of $f(s)$ at $1$.
   Therefore we can define the $k$th root of $g$ analytically on the same neighborhood, to get that $g(s)^{1/k} = (s-1)^m(f(s))^{1/k} = (s-1)^m f'(s)$ is also analytic on a neighborhood of $s = 1$, which implies that $f'$ has an extension with a pole of order at most $m$ at $s = 1$.
   But also note that his pole has order at least $m$, or taking $k$th powers would give an extension of $f(s) = f'(s)^k$ with a pole of order less than $mk$.
   Therefore we conclude that $f'(s)$ has an extension with a pole of order exactly $m$ as desired.
@@ -477,13 +562,13 @@ Let $G$ and $H$ be finite abelian groups. Show that there is an isomorphism $\ha
   For injectivity, it suffices to show that the kernel is trivial, so assume that $\varphi(\chi_G, \chi_H) = 1_{\widehat{G \times H}}$.
   Therefore $\chi_G(x)\chi_H(y) = 1$ for all $(x,y) \in G \times H$.
   In particular, if we set $x = 1$ then $\chi_H(y) = \chi_G(1)\chi_H(y) = 1$ for all $y \in H$ and if we set $y = 1$ $\chi_G(x) = \chi_G(x)\chi_H(1) = 1$ for all $x \in G$.
-  Therefore we conclude $\chi_G = 1_{\hat G}$ and $\chi_H = 1_{\hat H}$, and the kernal is indeed trivial, and we conclude $\varphi$ is also injective, completing the proof.
+  Therefore we conclude $\chi_G = 1_{\hat G}$ and $\chi_H = 1_{\hat H}$, and the kernel is indeed trivial, and we conclude $\varphi$ is also injective, completing the proof.
 \end{proof}
 
 \subproblem{c}
 Let $G$ be a finite abelian group. Prove that $\hat G$ is isomorphic to $G$.
 \begin{proof}
-  By the fundamental theorem of finite abelian groups, we can write $G \cong \prod_i \Z/p_i\Z$ for some finite set of primes $p_i$ not necessarilly distinct.
+  By the fundamental theorem of finite abelian groups, we can write $G \cong \prod_i \Z/p_i\Z$ for some finite set of primes $p_i$ not necessarily distinct.
   Then using the results of parts (a) and (b) (note that (b) applies inductively to finite products) we have:
   \begin{equation*}
     \hat{G}
@@ -498,7 +583,7 @@ Let $G$ be a finite abelian group. Prove that $\hat G$ is isomorphic to $G$.
 Prove that for nontrivial even character mod $m$ that $\sum_{k \in (\Z/m\Z)^\times} \chi(k) k = 0$, and for an odd character $\sum_{k \in (\Z/m\Z)^\times} \chi(k) \log \sin \frac{k\pi}{m} = 0$.
 \begin{proof}
   First, in the even character case, we have $\chi(m-k) = \chi(m) + \chi(-k) = 0 + \chi(k) = \chi(k)$.
-  Also note that $k \mapsto m - k$ is an outomorphism of $(\Z/m\Z)^\times$, so:
+  Also note that $k \mapsto m - k$ is an automorphism of $(\Z/m\Z)^\times$, so:
   \begin{equation*}
     \sum_{k \in (\Z/m\Z)^\times} \chi(k) k = \sum_{k \in (\Z/m\Z)^\times} \chi(m - k)(m-k) = \sum_{k \in (\Z/m\Z)^\times} \chi(k)(m-k)
   \end{equation*}
@@ -581,13 +666,80 @@ Prove that $det(X) \ne 0$.
     = \det \parens*{\chi_i(\alpha)^{e_k}}
   \end{equation*}
   Which is a vandermonde matrix, up to swapping the column orderings to order the $e_k$ values.
-  Therefore the determinant is a vandermond determinant up to swapping signs, and we have $\det(X) = \pm \prod_{1 \le r < s \le n} (\chi_s(\alpha) - \chi_r(\alpha))$.
+  Therefore the determinant is a vandermonde determinant up to swapping signs, and we have $\det(X) = \pm \prod_{1 \le r < s \le n} (\chi_s(\alpha) - \chi_r(\alpha))$.
   But then all the terms of the product are nonzero, since for $s \ne r$ we have $\chi_s(\alpha) \ne \chi_r(\alpha)$, since the characters are determined by there value on the generator $\alpha$.
   So finally we conclude that $\det(X) \ne 0$ since a product of non-zero terms is non-zero in $\C$.
 \end{proof}
 
 
+\problem{8.1}
+Let $L$ and $L'$ e two finite normal extensions of a number field $K$ and let $A$ and $A'$ be the sets of primes of $K$ which split completely in $L$ and $L'$. suppose $A$ and $A'$ differ by a set of polar density $0$. Show that $L = L'$.
+\begin{proof}
+  Since $A$ splits completely in $L$ and $A'$ splits completely in $L'$, we have that $A \cap A'$ splits completely in $L$ and $L'$, and so splits completely in $LL'$ by theorem 31.
+  But then note that since $A$ and $A'$ differ by a set of polar density $0$, the same is true of $A \cap A'$ and $A$ and of $A \cap A'$ and $A'$.
+  Therefore by theorem 43 $L$, $L'$ and $LL'$ all have the same degree over $K$.
+  Finally then, the extensions $LL'/L$ and $LL'/L'$ must both be trivial, and we get $L = LL' = L'$ as desired.
+\end{proof}
 
-%TODO: 2 from chapter 4, 5 from chapter 8
+
+\problem{8.3}
+Let $\Pi$ be a free abelian semi-group and let $f : \Pi \rightarrow G$ be a homomorphism onto a finite abelian group $G$.
+Show that the kernel of $f$ is a closed semi-group in $\Pi$ and that there is a one-to-one correspondence between subgroups of $G$ and the closed semi-groups in $\Pi$ which contain the kernel.
+\begin{proof}
+  First we show that $\ker f$ is closed, so assume $I, J \in \ker f$, or equivalently that $f(I) = f(J) = 0$.
+  Then since $f$ is a homomorphism, we have $f(IJ) = f(I) + f(J) = 0 + 0 = 0$, and so $IJ \in \ker f$ as well, and the kernel is closed.
+  Also $1 \in \ker f$, since $f$ being a homomorphism implies $f(1) = 0$.
+  Therefore we conclude $\ker f$ is a closed semi-group of $\Pi$.
+
+  Then consider the map sending a closed semi-group $\mathbb{S}$ in $\Pi$ to the image $f(\mathbb{S})$, which is a subset of $G$.
+  First we show that these images $f(\mathbb{S})$ are subgroups of $G$ for $\mathbb{S}$ containing $\ker f$.
+  $f(\mathbb{S})$ contains $0 = f(1)$, since $\ker f \le \mathbb{S}$ contains $1$.
+  $f(\mathbb{S})$ is also closed under addition, since if $x, y \in f(\mathbb{S})$, so that $x = f(I)$ and $y = f(J)$, then $IJ \in \mathbb{S}$ since $\mathbb{S}$ is closed, and so $f(IJ) = f(I) + f(J) = x + y$ is in $f(\mathbb{S})$.
+  Finally, it is closed under inverses, since in a finite abelian group the additive inverse of $x$ is some multiple of $x$ ($x$ has finite order since the group is finite, and so $1$ is some multiple of it), and so closure under addition gives closure under inverses.
+  
+  We argue that the above mapping gives the desired correspondence, and by the above argument it just remains to show that this mapping is one-to-one.
+  So assume $\mathbb{S}_1$ and $\mathbb{S}_2$ are closed semi-groups containing $\ker f$, and that $f(\mathbb{S}_1) = f(\mathbb{S}_2)$.
+  Then for any $I \in \mathbb{S}_1$, there is some $J \in \mathbb{S}_2$ such that $f(I) = f(J)$.
+  But then $I$ and $J$ differ only by an element of $\ker f$, and so since both semi-groups contain $\ker f$, they differ by an element of the semi-groups.
+  Hence by the closure of $\mathbb{S}_2$, we must have $I$ in $\mathbb{S}_2$ as well, and so $\mathbb{S}_1 \le \mathbb{S}_2$.
+  A similar argument gives the inclusion in the reverse direction, and we conclude $\mathbb{S}_1 = \mathbb{S}_2$, making the map one-to-one as desired.  
+\end{proof}
+
+
+\problem{8.20}
+Determine the Hilbert class field over $\Q[\sqrt{m}]$ for $m = -6, -10, -21, -30$.
+\begin{proof}
+  For $\Q[\sqrt{-6}]$, we know from exercise 5.11 that the class number is $2$, so the Hilbert class field is an extension of degree $2$, and hence of the form $\Q[\sqrt{-6}, \sqrt{d}]$ for some $d \in \Q[\sqrt{-6}]$.
+  Then since $\equivmod{-6/2}{1}{4}$, we have by exercise 8.15 that $d = 2$ makes this extension unramified, so since the Hilbert class field is the maximal unramified extension it must contain $\Q[\sqrt{-6}, \sqrt{2}]$.
+  But this is already a degree $2$ extension, and the class number is $2$, so this is actually the Hilbert class field: $H = \Q[\sqrt{-6}, \sqrt{2}] = \Q[\sqrt{-3}, \sqrt{2}]$.
+
+  For $\Q[\sqrt{-10}]$ we know again from exercise 5.11 that the class number is $2$, and so the extension is of the form $\Q[\sqrt{-10}, \sqrt{d}]$.
+  Again by exercise 8.15 we find that $d = 5$ makes this unramified, so for the same reasons as before we conclude that $H = \Q[\sqrt{-10}, \sqrt{5}] = \Q[\sqrt{-2}, \sqrt{5}]$.
+
+  For $\Q[\sqrt{-21}]$ and $\Q[\sqrt{-30}]$, the ideal class group is isomorphic to the Klein-4 group by exercise 5.14, so the Hilbert class field is a degree $4$ extension, and its Galois group must be isomorphic to Klein-4.
+  By checking all the possible totally unramified extensions, we see that these are $\Q[\sqrt{-3},\sqrt{-7}]$ and $\Q[\sqrt{-2},\sqrt{15}]$.
+\end{proof}
+
+
+\problem{8.19}
+Show that $h^+ = 6$ for $\Q[\sqrt{223}]$.
+\begin{proof}
+  We know that $h = 3$ for $\Q[\sqrt{223}]$ by exercise $5.8$, and so by exercise $6.9$ we know that $h^+ = 6$ if the fundamental unit is totally positive, and $h^+ = 3$ otherwise, and so it suffices to check that the fundamental unit is totally positive.
+
+  Using the code from problem $5.34$, we get that the fundamental unit is $u = 224 + 15\sqrt{223}$.
+  Then the only non-trivial automorphism $\sigma \in Gal(\Q[\sqrt{223}]/\Q)$ is the one given by $\sqrt{223} \mapsto -\sqrt{223}$.
+  But we have $\sigma(u) = \sigma(224 + 15\sqrt{223}) = 224 - 15\sqrt{223} = 224 - 223.997... > 0$.
+  Hence $u$ is totally positive, and we conclude that $h^+ = 6$ as desired.
+\end{proof}
+
+
+\problem{8.25}
+Let $K \subset L$ be number fields, $L$ normal over $K$, and let $H^+$ denote the Hilbert+ class field over $L$. Prove that $H^+$ is a normal extension of $K$.
+\begin{proof}
+  Consider the normal closure $N$ of $H^+$ over $K$.
+  The normal closure is constructed by adjoining conjugates of elements of the base field, and so $N$ is a unramified extension of $L$.
+  But then we know that $H^+$ is the maximal unramified extension of $L$, so $H^+$ must contain its normal closure $N$.
+  Therefore we conclude that $H^+$ is already a normal extension, as desired.
+\end{proof}
 
 \end{document}

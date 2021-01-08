@@ -8,15 +8,17 @@
 \usepackage[margin=0.75in]{geometry}
 
 
-\title{Deniable post-quantum authenticated key exchanges}
+\title{Ring Signatures on Hard Homogonous Spaces}
 \author{Devon Tuma}
-\date{Fall 2020}
+\date{\today}
 
 \begin{document}
 \maketitle
 
 
-\section*{Motivation}
+\section*{Background}
+
+\subsection*{Motivation}
 
 \cite{deniableAKE} gives a deniable authenticated key-exchange (AKE) with some quantum-transitional security, but is not a fully post-quantum secure protocol.
 It relies on three main cryptographic primitives: a dual-reciever encryption function, a ring signature scheme, and a key encapsulation function.
@@ -30,34 +32,39 @@ The paper gives a non-authenticated GKE protocol, and applies the Katz-Yung comp
 This compiler takes a non-deniable signature based approach, and so the resulting AGKE is not deniable.
 By modifying the compiler to use ring-signatures instead, the resulting Ring-LWE AGKE should be made deniable and still secure.
 
-\section*{HHS Ring Signature in ROM}
-
 \subsection*{Hard Homogonous Spaces}
 
-Hard homogonous spaces(HHS) give a general context for a number of Diffie-Hellman style key exchanges, including those with post-quantum security.
-Such a space is just a group commutative $G$ and a transitive $G$-action on some set $X$, with constraints on computational complexits of certain operations.
+Hard homogonous spaces give a general context for a number of Diffie-Hellman style key exchanges, including some with post-quantum security.
+Such a space is a commutative group $G$ and a transitive $G$-action on some set $X$, with constraints on computational complexities of certain operations.
 For example $G$-multiplication and the $G$-action should both be efficiently computable, but the discrete logarithm problem (given $x,x' \in X$, find $g \in G$ with $x' = g * x$) should be infeasible.
 Such a space gives a natural Diffie-Hellman key exchange: Alice and Bob choose secret keys $a$ and $b$ from $G$, exchange $a * x$ and $b * x$ for some fixed $x \in X$, and then compute a shared secret $a * (b * x) = (ab) * x = b * (a * x)$.
 \cite{CSIDH} describes the post-quantum secure CSIDH protocol and has provides a full definition and discussion of HHS.
 
-\subsection*{Ring Signature Scheme}
+\section*{Ring Signature Scheme}
 
-The ring signature scheme used in the deniable protocol of \cite{deniableAKE} is based on traditional Diffie-Hellman on a cyclic group $C$ of order $p$.
+The ring signature scheme used in \cite{deniableAKE} is based on traditional Diffie-Hellman on a cyclic group $C$ of order $p$.
 This corresponds to the HHS where $X$ is the set of generators of $C$, and $G$ is the multiplicative group $(\Z/p\Z)^\times$ acting via exponentiation.
 However, direct translation to the HHS setting isn't possible, because the ring signature scheme uses both the multiplicative structure and the additive structure of $(\Z/p\Z)^\times$, which doesn't exist in the generalized setting.
 This essentially creates a dependence on classical Diffie-Helman as a 'ring action' rather than a 'group action'.
 
-However, we can modify the scheme to return to just the 'group action' situation, assuming the inverse operation in the group is efficiently computable, via the following modified protocol:
+However, we can modify the scheme to return to just the 'group action' situation, assuming there is an efficient hash function into the group $G$ (it isn't clear to me if this is always possible).
+In this case we get the following adapted ring signature protocol ($x_0$ is a fixed generator of $X$, $*$ denotes the group action of $G$ on $X$, $\times$ denotes multiplication in $G$, and $A_i = a_i * x_0$ is the public key assosiated to the secret key $a_i$, and the resulting proof is that the signer knows one of the secret keys in $\{a_1, a_2, a_3\}$):
 
 \begin{itemize}
-\item[1] Generate random values $t_1, c_2, r_2, c_3, r_3 \in G$
-\item [2] Do the rest
+\item [1] Generate random values $t_1, c_2, c_3, r_2, r_3 \in G$
+\item [2] Compute $T_1 = t_1 * x_0$.
+\item [3] Compute $T_2 = (r_2 \times c_2) * A_2$ and $T_3 = (r_3 \times c_3) * A_3$.
+\item [4] Compute $c = H(x_0 | A_1 | A_2 | A_3 | T_1 | T_2 | T_3 | m)$, where $H$ is a hash function into the group $G$ and $m$ is the message being signed.
+\item [5] Compute $c_1 = c \times c_2^{-1} \times c_3^{-1}$.
+\item [6] Compute $r_1 = t_1 \times a_1^{-1} c_1^{-1}$.
 \end{itemize}
 
-The security proofs can also be modified appropriately to fit the more generalized setting.
+The resulting proof consists of $(c_1, r_1, c_2, r_2, c_3, r_3)$. To verify the proof, the verifier computes $c' = H(x_0 | A_1 | A_2 | A_3 | (r_1 \times c_1) * A_1 | (r_2 \times c_2) * A_2 | (r_3 \times c_3) * A_3 | m)$ and checks whether $c' = c_1 + c_2 + c_3$. This is equivalent to checking that $T_1 = (r_1 \times c_1) * A_1$, although the verifier can't check this directly since $T_1$ is never directly published.
 
+The security proofs can also be modified to fit the more generalized setting. It should also be possible to formalize the security proofs in something like \cite{formalize}, which I've started looking at doing.
+Expanding the ring signature to secret keys $\{a_1, \dots, a_n\}$ can be done directly, but the signature size grows linearly in the number of secret keys. I think it might be possible to reduce this but I haven't looked very closely yet.
 
-\bibliography{deniable-AGKE}{}
+\bibliography{deniable-AGKE-compiler}{}
 \bibliographystyle{plain}
 
 \end{document}

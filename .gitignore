@@ -5,6 +5,8 @@
 *.out
 *.dvi
 *.fmt
+*.blg
+*.bbl
 *~
 #*
 *#
