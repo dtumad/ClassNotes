@@ -1,11 +1,13 @@
 %&pdflatex
 \documentclass[11pt]{article}
 
-\usepackage{main-macros}
+\usepackage{../main-macros}
 
 \usepackage{newpxmath}
 \usepackage{newpxtext}
 \usepackage[margin=0.75in]{geometry}
+
+\newcommand{\classgroup}{cl\parens*{\mathcal{O}}}
 
 
 \title{Ring Signatures on Hard Homogonous Spaces}
@@ -26,11 +28,10 @@ The key encapsulation function is meant to provide quantum-transitional security
 The encryption function can also be adapted through mostly direct translation to a post-quantum encryption scheme.
 Finally, adapting the ring signature scheme motivates the creation of a ring signature scheme that applies to the keys of post-quantum key exchanges.
 
-By further generalizing the ring-signature scheme to arbitrary group size, these ring signatures can also be applied to creating a post-quantum secure authenticated \textbf{group} key exchange (AGKE).
-\cite{latticeAGKE} describes a non-deniable post-quantum AGKE based on the Ring-LWE problem.
-The paper gives a non-authenticated GKE protocol, and applies the Katz-Yung compiler \cite{KYcompiler} to turn this into an AGKE.
-This compiler takes a non-deniable signature based approach, and so the resulting AGKE is not deniable.
-By modifying the compiler to use ring-signatures instead, the resulting Ring-LWE AGKE should be made deniable and still secure.
+\cite{KYcompiler} gives a compiler that turns group key exchanges (GKE) into authenticated group key exchanges (AGKE).
+A number of post-quantum secure AGKE make use of this compiler in their construction, for example \cite{latticeAGKE}.
+By generalizing our ring signature scheme to arbitrary ring sizes, we can replace the substitue it into the Katz-Yung compiler so that the protocols produced by the compiler are deniable.
+In the case of \cite{latticeAGKE}, this gives post-quantum secure deniable authenticated \textbf{group} key exchange (AGKE) based on the ring-LWE problem.
 
 \subsection*{Hard Homogonous Spaces}
 
@@ -39,6 +40,7 @@ Such a space is a commutative group $G$ and a transitive $G$-action on some set 
 For example $G$-multiplication and the $G$-action should both be efficiently computable, but the discrete logarithm problem (given $x,x' \in X$, find $g \in G$ with $x' = g * x$) should be infeasible.
 Such a space gives a natural Diffie-Hellman key exchange: Alice and Bob choose secret keys $a$ and $b$ from $G$, exchange $a * x$ and $b * x$ for some fixed $x \in X$, and then compute a shared secret $a * (b * x) = (ab) * x = b * (a * x)$.
 \cite{CSIDH} describes the post-quantum secure CSIDH protocol and has provides a full definition and discussion of HHS.
+In the case of CSIDH, $G = \classgroup$ (the ideal class group of the quadratic order $\mathcal{O}$) and $X$ is a particular set of elliptic curves over $\mathcal{O}$.
 
 \section*{Ring Signature Scheme}
 
@@ -47,7 +49,11 @@ This corresponds to the HHS where $X$ is the set of generators of $C$, and $G$ i
 However, direct translation to the HHS setting isn't possible, because the ring signature scheme uses both the multiplicative structure and the additive structure of $(\Z/p\Z)^\times$, which doesn't exist in the generalized setting.
 This essentially creates a dependence on classical Diffie-Helman as a 'ring action' rather than a 'group action'.
 
-However, we can modify the scheme to return to just the 'group action' situation, assuming there is an efficient hash function into the group $G$ (it isn't clear to me if this is always possible).
+However, we can modify the scheme to return to just the 'group action' situation, assuming there is an efficient hash function $H$ into the group $G$.
+While it isn't clear if this is generally possible, recent work has shown that it is at least possible for some instances of the CSIDH protocol.
+In particular, \cite{explicitClassGroup} explicitly computes the structure of $\classgroup$ corresponding to the CSIDH-512, and show it is isomorphic to a cyclic group.
+This naturally gives rise to a hash into $G = \classgroup$, by composing a hash function into the cyclic group with this isomorphism (the isomorphism is constructed explicitly, allowing for computations using it). 
+
 In this case we get the following adapted ring signature protocol ($x_0$ is a fixed generator of $X$, $*$ denotes the group action of $G$ on $X$, $\times$ denotes multiplication in $G$, and $A_i = a_i * x_0$ is the public key assosiated to the secret key $a_i$, and the resulting proof is that the signer knows one of the secret keys in $\{a_1, a_2, a_3\}$):
 
 \begin{itemize}
@@ -61,8 +67,11 @@ In this case we get the following adapted ring signature protocol ($x_0$ is a fi
 
 The resulting proof consists of $(c_1, r_1, c_2, r_2, c_3, r_3)$. To verify the proof, the verifier computes $c' = H(x_0 | A_1 | A_2 | A_3 | (r_1 \times c_1) * A_1 | (r_2 \times c_2) * A_2 | (r_3 \times c_3) * A_3 | m)$ and checks whether $c' = c_1 + c_2 + c_3$. This is equivalent to checking that $T_1 = (r_1 \times c_1) * A_1$, although the verifier can't check this directly since $T_1$ is never directly published.
 
-The security proofs can also be modified to fit the more generalized setting. It should also be possible to formalize the security proofs in something like \cite{formalize}, which I've started looking at doing.
-Expanding the ring signature to secret keys $\{a_1, \dots, a_n\}$ can be done directly, but the signature size grows linearly in the number of secret keys. I think it might be possible to reduce this but I haven't looked very closely yet.
+Expanding the ring signature to secret keys $\{a_1, \dots, a_n\}$ can be done directly, but note that the ring signature size will grow linearly in the size of the ring.
+
+\subsection*{Security Proof}
+
+
 
 \bibliography{deniable-AGKE-compiler}{}
 \bibliographystyle{plain}
